@@ -379,26 +379,26 @@ export default function ServicesPage() {
               forward.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mt-10">
               <Button
                 size="lg"
-                className="bg-white text-emerald-600 hover:bg-emerald-50 shadow-xl hover:shadow-2xl transition-all duration-300 rounded-full px-8 py-6 text-lg font-semibold"
+                className="bg-white text-emerald-600 hover:bg-emerald-50 shadow-2xl hover:shadow-3xl transition-all duration-300 rounded-full px-12 py-4 text-lg font-semibold min-w-[220px] border-0"
                 asChild
               >
                 <Link href="/contact">
-                  <Heart className="mr-2 h-5 w-5" />
+                  <Heart className="mr-3 h-5 w-5" />
                   Get Started Today
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <ArrowRight className="ml-3 h-5 w-5" />
                 </Link>
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm rounded-full px-8 py-6 text-lg bg-transparent"
+                className="border-2 border-white/50 text-white hover:bg-white/15 hover:border-white/70 backdrop-blur-sm rounded-full px-12 py-4 text-lg font-medium bg-white/5 min-w-[220px] transition-all duration-300"
                 asChild
               >
                 <Link href="/portfolio">
-                  <Star className="mr-2 h-5 w-5" />
+                  <Star className="mr-3 h-5 w-5" />
                   View Our Work
                 </Link>
               </Button>
