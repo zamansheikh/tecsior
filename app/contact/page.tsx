@@ -18,7 +18,7 @@ import {
   ArrowRight,
   Github,
   Linkedin,
-  Twitter,
+  Facebook,
 } from "lucide-react"
 import Link from "next/link"
 
@@ -205,8 +205,8 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-slate-800">Visit Our Office</h3>
-                      <p className="text-slate-600">123 Innovation Drive</p>
-                      <p className="text-slate-600">Silicon Valley, CA 94000</p>
+                      <p className="text-slate-600">123 Innovation Street</p>
+                      <p className="text-slate-600">Dhaka 1000, Bangladesh</p>
                       <p className="text-sm text-slate-500 mt-1">By appointment only</p>
                     </div>
                   </div>
@@ -275,22 +275,28 @@ export default function ContactPage() {
                 <CardContent>
                   <div className="flex space-x-4">
                     <Link
-                      href="#"
+                      href="https://facebook.com/programmernexus"
+                      className="h-12 w-12 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center hover:scale-110 transition-transform duration-300"
+                    >
+                      <Facebook className="h-6 w-6 text-white" />
+                    </Link>
+                    <Link
+                      href="https://t.me/programmernexus"
+                      className="h-12 w-12 rounded-2xl bg-gradient-to-br from-sky-500 to-sky-600 flex items-center justify-center hover:scale-110 transition-transform duration-300"
+                    >
+                      <MessageCircle className="h-6 w-6 text-white" />
+                    </Link>
+                    <Link
+                      href="https://github.com/programmernexus"
                       className="h-12 w-12 rounded-2xl bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center hover:scale-110 transition-transform duration-300"
                     >
                       <Github className="h-6 w-6 text-white" />
                     </Link>
                     <Link
-                      href="#"
+                      href="https://www.linkedin.com/company/programmernexus"
                       className="h-12 w-12 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center hover:scale-110 transition-transform duration-300"
                     >
                       <Linkedin className="h-6 w-6 text-white" />
-                    </Link>
-                    <Link
-                      href="#"
-                      className="h-12 w-12 rounded-2xl bg-gradient-to-br from-sky-500 to-sky-600 flex items-center justify-center hover:scale-110 transition-transform duration-300"
-                    >
-                      <Twitter className="h-6 w-6 text-white" />
                     </Link>
                   </div>
                 </CardContent>
