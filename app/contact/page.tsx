@@ -32,7 +32,7 @@ export default function ContactPage() {
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-cyan-200/30 to-blue-200/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
 
-        <div className="container px-4 md:px-6 relative">
+        <div className="container mx-auto px-4 md:px-6 relative max-w-7xl">
           <div className="text-center space-y-8 max-w-4xl mx-auto">
             <Badge
               variant="outline"
@@ -59,7 +59,7 @@ export default function ContactPage() {
 
       {/* Contact Form & Info */}
       <section className="py-20 bg-white/50 backdrop-blur-sm">
-        <div className="container px-4 md:px-6">
+        <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
             {/* Contact Form */}
             <Card className="border-0 shadow-2xl bg-white/80 backdrop-blur-sm">
@@ -302,7 +302,7 @@ export default function ContactPage() {
 
       {/* FAQ Section */}
       <section className="py-20">
-        <div className="container px-4 md:px-6">
+        <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           <div className="text-center space-y-6 mb-16">
             <Badge
               variant="outline"
@@ -377,7 +377,7 @@ export default function ContactPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-600"></div>
         <div className="absolute inset-0 bg-black/10"></div>
 
-        <div className="container px-4 md:px-6 relative">
+        <div className="container mx-auto px-4 md:px-6 relative max-w-7xl">
           <div className="text-center space-y-8 max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl text-white">
               Ready to Start Your{" "}
