@@ -3,7 +3,8 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { Button } from "@/components/ui/button"
-import { Code } from "lucide-react"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Code, Menu } from "lucide-react"
 import Link from "next/link"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
   title: "Programmer Nexus - Professional Tech Solutions",
   description:
     "Transform your ideas into digital reality with innovative mobile apps, stunning websites, and robust backend solutions.",
-    generator: 'v0.dev'
+  generator: "v0.dev",
 }
 
 export default function RootLayout({
@@ -25,7 +26,7 @@ export default function RootLayout({
       <body className={inter.className}>
         {/* Header */}
         <header className="sticky top-0 z-50 w-full border-b border-emerald-100/50 bg-white/80 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60">
-          <div className="container flex h-16 items-center justify-between px-4 md:px-6">
+          <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6 max-w-7xl">
             <Link href="/" className="flex items-center space-x-3">
               <div className="relative">
                 <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-500 flex items-center justify-center shadow-lg">
@@ -38,6 +39,7 @@ export default function RootLayout({
               </span>
             </Link>
 
+            {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
               <Link
                 href="/"
@@ -83,9 +85,79 @@ export default function RootLayout({
               </Link>
             </nav>
 
-            <Button className="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-full px-6">
-              Get Started
-            </Button>
+            <div className="flex items-center space-x-4">
+              {/* Desktop CTA Button */}
+              <Button className="hidden md:flex bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-full px-6">
+                Get Started
+              </Button>
+
+              {/* Mobile Navigation */}
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon" className="md:hidden">
+                    <Menu className="h-6 w-6" />
+                    <span className="sr-only">Toggle menu</span>
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+                  <div className="flex flex-col space-y-6 mt-6">
+                    <Link href="/" className="flex items-center space-x-3 mb-6">
+                      <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-500 flex items-center justify-center shadow-lg">
+                        <Code className="h-4 w-4 text-white" />
+                      </div>
+                      <span className="text-lg font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">
+                        Programmer Nexus
+                      </span>
+                    </Link>
+
+                    <nav className="flex flex-col space-y-4">
+                      <Link
+                        href="/"
+                        className="text-lg font-medium text-slate-700 hover:text-emerald-600 transition-colors py-2 border-b border-slate-100"
+                      >
+                        Home
+                      </Link>
+                      <Link
+                        href="/about"
+                        className="text-lg font-medium text-slate-700 hover:text-emerald-600 transition-colors py-2 border-b border-slate-100"
+                      >
+                        About
+                      </Link>
+                      <Link
+                        href="/services"
+                        className="text-lg font-medium text-slate-700 hover:text-emerald-600 transition-colors py-2 border-b border-slate-100"
+                      >
+                        Services
+                      </Link>
+                      <Link
+                        href="/portfolio"
+                        className="text-lg font-medium text-slate-700 hover:text-emerald-600 transition-colors py-2 border-b border-slate-100"
+                      >
+                        Portfolio
+                      </Link>
+                      <Link
+                        href="/blog"
+                        className="text-lg font-medium text-slate-700 hover:text-emerald-600 transition-colors py-2 border-b border-slate-100"
+                      >
+                        Blog
+                      </Link>
+                      <Link
+                        href="/contact"
+                        className="text-lg font-medium text-slate-700 hover:text-emerald-600 transition-colors py-2 border-b border-slate-100"
+                      >
+                        Contact
+                      </Link>
+                    </nav>
+
+                    <div className="pt-6">
+                      <Button className="w-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-full py-3">
+                        Get Started
+                      </Button>
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
         </header>
 
@@ -94,7 +166,7 @@ export default function RootLayout({
         {/* Footer */}
         <footer className="bg-slate-900 text-white py-16 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"></div>
-          <div className="container px-4 md:px-6 relative">
+          <div className="container mx-auto px-4 md:px-6 relative max-w-7xl">
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
               <div className="space-y-6">
                 <Link href="/" className="flex items-center space-x-3">

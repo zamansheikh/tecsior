@@ -32,7 +32,7 @@ export default function HomePage() {
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-pink-200/20 to-rose-200/20 rounded-full blur-3xl animate-pulse delay-500"></div>
         </div>
 
-        <div className="container px-4 md:px-6 relative">
+        <div className="container mx-auto px-4 md:px-6 relative max-w-7xl">
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
             <div className="space-y-8 animate-fade-in">
               <div className="space-y-6">
@@ -162,7 +162,7 @@ export default function HomePage() {
       {/* Services Section */}
       <section className="py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-white via-emerald-50/30 to-teal-50/30"></div>
-        <div className="container px-4 md:px-6 relative">
+        <div className="container mx-auto px-4 md:px-6 relative max-w-7xl">
           <div className="text-center space-y-6 mb-16">
             <Badge
               variant="outline"
@@ -415,7 +415,7 @@ export default function HomePage() {
           <div className="absolute bottom-10 right-10 w-80 h-80 bg-white/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
 
-        <div className="container px-4 md:px-6 relative">
+        <div className="container mx-auto px-4 md:px-6 relative max-w-7xl">
           <div className="text-center space-y-8 max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl text-white">
               Ready to Build Something{" "}
