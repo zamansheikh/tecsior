@@ -23,15 +23,22 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="shortcut icon" href="/favicon.svg" />
+        <link rel="apple-touch-icon" href="/favicon.svg" />
+      </head>
       <body className={inter.className}>
         {/* Header */}
         <header className="sticky top-0 z-50 w-full border-b border-emerald-100/50 bg-white/80 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60">
           <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6 max-w-7xl">
             <Link href="/" className="flex items-center space-x-3">
               <div className="relative">
-                <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-500 flex items-center justify-center shadow-lg">
-                  <Code className="h-5 w-5 text-white" />
-                </div>
+                <img 
+                  src="/programmernexus-logo.png" 
+                  alt="Programmer Nexus Logo" 
+                  className="h-10 w-10 rounded-2xl"
+                />
                 <div className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-gradient-to-r from-pink-400 to-rose-400 animate-pulse"></div>
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">
@@ -102,9 +109,11 @@ export default function RootLayout({
                 <SheetContent side="right" className="w-[300px] sm:w-[400px]">
                   <div className="flex flex-col space-y-6 mt-6">
                     <Link href="/" className="flex items-center space-x-3 mb-6">
-                      <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-500 flex items-center justify-center shadow-lg">
-                        <Code className="h-4 w-4 text-white" />
-                      </div>
+                      <img 
+                        src="/programmernexus-logo.png" 
+                        alt="Programmer Nexus Logo" 
+                        className="h-8 w-8 rounded-xl shadow-lg"
+                      />
                       <span className="text-lg font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">
                         Programmer Nexus
                       </span>
@@ -170,9 +179,11 @@ export default function RootLayout({
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
               <div className="space-y-6">
                 <Link href="/" className="flex items-center space-x-3">
-                  <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 flex items-center justify-center shadow-lg">
-                    <Code className="h-5 w-5 text-white" />
-                  </div>
+                  <img 
+                    src="/programmernexus-logo.png" 
+                    alt="Programmer Nexus Logo" 
+                    className="h-10 w-10 rounded-2xl shadow-lg"
+                  />
                   <span className="text-xl font-bold">Programmer Nexus</span>
                 </Link>
                 <p className="text-slate-400 max-w-xs leading-relaxed">
