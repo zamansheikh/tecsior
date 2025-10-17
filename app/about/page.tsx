@@ -342,10 +342,13 @@ export default function AboutPage() {
               <Button
                 size="lg"
                 className="bg-white text-emerald-600 hover:bg-emerald-50 shadow-2xl hover:shadow-3xl transition-all duration-300 rounded-full px-12 py-4 text-lg font-semibold min-w-[220px] border-0"
+                asChild
               >
-                <Rocket className="mr-3 h-5 w-5" />
-                Start a Project
-                <ArrowRight className="ml-3 h-5 w-5" />
+                <Link href="/contact">
+                  <Rocket className="mr-3 h-5 w-5" />
+                  Start a Project
+                  <ArrowRight className="ml-3 h-5 w-5" />
+                </Link>
               </Button>
               <Button
                 size="lg"
