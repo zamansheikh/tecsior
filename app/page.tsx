@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import Link from "next/link"
 import {
   Smartphone,
   Globe,
@@ -64,22 +65,26 @@ export default function HomePage() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-600 text-white shadow-xl hover:shadow-2xl transition-all duration-300 rounded-full px-8 py-6 text-lg group"
-                >
-                  <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-                  Start Your Journey
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-2 border-emerald-200 text-emerald-700 hover:bg-emerald-50 rounded-full px-8 py-6 text-lg backdrop-blur-sm bg-transparent"
-                >
-                  <Heart className="mr-2 h-5 w-5" />
-                  View Our Magic
-                </Button>
+                <Link href="/contact">
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-600 text-white shadow-xl hover:shadow-2xl transition-all duration-300 rounded-full px-8 py-6 text-lg group"
+                  >
+                    <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+                    Start Your Journey
+                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
+                <Link href="/portfolio">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="border-2 border-emerald-200 text-emerald-700 hover:bg-emerald-50 rounded-full px-8 py-6 text-lg backdrop-blur-sm bg-transparent"
+                  >
+                    <Heart className="mr-2 h-5 w-5" />
+                    View Our Magic
+                  </Button>
+                </Link>
               </div>
 
               <div className="flex items-center space-x-8 pt-6">
@@ -394,14 +399,16 @@ export default function HomePage() {
           </div>
 
           <div className="text-center mt-16">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-600 text-white shadow-xl hover:shadow-2xl transition-all duration-300 rounded-full px-8 py-6 text-lg"
-            >
-              <Rocket className="mr-2 h-5 w-5" />
-              Explore All Services
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+            <Link href="/services">
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-600 text-white shadow-xl hover:shadow-2xl transition-all duration-300 rounded-full px-8 py-6 text-lg"
+              >
+                <Rocket className="mr-2 h-5 w-5" />
+                Explore All Services
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -430,22 +437,26 @@ export default function HomePage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button
-                size="lg"
-                className="bg-white text-emerald-600 hover:bg-emerald-50 shadow-xl hover:shadow-2xl transition-all duration-300 rounded-full px-8 py-6 text-lg font-semibold"
-              >
-                <Sparkles className="mr-2 h-5 w-5" />
-                Start Your Project
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm rounded-full px-8 py-6 text-lg bg-transparent"
-              >
-                <Phone className="mr-2 h-5 w-5" />
-                Schedule a Call
-              </Button>
+              <Link href="/contact">
+                <Button
+                  size="lg"
+                  className="bg-white text-emerald-600 hover:bg-emerald-50 shadow-xl hover:shadow-2xl transition-all duration-300 rounded-full px-8 py-6 text-lg font-semibold"
+                >
+                  <Sparkles className="mr-2 h-5 w-5" />
+                  Start Your Project
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+              <Link href="https://calendly.com/programmernexus/30min">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm rounded-full px-8 py-6 text-lg bg-transparent"
+                >
+                  <Phone className="mr-2 h-5 w-5" />
+                  Schedule a Call
+                </Button>
+              </Link>
             </div>
 
             <div className="flex items-center justify-center space-x-8 pt-8">
