@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -21,8 +23,70 @@ import {
   Facebook,
 } from "lucide-react"
 import Link from "next/link"
+import { useState } from "react"
 
 export default function ContactPage() {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    company: "",
+    projectType: "",
+    budget: "",
+    message: "",
+  })
+  const [loading, setLoading] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target
+    // Convert hyphenated IDs to camelCase
+    const key = id.replace(/-([a-z])/g, (g) => g[1].toUpperCase()) as keyof typeof formData
+    setFormData((prev) => ({
+      ...prev,
+      [key]: value,
+    }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+    setSubmitStatus("idle")
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (response.ok) {
+        setSubmitStatus("success")
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          company: "",
+          projectType: "",
+          budget: "",
+          message: "",
+        })
+        setTimeout(() => setSubmitStatus("idle"), 5000)
+      } else {
+        setSubmitStatus("error")
+        setTimeout(() => setSubmitStatus("idle"), 5000)
+      }
+    } catch (error) {
+      console.error("Form submission error:", error)
+      setSubmitStatus("error")
+      setTimeout(() => setSubmitStatus("idle"), 5000)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50">
       {/* Hero Section */}
@@ -73,94 +137,131 @@ export default function ContactPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div className="grid gap-4 sm:grid-cols-2">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <Label htmlFor="first-name" className="text-sm font-medium text-slate-700">
+                        First Name *
+                      </Label>
+                      <Input
+                        id="first-name"
+                        placeholder="John"
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        required
+                        className="rounded-xl border-slate-200 focus:border-emerald-500 focus:ring-emerald-500"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="last-name" className="text-sm font-medium text-slate-700">
+                        Last Name *
+                      </Label>
+                      <Input
+                        id="last-name"
+                        placeholder="Doe"
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        required
+                        className="rounded-xl border-slate-200 focus:border-emerald-500 focus:ring-emerald-500"
+                      />
+                    </div>
+                  </div>
+
                   <div className="space-y-2">
-                    <Label htmlFor="first-name" className="text-sm font-medium text-slate-700">
-                      First Name *
+                    <Label htmlFor="email" className="text-sm font-medium text-slate-700">
+                      Email Address *
                     </Label>
                     <Input
-                      id="first-name"
-                      placeholder="John"
+                      id="email"
+                      type="email"
+                      placeholder="john@example.com"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
                       className="rounded-xl border-slate-200 focus:border-emerald-500 focus:ring-emerald-500"
                     />
                   </div>
+
                   <div className="space-y-2">
-                    <Label htmlFor="last-name" className="text-sm font-medium text-slate-700">
-                      Last Name *
+                    <Label htmlFor="company" className="text-sm font-medium text-slate-700">
+                      Company
                     </Label>
                     <Input
-                      id="last-name"
-                      placeholder="Doe"
+                      id="company"
+                      placeholder="Your Company Name"
+                      value={formData.company}
+                      onChange={handleChange}
                       className="rounded-xl border-slate-200 focus:border-emerald-500 focus:ring-emerald-500"
                     />
                   </div>
-                </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="email" className="text-sm font-medium text-slate-700">
-                    Email Address *
-                  </Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="john@example.com"
-                    className="rounded-xl border-slate-200 focus:border-emerald-500 focus:ring-emerald-500"
-                  />
-                </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="project-type" className="text-sm font-medium text-slate-700">
+                      Project Type *
+                    </Label>
+                    <Input
+                      id="project-type"
+                      placeholder="Mobile App, Website, Backend, etc."
+                      value={formData.projectType}
+                      onChange={handleChange}
+                      required
+                      className="rounded-xl border-slate-200 focus:border-emerald-500 focus:ring-emerald-500"
+                    />
+                  </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="company" className="text-sm font-medium text-slate-700">
-                    Company
-                  </Label>
-                  <Input
-                    id="company"
-                    placeholder="Your Company Name"
-                    className="rounded-xl border-slate-200 focus:border-emerald-500 focus:ring-emerald-500"
-                  />
-                </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="budget" className="text-sm font-medium text-slate-700">
+                      Budget Range
+                    </Label>
+                    <Input
+                      id="budget"
+                      placeholder="$10k - $50k"
+                      value={formData.budget}
+                      onChange={handleChange}
+                      className="rounded-xl border-slate-200 focus:border-emerald-500 focus:ring-emerald-500"
+                    />
+                  </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="project-type" className="text-sm font-medium text-slate-700">
-                    Project Type *
-                  </Label>
-                  <Input
-                    id="project-type"
-                    placeholder="Mobile App, Website, Backend, etc."
-                    className="rounded-xl border-slate-200 focus:border-emerald-500 focus:ring-emerald-500"
-                  />
-                </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="message" className="text-sm font-medium text-slate-700">
+                      Project Details *
+                    </Label>
+                    <Textarea
+                      id="message"
+                      placeholder="Tell us about your project, goals, timeline, and any specific requirements..."
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      className="min-h-[120px] rounded-xl border-slate-200 focus:border-emerald-500 focus:ring-emerald-500"
+                    />
+                  </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="budget" className="text-sm font-medium text-slate-700">
-                    Budget Range
-                  </Label>
-                  <Input
-                    id="budget"
-                    placeholder="$10k - $50k"
-                    className="rounded-xl border-slate-200 focus:border-emerald-500 focus:ring-emerald-500"
-                  />
-                </div>
+                  {submitStatus === "success" && (
+                    <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-xl">
+                      ✓ Message sent successfully! We'll get back to you soon.
+                    </div>
+                  )}
 
-                <div className="space-y-2">
-                  <Label htmlFor="message" className="text-sm font-medium text-slate-700">
-                    Project Details *
-                  </Label>
-                  <Textarea
-                    id="message"
-                    placeholder="Tell us about your project, goals, timeline, and any specific requirements..."
-                    className="min-h-[120px] rounded-xl border-slate-200 focus:border-emerald-500 focus:ring-emerald-500"
-                  />
-                </div>
+                  {submitStatus === "error" && (
+                    <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-xl">
+                      ✕ Failed to send message. Please try again.
+                    </div>
+                  )}
 
-                <Button className="w-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl py-6 text-lg">
-                  <Sparkles className="mr-2 h-5 w-5" />
-                  Send Message
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
+                  <Button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl py-6 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <Sparkles className="mr-2 h-5 w-5" />
+                    {loading ? "Sending..." : "Send Message"}
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
 
-                <p className="text-xs text-slate-500 text-center">
-                  By submitting this form, you agree to our privacy policy and terms of service.
-                </p>
+                  <p className="text-xs text-slate-500 text-center">
+                    By submitting this form, you agree to our privacy policy and terms of service.
+                  </p>
+                </form>
               </CardContent>
             </Card>
 
