@@ -78,7 +78,7 @@ export default function PortfolioPage() {
               <div className="grid gap-8 lg:grid-cols-2">
                 <div className="relative overflow-hidden">
                   <Image
-                    src="/placeholder.svg?height=400&width=600"
+                    src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=600&h=400&fit=crop"
                     alt="ShopEasy E-commerce App"
                     width={600}
                     height={400}
@@ -196,7 +196,7 @@ export default function PortfolioPage() {
                 </div>
                 <div className="relative overflow-hidden order-1 lg:order-2">
                   <Image
-                    src="/placeholder.svg?height=400&width=600"
+                    src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=400&fit=crop"
                     alt="MediConnect Healthcare Platform"
                     width={600}
                     height={400}
@@ -212,7 +212,7 @@ export default function PortfolioPage() {
               <div className="grid gap-8 lg:grid-cols-2">
                 <div className="relative overflow-hidden">
                   <Image
-                    src="/placeholder.svg?height=400&width=600"
+                    src="https://images.unsplash.com/photo-1557821552-17105176677c?w=600&h=400&fit=crop"
                     alt="PaySecure FinTech API"
                     width={600}
                     height={400}
@@ -303,7 +303,7 @@ export default function PortfolioPage() {
                 title: "EduLearn",
                 category: "EdTech Platform",
                 description: "Interactive learning platform with video courses, quizzes, and progress tracking.",
-                image: "/placeholder.svg?height=300&width=400",
+                image: "https://images.unsplash.com/photo-1633356713657-e3055b28446f?w=400&h=300&fit=crop",
                 tags: ["Vue.js", "Laravel", "MySQL"],
                 color: "from-rose-500 to-pink-500",
                 bgColor: "from-rose-50/80 to-pink-50/80",
@@ -312,7 +312,7 @@ export default function PortfolioPage() {
                 title: "FoodieHub",
                 category: "Food Delivery App",
                 description: "On-demand food delivery app with real-time tracking and payment integration.",
-                image: "/placeholder.svg?height=300&width=400",
+                image: "https://images.unsplash.com/photo-1555939594-58d7cb561404?w=400&h=300&fit=crop",
                 tags: ["Flutter", "Firebase", "Stripe"],
                 color: "from-orange-500 to-amber-500",
                 bgColor: "from-orange-50/80 to-amber-50/80",
@@ -321,7 +321,7 @@ export default function PortfolioPage() {
                 title: "TaskFlow",
                 category: "Project Management",
                 description: "Collaborative project management tool with team communication and file sharing.",
-                image: "/placeholder.svg?height=300&width=400",
+                image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
                 tags: ["React", "Express", "Socket.io"],
                 color: "from-violet-500 to-purple-500",
                 bgColor: "from-violet-50/80 to-purple-50/80",
@@ -330,7 +330,7 @@ export default function PortfolioPage() {
                 title: "FitTracker",
                 category: "Health & Fitness",
                 description: "Personal fitness tracking app with workout plans and nutrition monitoring.",
-                image: "/placeholder.svg?height=300&width=400",
+                image: "https://images.unsplash.com/photo-1517836357463-d25dab5d20b0?w=400&h=300&fit=crop",
                 tags: ["Swift", "HealthKit", "CoreData"],
                 color: "from-green-500 to-emerald-500",
                 bgColor: "from-green-50/80 to-emerald-50/80",
@@ -339,7 +339,7 @@ export default function PortfolioPage() {
                 title: "CryptoWallet",
                 category: "Blockchain App",
                 description: "Secure cryptocurrency wallet with multi-currency support and trading features.",
-                image: "/placeholder.svg?height=300&width=400",
+                image: "https://images.unsplash.com/photo-1639762681033-6461502ae8a6?w=400&h=300&fit=crop",
                 tags: ["React Native", "Web3", "Solidity"],
                 color: "from-indigo-500 to-blue-500",
                 bgColor: "from-indigo-50/80 to-blue-50/80",
@@ -348,7 +348,7 @@ export default function PortfolioPage() {
                 title: "SmartHome",
                 category: "IoT Dashboard",
                 description: "Comprehensive IoT dashboard for smart home automation and monitoring.",
-                image: "/placeholder.svg?height=300&width=400",
+                image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop",
                 tags: ["Angular", "MQTT", "InfluxDB"],
                 color: "from-cyan-500 to-teal-500",
                 bgColor: "from-cyan-50/80 to-teal-50/80",
