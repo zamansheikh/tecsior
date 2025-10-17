@@ -90,11 +90,11 @@ export default function AboutPage() {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/20 via-teal-400/20 to-cyan-400/20 rounded-[3rem] blur-3xl transform rotate-6"></div>
               <Image
-                src="/placeholder.svg?height=500&width=600"
-                alt="Our team"
+                src="/company_banner.png"
+                alt="Programmer Nexus Team"
                 width={600}
                 height={500}
-                className="relative rounded-[3rem] shadow-2xl"
+                className="relative rounded-[3rem] shadow-2xl object-cover"
               />
             </div>
           </div>

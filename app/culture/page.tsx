@@ -85,15 +85,27 @@ export default function CulturePage() {
 
     const teamMembers = [
         {
-            name: "Zaman Sheikh",
+            name: "Md. Shamsuzzaman",
             role: "Founder & Lead Developer",
             specialty: "Full-Stack Development",
             image: "👨‍💼",
         },
         {
-            name: "Team Members",
-            role: "Various Roles",
-            specialty: "Engineering & Design",
+            name: "Picklu Nath",
+            role: "Senior Designer",
+            specialty: "UI/UX Design",
+            image: "🎨",
+        },
+        {
+            name: "Mahdee Rashid",
+            role: "UI/UX Designer",
+            specialty: "User Interface & Experience Design",
+            image: "🖌️",
+        },
+        {
+            name: "Mohaiminul Islam Nafiz",
+            role: "Client Communication & Development",
+            specialty: "Project Management & Development",
             image: "👥",
         },
     ]
@@ -299,19 +311,21 @@ export default function CulturePage() {
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-                            {teamMembers.map((member, index) => (
-                                <Card key={index} className="border-0 shadow-lg bg-white hover:shadow-xl transition-all duration-300">
-                                    <CardHeader className="text-center">
-                                        <div className="text-7xl mb-4">{member.image}</div>
-                                        <CardTitle className="text-2xl text-emerald-900">{member.name}</CardTitle>
-                                        <CardDescription className="text-base text-teal-600 font-semibold">{member.role}</CardDescription>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <p className="text-center text-slate-600">{member.specialty}</p>
-                                    </CardContent>
-                                </Card>
-                            ))}
+                        <div className="flex justify-center">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl">
+                                {teamMembers.map((member, index) => (
+                                    <Card key={index} className="border-0 shadow-lg bg-white hover:shadow-xl transition-all duration-300">
+                                        <CardHeader className="text-center">
+                                            <div className="text-6xl mb-4">{member.image}</div>
+                                            <CardTitle className="text-lg text-emerald-900">{member.name}</CardTitle>
+                                            <CardDescription className="text-sm text-teal-600 font-semibold">{member.role}</CardDescription>
+                                        </CardHeader>
+                                        <CardContent>
+                                            <p className="text-center text-slate-600 text-sm">{member.specialty}</p>
+                                        </CardContent>
+                                    </Card>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
