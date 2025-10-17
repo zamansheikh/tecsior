@@ -3,9 +3,9 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Code, Menu } from "lucide-react"
+import { Code } from "lucide-react"
 import Link from "next/link"
+import { Navigation } from "@/components/navigation"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -34,9 +34,9 @@ export default function RootLayout({
           <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6 max-w-7xl">
             <Link href="/" className="flex items-center space-x-3">
               <div className="relative">
-                <img 
-                  src="/programmernexus-logo.png" 
-                  alt="Programmer Nexus Logo" 
+                <img
+                  src="/programmernexus-logo.png"
+                  alt="Programmer Nexus Logo"
                   className="h-10 w-10 rounded-2xl"
                 />
                 <div className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-gradient-to-r from-pink-400 to-rose-400 animate-pulse"></div>
@@ -47,50 +47,7 @@ export default function RootLayout({
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <Link
-                href="/"
-                className="text-sm font-medium text-slate-700 hover:text-emerald-600 transition-all duration-300 relative group"
-              >
-                Home
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 group-hover:w-full transition-all duration-300"></span>
-              </Link>
-              <Link
-                href="/about"
-                className="text-sm font-medium text-slate-700 hover:text-emerald-600 transition-all duration-300 relative group"
-              >
-                About
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 group-hover:w-full transition-all duration-300"></span>
-              </Link>
-              <Link
-                href="/services"
-                className="text-sm font-medium text-slate-700 hover:text-emerald-600 transition-all duration-300 relative group"
-              >
-                Services
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 group-hover:w-full transition-all duration-300"></span>
-              </Link>
-              <Link
-                href="/portfolio"
-                className="text-sm font-medium text-slate-700 hover:text-emerald-600 transition-all duration-300 relative group"
-              >
-                Portfolio
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 group-hover:w-full transition-all duration-300"></span>
-              </Link>
-              <Link
-                href="/blog"
-                className="text-sm font-medium text-slate-700 hover:text-emerald-600 transition-all duration-300 relative group"
-              >
-                Blog
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 group-hover:w-full transition-all duration-300"></span>
-              </Link>
-              <Link
-                href="/contact"
-                className="text-sm font-medium text-slate-700 hover:text-emerald-600 transition-all duration-300 relative group"
-              >
-                Contact
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 group-hover:w-full transition-all duration-300"></span>
-              </Link>
-            </nav>
+            <Navigation />
 
             <div className="flex items-center space-x-4">
               {/* Desktop CTA Button */}
@@ -99,73 +56,6 @@ export default function RootLayout({
               </Button>
 
               {/* Mobile Navigation */}
-              <Sheet>
-                <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="md:hidden">
-                    <Menu className="h-6 w-6" />
-                    <span className="sr-only">Toggle menu</span>
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-                  <div className="flex flex-col space-y-6 mt-6">
-                    <Link href="/" className="flex items-center space-x-3 mb-6">
-                      <img 
-                        src="/programmernexus-logo.png" 
-                        alt="Programmer Nexus Logo" 
-                        className="h-8 w-8 rounded-xl shadow-lg"
-                      />
-                      <span className="text-lg font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">
-                        Programmer Nexus
-                      </span>
-                    </Link>
-
-                    <nav className="flex flex-col space-y-4">
-                      <Link
-                        href="/"
-                        className="text-lg font-medium text-slate-700 hover:text-emerald-600 transition-colors py-2 border-b border-slate-100"
-                      >
-                        Home
-                      </Link>
-                      <Link
-                        href="/about"
-                        className="text-lg font-medium text-slate-700 hover:text-emerald-600 transition-colors py-2 border-b border-slate-100"
-                      >
-                        About
-                      </Link>
-                      <Link
-                        href="/services"
-                        className="text-lg font-medium text-slate-700 hover:text-emerald-600 transition-colors py-2 border-b border-slate-100"
-                      >
-                        Services
-                      </Link>
-                      <Link
-                        href="/portfolio"
-                        className="text-lg font-medium text-slate-700 hover:text-emerald-600 transition-colors py-2 border-b border-slate-100"
-                      >
-                        Portfolio
-                      </Link>
-                      <Link
-                        href="/blog"
-                        className="text-lg font-medium text-slate-700 hover:text-emerald-600 transition-colors py-2 border-b border-slate-100"
-                      >
-                        Blog
-                      </Link>
-                      <Link
-                        href="/contact"
-                        className="text-lg font-medium text-slate-700 hover:text-emerald-600 transition-colors py-2 border-b border-slate-100"
-                      >
-                        Contact
-                      </Link>
-                    </nav>
-
-                    <div className="pt-6">
-                      <Button className="w-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-full py-3">
-                        Get Started
-                      </Button>
-                    </div>
-                  </div>
-                </SheetContent>
-              </Sheet>
             </div>
           </div>
         </header>
@@ -179,9 +69,9 @@ export default function RootLayout({
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
               <div className="space-y-6">
                 <Link href="/" className="flex items-center space-x-3">
-                  <img 
-                    src="/programmernexus-logo.png" 
-                    alt="Programmer Nexus Logo" 
+                  <img
+                    src="/programmernexus-logo.png"
+                    alt="Programmer Nexus Logo"
                     className="h-10 w-10 rounded-2xl shadow-lg"
                   />
                   <span className="text-xl font-bold">Programmer Nexus</span>
