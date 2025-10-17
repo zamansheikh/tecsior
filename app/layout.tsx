@@ -246,7 +246,7 @@ export default function RootLayout({
               <div className="space-y-4">
                 <h3 className="font-semibold text-lg">Contact</h3>
                 <ul className="space-y-3 text-slate-400">
-                  <li>hello@programmernexus.com</li>
+                  <li>programmernexus.com@gmail.com</li>
                   <li>+8809638677149</li>
                   <li>Dhaka, BD</li>
                 </ul>
