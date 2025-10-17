@@ -34,8 +34,8 @@ export function Navigation() {
                         key={item.href}
                         href={item.href}
                         className={`text-sm font-medium transition-all duration-300 relative group ${isActive(item.href)
-                                ? "text-emerald-600"
-                                : "text-slate-700 hover:text-emerald-600"
+                            ? "text-emerald-600"
+                            : "text-slate-700 hover:text-emerald-600"
                             }`}
                     >
                         {item.label}
@@ -74,8 +74,8 @@ export function Navigation() {
                                     key={item.href}
                                     href={item.href}
                                     className={`text-lg font-medium transition-colors py-2 border-b border-slate-100 ${isActive(item.href)
-                                            ? "text-emerald-600 border-emerald-200 bg-emerald-50/50 px-3 rounded-md"
-                                            : "text-slate-700 hover:text-emerald-600"
+                                        ? "text-emerald-600 border-emerald-200 bg-emerald-50/50 px-3 rounded-md"
+                                        : "text-slate-700 hover:text-emerald-600"
                                         }`}
                                 >
                                     {item.label}
@@ -84,9 +84,11 @@ export function Navigation() {
                         </nav>
 
                         <div className="pt-6">
-                            <Button className="w-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-full py-3">
-                                Get Started
-                            </Button>
+                            <Link href="https://calendly.com/programmernexus/30min" className="block">
+                                <Button className="w-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-full py-3">
+                                    Get Started
+                                </Button>
+                            </Link>
                         </div>
                     </div>
                 </SheetContent>

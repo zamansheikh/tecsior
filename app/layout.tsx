@@ -51,9 +51,11 @@ export default function RootLayout({
 
             <div className="flex items-center space-x-4">
               {/* Desktop CTA Button */}
-              <Button className="hidden md:flex bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-full px-6">
-                Get Started
-              </Button>
+              <Link href="https://calendly.com/programmernexus/30min">
+                <Button className="hidden md:flex bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-full px-6">
+                  Get Started
+                </Button>
+              </Link>
 
               {/* Mobile Navigation */}
             </div>
