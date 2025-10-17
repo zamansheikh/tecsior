@@ -247,8 +247,8 @@ export default function RootLayout({
                 <h3 className="font-semibold text-lg">Contact</h3>
                 <ul className="space-y-3 text-slate-400">
                   <li>hello@programmernexus.com</li>
-                  <li>+1 (555) 123-4567</li>
-                  <li>San Francisco, CA</li>
+                  <li>+8809638677149</li>
+                  <li>Dhaka, BD</li>
                 </ul>
               </div>
             </div>

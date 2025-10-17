@@ -181,8 +181,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-slate-800">Email Us</h3>
-                      <p className="text-slate-600">hello@programmernexus.com</p>
-                      <p className="text-slate-600">support@programmernexus.com</p>
+                      <p className="text-slate-600">programmernexus.com@gmail.com</p>
                       <p className="text-sm text-slate-500 mt-1">We respond within 24 hours</p>
                     </div>
                   </div>
@@ -193,8 +192,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-slate-800">Call Us</h3>
-                      <p className="text-slate-600">+1 (555) 123-4567</p>
-                      <p className="text-slate-600">+1 (555) 987-6543</p>
+                      <p className="text-slate-600">+8809638677149</p>
                       <p className="text-sm text-slate-500 mt-1">Mon-Fri 9AM-6PM EST</p>
                     </div>
                   </div>
@@ -205,8 +203,8 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-slate-800">Visit Our Office</h3>
-                      <p className="text-slate-600">123 Innovation Street</p>
-                      <p className="text-slate-600">Dhaka 1000, Bangladesh</p>
+                      <p className="text-slate-600">306/67/1, Amirabad</p>
+                      <p className="text-slate-600">Dhaka, Bangladesh</p>
                       <p className="text-sm text-slate-500 mt-1">By appointment only</p>
                     </div>
                   </div>
@@ -234,35 +232,50 @@ export default function ContactPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <Button className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-xl py-6 justify-start text-left">
-                    <Calendar className="mr-3 h-5 w-5" />
-                    <div>
-                      <div className="font-semibold">Schedule a Free Consultation</div>
-                      <div className="text-sm opacity-90">30-minute strategy session</div>
-                    </div>
-                  </Button>
-
-                  <Button
-                    variant="outline"
-                    className="w-full rounded-xl py-6 justify-start text-left border-2 hover:bg-slate-50 bg-transparent"
+                  <Link
+                    href="https://calendly.com/programmernexus/30min"
+                    className="block w-full"
                   >
-                    <MessageCircle className="mr-3 h-5 w-5 text-cyan-600" />
-                    <div>
-                      <div className="font-semibold text-slate-800">Live Chat Support</div>
-                      <div className="text-sm text-slate-600">Get instant answers</div>
-                    </div>
-                  </Button>
+                    <Button className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-xl py-6 justify-start text-left">
+                      <Calendar className="mr-3 h-5 w-5" />
+                      <div>
+                        <div className="font-semibold">Schedule a Free Consultation</div>
+                        <div className="text-sm opacity-90">30-minute strategy session</div>
+                      </div>
+                    </Button>
+                  </Link>
 
-                  <Button
-                    variant="outline"
-                    className="w-full rounded-xl py-6 justify-start text-left border-2 hover:bg-slate-50 bg-transparent"
+                  <Link
+                    href="https://m.me/programmernexus"
+                    className="block w-full"
                   >
-                    <Phone className="mr-3 h-5 w-5 text-teal-600" />
-                    <div>
-                      <div className="font-semibold text-slate-800">Request a Quote</div>
-                      <div className="text-sm text-slate-600">Get project estimate</div>
-                    </div>
-                  </Button>
+                    <Button
+                      variant="outline"
+                      className="w-full rounded-xl py-6 justify-start text-left border-2 hover:bg-slate-50 bg-transparent"
+                    >
+                      <MessageCircle className="mr-3 h-5 w-5 text-cyan-600" />
+                      <div>
+                        <div className="font-semibold text-slate-800">Live Chat Support</div>
+                        <div className="text-sm text-slate-600">Get instant answers</div>
+                      </div>
+                    </Button>
+                  </Link>
+
+                  <Link
+                    href="https://wa.me/8801735069723?text=Hello%2C%20I%27m%20interested%20in%20app%20development%20services%20from%20programmerNexus%20Pvt%20Ltd"
+                    className="block w-full"
+                  >
+                    <Button
+                      variant="outline"
+                      className="w-full rounded-xl py-6 justify-start text-left border-2 hover:bg-slate-50 bg-transparent"
+                    >
+                      <Phone className="mr-3 h-5 w-5 text-teal-600" />
+                      <div>
+                        <div className="font-semibold text-slate-800">Request a Quote</div>
+                        <div className="text-sm text-slate-600">Get project estimate</div>
+                      </div>
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
 
