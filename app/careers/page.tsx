@@ -135,16 +135,22 @@ export default function CareersPage() {
                             <Button
                                 size="lg"
                                 className="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white hover:shadow-2xl transition-all duration-300 rounded-full px-12 py-4 text-lg font-semibold"
+                                asChild
                             >
-                                Explore Positions
-                                <ArrowRight className="ml-3 h-5 w-5" />
+                                <Link href="#positions">
+                                    Explore Positions
+                                    <ArrowRight className="ml-3 h-5 w-5" />
+                                </Link>
                             </Button>
                             <Button
                                 size="lg"
                                 variant="outline"
                                 className="border-2 border-emerald-300 text-emerald-700 hover:bg-emerald-50 rounded-full px-12 py-4 text-lg font-semibold"
+                                asChild
                             >
-                                Learn More About Us
+                                <Link href="/culture">
+                                    Learn More About Us
+                                </Link>
                             </Button>
                         </div>
                     </div>
@@ -253,7 +259,7 @@ export default function CareersPage() {
                                             </div>
                                         </div>
 
-                                        <Link href="/contact" className="block pt-4">
+                                        <Link href={`/apply?position=${position.id}`} className="block pt-4">
                                             <Button
                                                 className="w-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white hover:shadow-lg transition-all duration-300 rounded-xl py-6 text-base font-semibold group"
                                             >
@@ -361,7 +367,7 @@ export default function CareersPage() {
                                 className="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white hover:shadow-2xl transition-all duration-300 rounded-full px-12 py-4 text-lg font-semibold min-w-[220px]"
                                 asChild
                             >
-                                <Link href="/contact">
+                                <Link href="/apply">
                                     <Users className="mr-3 h-5 w-5" />
                                     Send Your Resume
                                 </Link>
@@ -370,8 +376,11 @@ export default function CareersPage() {
                                 size="lg"
                                 variant="outline"
                                 className="border-2 border-emerald-300 text-emerald-700 hover:bg-emerald-50 rounded-full px-12 py-4 text-lg font-semibold"
+                                asChild
                             >
-                                Learn About Our Culture
+                                <Link href="/culture">
+                                    Learn About Our Culture
+                                </Link>
                             </Button>
                         </div>
                     </div>
