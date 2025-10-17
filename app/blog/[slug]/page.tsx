@@ -384,7 +384,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                     <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
                         <CardContent className="p-8 md:p-12">
                             <div
-                                className="prose prose-lg prose-emerald max-w-none"
+                                className="blog-content"
                                 dangerouslySetInnerHTML={{ __html: post.content }}
                             />
                         </CardContent>
