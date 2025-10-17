@@ -85,28 +85,49 @@ export default function CulturePage() {
 
     const teamMembers = [
         {
-            name: "Md. Shamsuzzaman",
+            name: "Zaman Sheikh",
             role: "Founder & Lead Developer",
             specialty: "Full-Stack Development",
-            image: "👨‍💼",
+            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop",
+            color: "emerald",
+            description: "Visionary founder with expertise in full-stack development and leading tech innovations.",
+            skills: ["React", "Node.js", "Next.js"]
         },
         {
             name: "Picklu Nath",
             role: "Senior Designer",
             specialty: "UI/UX Design",
-            image: "🎨",
+            image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop",
+            color: "cyan",
+            description: "Creative designer specializing in UI/UX who transforms complex ideas into beautiful interfaces.",
+            skills: ["Figma", "UI/UX", "Design Systems"]
+        },
+        {
+            name: "Md. Shamsuzzaman",
+            role: "Full Stack Developer",
+            specialty: "Frontend & Backend Development",
+            image: "https://images.unsplash.com/photo-1507842217343-583f20270319?w=300&h=300&fit=crop",
+            color: "teal",
+            description: "Expert developer who brings designs to life with clean, scalable, and maintainable code.",
+            skills: ["JavaScript", "TypeScript", "Full Stack"]
         },
         {
             name: "Mahdee Rashid",
             role: "UI/UX Designer",
             specialty: "User Interface & Experience Design",
-            image: "🖌️",
+            image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop",
+            color: "rose",
+            description: "User experience specialist focused on creating intuitive and delightful digital experiences.",
+            skills: ["Figma", "UI Design", "UX Research"]
         },
         {
             name: "Mohaiminul Islam Nafiz",
-            role: "Client Communication & Development",
+            role: "Client Communication & Developer",
             specialty: "Project Management & Development",
-            image: "👥",
+            image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop",
+            color: "violet",
+            description: "Bridge between clients and development team, ensuring seamless project delivery and satisfaction.",
+            skills: ["Project Mgmt", "Development", "Communication"]
         },
     ]
 
@@ -311,21 +332,33 @@ export default function CulturePage() {
                             </p>
                         </div>
 
-                        <div className="flex justify-center">
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl">
-                                {teamMembers.map((member, index) => (
-                                    <Card key={index} className="border-0 shadow-lg bg-white hover:shadow-xl transition-all duration-300">
-                                        <CardHeader className="text-center">
-                                            <div className="text-6xl mb-4">{member.image}</div>
-                                            <CardTitle className="text-lg text-emerald-900">{member.name}</CardTitle>
-                                            <CardDescription className="text-sm text-teal-600 font-semibold">{member.role}</CardDescription>
-                                        </CardHeader>
-                                        <CardContent>
-                                            <p className="text-center text-slate-600 text-sm">{member.specialty}</p>
-                                        </CardContent>
-                                    </Card>
-                                ))}
-                            </div>
+                        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                            {teamMembers.map((member, index) => (
+                                <Card key={index} className="group border-0 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
+                                    <div className="relative">
+                                        <img
+                                            src={member.image}
+                                            alt={member.name}
+                                            className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                    </div>
+                                    <CardContent className="p-6 text-center">
+                                        <h3 className="text-xl font-semibold mb-2">{member.name}</h3>
+                                        <p className={`text-${member.color}-600 font-medium mb-3`}>{member.role}</p>
+                                        <p className="text-sm text-slate-600 mb-4">
+                                            {member.description}
+                                        </p>
+                                        <div className="flex justify-center space-x-2 flex-wrap gap-2">
+                                            {member.skills.map((skill, idx) => (
+                                                <Badge key={idx} variant="secondary" className="text-xs">
+                                                    {skill}
+                                                </Badge>
+                                            ))}
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            ))}
                         </div>
                     </div>
                 </div>

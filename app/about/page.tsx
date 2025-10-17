@@ -224,8 +224,8 @@ export default function AboutPage() {
             <Card className="group border-0 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
               <div className="relative">
                 <Image
-                  src="/placeholder.svg?height=300&width=300"
-                  alt="Alex Johnson"
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop"
+                  alt="Zaman Sheikh"
                   width={300}
                   height={300}
                   className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
@@ -233,10 +233,10 @@ export default function AboutPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
               <CardContent className="p-6 text-center">
-                <h3 className="text-xl font-semibold mb-2">Alex Johnson</h3>
-                <p className="text-emerald-600 font-medium mb-3">Founder & CEO</p>
+                <h3 className="text-xl font-semibold mb-2">Zaman Sheikh</h3>
+                <p className="text-emerald-600 font-medium mb-3">Founder & Lead Developer</p>
                 <p className="text-sm text-slate-600 mb-4">
-                  Visionary leader with 10+ years in tech, passionate about turning ideas into reality.
+                  Visionary founder with expertise in full-stack development and leading tech innovations.
                 </p>
                 <div className="flex justify-center space-x-2">
                   <Badge variant="secondary" className="text-xs">
@@ -246,7 +246,7 @@ export default function AboutPage() {
                     Node.js
                   </Badge>
                   <Badge variant="secondary" className="text-xs">
-                    AWS
+                    Next.js
                   </Badge>
                 </div>
               </CardContent>
@@ -256,8 +256,8 @@ export default function AboutPage() {
             <Card className="group border-0 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
               <div className="relative">
                 <Image
-                  src="/placeholder.svg?height=300&width=300"
-                  alt="Sarah Chen"
+                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop"
+                  alt="Picklu Nath"
                   width={300}
                   height={300}
                   className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
@@ -265,10 +265,10 @@ export default function AboutPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
               <CardContent className="p-6 text-center">
-                <h3 className="text-xl font-semibold mb-2">Sarah Chen</h3>
-                <p className="text-cyan-600 font-medium mb-3">Lead Designer</p>
+                <h3 className="text-xl font-semibold mb-2">Picklu Nath</h3>
+                <p className="text-cyan-600 font-medium mb-3">Senior Designer</p>
                 <p className="text-sm text-slate-600 mb-4">
-                  Creative genius who transforms complex ideas into beautiful, intuitive user experiences.
+                  Creative designer specializing in UI/UX who transforms complex ideas into beautiful interfaces.
                 </p>
                 <div className="flex justify-center space-x-2">
                   <Badge variant="secondary" className="text-xs">
@@ -278,7 +278,7 @@ export default function AboutPage() {
                     UI/UX
                   </Badge>
                   <Badge variant="secondary" className="text-xs">
-                    Branding
+                    Design Systems
                   </Badge>
                 </div>
               </CardContent>
@@ -288,8 +288,8 @@ export default function AboutPage() {
             <Card className="group border-0 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
               <div className="relative">
                 <Image
-                  src="/placeholder.svg?height=300&width=300"
-                  alt="Mike Rodriguez"
+                  src="https://images.unsplash.com/photo-1507842217343-583f20270319?w=300&h=300&fit=crop"
+                  alt="Md. Shamsuzzaman"
                   width={300}
                   height={300}
                   className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
@@ -297,20 +297,20 @@ export default function AboutPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
               <CardContent className="p-6 text-center">
-                <h3 className="text-xl font-semibold mb-2">Mike Rodriguez</h3>
-                <p className="text-teal-600 font-medium mb-3">Senior Developer</p>
+                <h3 className="text-xl font-semibold mb-2">Md. Shamsuzzaman</h3>
+                <p className="text-teal-600 font-medium mb-3">Full Stack Developer</p>
                 <p className="text-sm text-slate-600 mb-4">
-                  Full-stack wizard who brings designs to life with clean, scalable code.
+                  Expert developer who brings designs to life with clean, scalable, and maintainable code.
                 </p>
                 <div className="flex justify-center space-x-2">
                   <Badge variant="secondary" className="text-xs">
-                    Python
+                    JavaScript
                   </Badge>
                   <Badge variant="secondary" className="text-xs">
-                    Django
+                    TypeScript
                   </Badge>
                   <Badge variant="secondary" className="text-xs">
-                    Docker
+                    Full Stack
                   </Badge>
                 </div>
               </CardContent>
