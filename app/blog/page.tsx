@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -5,8 +7,10 @@ import { Input } from "@/components/ui/input"
 import { Calendar, Clock, User, Search, ArrowRight, BookOpen, TrendingUp, Lightbulb, Target, Heart } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { useState } from "react"
 
 export default function BlogPage() {
+  const [selectedCategory, setSelectedCategory] = useState("All Posts")
   const blogPosts = [
     {
       slug: "future-mobile-app-development-2024",
@@ -292,15 +296,23 @@ export default function BlogPage() {
   ]
 
   const categories = [
-    { name: "All Posts", count: 24, active: true },
-    { name: "Mobile Development", count: 8 },
-    { name: "Web Development", count: 6 },
-    { name: "Backend Development", count: 5 },
-    { name: "Design", count: 4 },
-    { name: "DevOps", count: 3 },
-    { name: "Security", count: 2 },
-    { name: "AI & Technology", count: 1 },
+    { name: "All Posts", count: blogPosts.length },
+    { name: "Mobile Development", count: blogPosts.filter(post => post.category === "Mobile Development").length },
+    { name: "Web Development", count: blogPosts.filter(post => post.category === "Web Development").length },
+    { name: "Backend Development", count: blogPosts.filter(post => post.category === "Backend Development").length },
+    { name: "Design", count: blogPosts.filter(post => post.category === "Design").length },
+    { name: "DevOps", count: blogPosts.filter(post => post.category === "DevOps").length },
+    { name: "Security", count: blogPosts.filter(post => post.category === "Security").length },
+    { name: "AI & Technology", count: blogPosts.filter(post => post.category === "AI & Technology").length },
   ]
+
+  // Filter posts based on selected category
+  const filteredPosts = selectedCategory === "All Posts"
+    ? blogPosts
+    : blogPosts.filter(post => post.category === selectedCategory)
+
+  const featuredPosts = filteredPosts.filter(post => post.featured)
+  const regularPosts = filteredPosts.filter(post => !post.featured)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50">
@@ -367,8 +379,7 @@ export default function BlogPage() {
           </div>
 
           <div className="grid gap-8 lg:grid-cols-2">
-            {blogPosts
-              .filter((post) => post.featured)
+            {featuredPosts
               .map((post, index) => (
                 <Card
                   key={index}
@@ -447,14 +458,15 @@ export default function BlogPage() {
                   {categories.map((category, index) => (
                     <Button
                       key={index}
-                      variant={category.active ? "default" : "ghost"}
-                      className={`w-full justify-between rounded-xl ${category.active
+                      variant={selectedCategory === category.name ? "default" : "ghost"}
+                      onClick={() => setSelectedCategory(category.name)}
+                      className={`w-full justify-between rounded-xl ${selectedCategory === category.name
                           ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-white"
                           : "hover:bg-emerald-50 text-slate-700"
                         }`}
                     >
                       <span>{category.name}</span>
-                      <Badge variant={category.active ? "secondary" : "outline"} className="ml-2">
+                      <Badge variant={selectedCategory === category.name ? "secondary" : "outline"} className="ml-2">
                         {category.count}
                       </Badge>
                     </Button>
@@ -466,8 +478,7 @@ export default function BlogPage() {
             {/* Posts Grid */}
             <div className="lg:col-span-3">
               <div className="grid gap-8 md:grid-cols-2">
-                {blogPosts
-                  .filter((post) => !post.featured)
+                {regularPosts
                   .map((post, index) => (
                     <Card
                       key={index}
