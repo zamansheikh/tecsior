@@ -297,7 +297,7 @@ export default function AboutPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
               <CardContent className="p-6 text-center">
-                <h3 className="text-xl font-semibold mb-2">Md. Shamsuzzaman</h3>
+                <h3 className="text-xl font-semibold mb-2">Md Abdul Kayum</h3>
                 <p className="text-teal-600 font-medium mb-3">Full Stack Developer</p>
                 <p className="text-sm text-slate-600 mb-4">
                   Expert developer who brings designs to life with clean, scalable, and maintainable code.
