@@ -102,6 +102,11 @@ export default function RootLayout({
                     </Link>
                   </li>
                   <li>
+                    <Link href="/culture" className="hover:text-emerald-400 transition-colors">
+                      Culture
+                    </Link>
+                  </li>
+                  <li>
                     <Link href="/services" className="hover:text-emerald-400 transition-colors">
                       UI/UX Design
                     </Link>
@@ -145,7 +150,13 @@ export default function RootLayout({
                 <ul className="space-y-3 text-slate-400">
                   <li>programmernexus.com@gmail.com</li>
                   <li>+8809638677149</li>
-                  <li>Dhaka, BD</li>
+                  <li>
+                    <Link href="https://www.linkedin.com/company/programmernexus" className="hover:text-emerald-400 transition-colors">
+                      LinkedIn
+                    </Link>
+                  </li>
+                  <li>306/67/1, Amirabad</li>
+                  <li>Bangladesh</li>
                 </ul>
               </div>
             </div>
