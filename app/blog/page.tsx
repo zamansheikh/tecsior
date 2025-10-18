@@ -461,8 +461,8 @@ export default function BlogPage() {
                       variant={selectedCategory === category.name ? "default" : "ghost"}
                       onClick={() => setSelectedCategory(category.name)}
                       className={`w-full justify-between rounded-xl ${selectedCategory === category.name
-                          ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-white"
-                          : "hover:bg-emerald-50 text-slate-700"
+                        ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-white"
+                        : "hover:bg-emerald-50 text-slate-700"
                         }`}
                     >
                       <span>{category.name}</span>
