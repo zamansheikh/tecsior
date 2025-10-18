@@ -128,6 +128,11 @@ export default function RootLayout({
                     </Link>
                   </li>
                   <li>
+                    <Link href="/careers" className="hover:text-emerald-400 transition-colors">
+                      Careers
+                    </Link>
+                  </li>
+                  <li>
                     <Link href="/contact" className="hover:text-emerald-400 transition-colors">
                       Contact
                     </Link>
