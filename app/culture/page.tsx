@@ -85,10 +85,10 @@ export default function CulturePage() {
 
     const teamMembers = [
         {
-            name: "Zaman Sheikh",
+            name: "Md. Shamsuzzaman",
             role: "Founder & Lead Developer",
             specialty: "Full-Stack Development",
-            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop",
+            image: "/devs/md._Shamsuzzaman_founder_&_lead_developer.jpg",
             color: "emerald",
             description: "Visionary founder with expertise in full-stack development and leading tech innovations.",
             skills: ["React", "Node.js", "Next.js"]
@@ -97,34 +97,34 @@ export default function CulturePage() {
             name: "Picklu Nath",
             role: "Senior Designer",
             specialty: "UI/UX Design",
-            image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop",
+            image: "/devs/picklu_nath_designer.jpeg",
             color: "cyan",
             description: "Creative designer specializing in UI/UX who transforms complex ideas into beautiful interfaces.",
             skills: ["Figma", "UI/UX", "Design Systems"]
         },
         {
-            name: "Md. Shamsuzzaman",
+            name: "Md. Abdul Kayum",
             role: "Full Stack Developer",
             specialty: "Frontend & Backend Development",
-            image: "https://images.unsplash.com/photo-1507842217343-583f20270319?w=300&h=300&fit=crop",
+            image: "/devs/md_abdul_kayum_native_android_developer .png",
             color: "teal",
             description: "Expert developer who brings designs to life with clean, scalable, and maintainable code.",
             skills: ["JavaScript", "TypeScript", "Full Stack"]
         },
         {
-            name: "Mahdee Rashid",
+            name: "Saiful Islam",
             role: "UI/UX Designer",
             specialty: "User Interface & Experience Design",
-            image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop",
+            image: "/devs/saiful_islam_designer.jpeg",
             color: "rose",
             description: "User experience specialist focused on creating intuitive and delightful digital experiences.",
             skills: ["Figma", "UI Design", "UX Research"]
         },
         {
-            name: "Mohaiminul Islam Nafiz",
+            name: "Md. Mohaiminul Islam Nafiz",
             role: "Client Communication & Developer",
             specialty: "Project Management & Development",
-            image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop",
+            image: "/devs/mohaiminul_islam_nafiz_communication.jpg",
             color: "violet",
             description: "Bridge between clients and development team, ensuring seamless project delivery and satisfaction.",
             skills: ["Project Mgmt", "Development", "Communication"]

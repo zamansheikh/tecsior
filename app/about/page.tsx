@@ -224,8 +224,8 @@ export default function AboutPage() {
             <Card className="group border-0 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
               <div className="relative">
                 <Image
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop"
-                  alt="Zaman Sheikh"
+                  src="/devs/md._Shamsuzzaman_founder_&_lead_developer.jpg"
+                  alt="Md. Shamsuzzaman"
                   width={300}
                   height={300}
                   className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
@@ -233,7 +233,7 @@ export default function AboutPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
               <CardContent className="p-6 text-center">
-                <h3 className="text-xl font-semibold mb-2">Zaman Sheikh</h3>
+                <h3 className="text-xl font-semibold mb-2">Md. Shamsuzzaman</h3>
                 <p className="text-emerald-600 font-medium mb-3">Founder & Lead Developer</p>
                 <p className="text-sm text-slate-600 mb-4">
                   Visionary founder with expertise in full-stack development and leading tech innovations.
@@ -256,7 +256,7 @@ export default function AboutPage() {
             <Card className="group border-0 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
               <div className="relative">
                 <Image
-                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop"
+                  src="/devs/picklu_nath_designer.jpeg"
                   alt="Picklu Nath"
                   width={300}
                   height={300}
@@ -288,8 +288,8 @@ export default function AboutPage() {
             <Card className="group border-0 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
               <div className="relative">
                 <Image
-                  src="https://images.unsplash.com/photo-1507842217343-583f20270319?w=300&h=300&fit=crop"
-                  alt="Md. Shamsuzzaman"
+                  src="/devs/md_abdul_kayum_native_android_developer .png"
+                  alt="Md. Abdul Kayum"
                   width={300}
                   height={300}
                   className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
@@ -297,7 +297,7 @@ export default function AboutPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
               <CardContent className="p-6 text-center">
-                <h3 className="text-xl font-semibold mb-2">Md Abdul Kayum</h3>
+                <h3 className="text-xl font-semibold mb-2">Md. Abdul Kayum</h3>
                 <p className="text-teal-600 font-medium mb-3">Full Stack Developer</p>
                 <p className="text-sm text-slate-600 mb-4">
                   Expert developer who brings designs to life with clean, scalable, and maintainable code.
