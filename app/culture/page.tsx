@@ -129,6 +129,15 @@ export default function CulturePage() {
             description: "Bridge between clients and development team, ensuring seamless project delivery and satisfaction.",
             skills: ["Project Mgmt", "Development", "Communication"]
         },
+        {
+            name: "Shakil Hossain",
+            role: "Graphics Designer",
+            specialty: "Graphics & Visual Design",
+            image: "/devs/shakil_hossain_graphics_designer.jpg",
+            color: "orange",
+            description: "Creative graphic designer specializing in visual storytelling and brand design excellence.",
+            skills: ["Adobe XD", "Graphics Design", "Branding"]
+        },
     ]
 
     return (

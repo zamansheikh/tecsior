@@ -315,6 +315,102 @@ export default function AboutPage() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Team Member 4 */}
+            <Card className="group border-0 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
+              <div className="relative">
+                <Image
+                  src="/devs/shakil_hossain_graphics_designer.jpg"
+                  alt="Shakil Hossain"
+                  width={300}
+                  height={300}
+                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+              <CardContent className="p-6 text-center">
+                <h3 className="text-xl font-semibold mb-2">Shakil Hossain</h3>
+                <p className="text-rose-600 font-medium mb-3">Graphics Designer</p>
+                <p className="text-sm text-slate-600 mb-4">
+                  Creative graphic designer specializing in visual storytelling and brand design excellence.
+                </p>
+                <div className="flex justify-center space-x-2">
+                  <Badge variant="secondary" className="text-xs">
+                    Adobe XD
+                  </Badge>
+                  <Badge variant="secondary" className="text-xs">
+                    Graphics Design
+                  </Badge>
+                  <Badge variant="secondary" className="text-xs">
+                    Branding
+                  </Badge>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Team Member 5 */}
+            <Card className="group border-0 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
+              <div className="relative">
+                <Image
+                  src="/devs/saiful_islam_designer.jpeg"
+                  alt="Saiful Islam"
+                  width={300}
+                  height={300}
+                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+              <CardContent className="p-6 text-center">
+                <h3 className="text-xl font-semibold mb-2">Saiful Islam</h3>
+                <p className="text-rose-600 font-medium mb-3">UI/UX Designer</p>
+                <p className="text-sm text-slate-600 mb-4">
+                  User experience specialist focused on creating intuitive and delightful digital experiences.
+                </p>
+                <div className="flex justify-center space-x-2">
+                  <Badge variant="secondary" className="text-xs">
+                    Figma
+                  </Badge>
+                  <Badge variant="secondary" className="text-xs">
+                    UI Design
+                  </Badge>
+                  <Badge variant="secondary" className="text-xs">
+                    UX Research
+                  </Badge>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Team Member 6 */}
+            <Card className="group border-0 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
+              <div className="relative">
+                <Image
+                  src="/devs/mohaiminul_islam_nafiz_communication.jpg"
+                  alt="Md. Mohaiminul Islam Nafiz"
+                  width={300}
+                  height={300}
+                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+              <CardContent className="p-6 text-center">
+                <h3 className="text-xl font-semibold mb-2">Md. Mohaiminul Islam Nafiz</h3>
+                <p className="text-violet-600 font-medium mb-3">Client Communication & Developer</p>
+                <p className="text-sm text-slate-600 mb-4">
+                  Bridge between clients and development team, ensuring seamless project delivery and satisfaction.
+                </p>
+                <div className="flex justify-center space-x-2">
+                  <Badge variant="secondary" className="text-xs">
+                    Project Mgmt
+                  </Badge>
+                  <Badge variant="secondary" className="text-xs">
+                    Development
+                  </Badge>
+                  <Badge variant="secondary" className="text-xs">
+                    Communication
+                  </Badge>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
