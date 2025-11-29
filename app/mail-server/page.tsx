@@ -1,9 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
+// Textarea replaced with WYSIWYG editor
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import { Send, Sparkles, ArrowRight, Bold, Italic, Link as LinkIcon, Code } from "lucide-react"
@@ -21,7 +21,30 @@ export default function MailServerPage() {
         subject: "",
         message: "",
     })
-    const [preview, setPreview] = useState(false)
+    const [preview, setPreview] = useState(true)
+    const editorRef = useRef<HTMLDivElement | null>(null)
+
+    const initialTemplates = [
+        {
+            id: "welcome",
+            name: "Welcome",
+            subject: "Welcome to ProgrammerNexus",
+            message: `Hi there,<br/><br/>Thanks for reaching out — we will review your request and get back to you within 24 hours.<br/><br/>Best,<br/>ProgrammerNexus`,
+        },
+        {
+            id: "consult",
+            name: "Consultation",
+            subject: "Let's schedule a free consultation",
+            message: `Hi,<br/><br/>Thanks for your interest — let's book a 30-minute consultation to review your project goals.<br/><br/>Regards,<br/>ProgrammerNexus`,
+        },
+        {
+            id: "proposal",
+            name: "Proposal",
+            subject: "Project proposal and next steps",
+            message: `Hi,<br/><br/>Please find a brief proposal attached. We're ready to discuss scope and timing.`,
+        },
+    ]
+    const [templates, setTemplates] = useState(initialTemplates)
 
     // no demo key: server will verify actual key using /api/mail-server/auth
 
@@ -53,22 +76,32 @@ export default function MailServerPage() {
         setFormData((prev) => ({ ...prev, [id]: value }))
     }
 
-    const insertAtCursor = (tagOpen: string, tagClose: string) => {
-        const textArea = document.getElementById("message") as HTMLTextAreaElement | null
-        if (!textArea) return
-        const { selectionStart, selectionEnd, value } = textArea
-        const selected = value.substring(selectionStart, selectionEnd)
-        const before = value.substring(0, selectionStart)
-        const after = value.substring(selectionEnd)
-        const newVal = `${before}${tagOpen}${selected}${tagClose}${after}`
-        setFormData((p) => ({ ...p, message: newVal }))
-        // reposition the cursor inside the inserted content
-        setTimeout(() => {
-            const pos = selectionStart + tagOpen.length + selected.length + tagClose.length
-            textArea.focus()
-            textArea.selectionStart = textArea.selectionEnd = pos
-        }, 0)
+    // WYSIWYG tools using deprecated execCommand (works in modern browsers)
+    const exec = (cmd: string, value?: string) => {
+        try {
+            if (editorRef.current) editorRef.current.focus()
+            document.execCommand(cmd, false, value)
+            setFormData((p) => ({ ...p, message: editorRef.current?.innerHTML || "" }))
+        } catch (e) {
+            console.error("exec error", e)
+        }
     }
+
+    useEffect(() => {
+        // load templates from localStorage
+        try {
+            const raw = localStorage.getItem("pnx_templates")
+            if (raw) setTemplates(JSON.parse(raw))
+        } catch (e) {
+            console.error(e)
+        }
+    }, [])
+
+    useEffect(() => {
+        if (editorRef.current && editorRef.current.innerHTML !== formData.message) {
+            editorRef.current.innerHTML = formData.message
+        }
+    }, [formData.message])
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -162,6 +195,27 @@ export default function MailServerPage() {
                                 <Label htmlFor="to" className="text-sm font-medium text-slate-700">To (Recipient Email)</Label>
                                 <Input id="to" placeholder="recipient@example.com" value={formData.to} onChange={handleChange} required />
                             </div>
+
+                            <div className="pt-2">
+                                <Label className="text-sm font-medium text-slate-700">Templates</Label>
+                                <div className="flex gap-2 mt-2 flex-wrap">
+                                    {templates.map((t) => (
+                                        <div key={t.id} className="bg-white border border-slate-100 rounded-md p-2 shadow-sm">
+                                            <div className="text-sm font-semibold text-slate-700">{t.name}</div>
+                                            <div className="text-xs text-slate-500 truncate max-w-[220px]" dangerouslySetInnerHTML={{ __html: t.message }} />
+                                            <div className="flex gap-2 mt-2">
+                                                <button type="button" className="text-sm text-emerald-600 underline" onClick={() => { setFormData((p) => ({ ...p, subject: t.subject, message: t.message })); if (editorRef.current) editorRef.current.innerHTML = t.message }}>Apply</button>
+                                                <button type="button" className="text-sm text-slate-500" onClick={() => {
+                                                    if (!confirm(`Delete template ${t.name}?`)) return
+                                                    const next = templates.filter((x) => x.id !== t.id)
+                                                    setTemplates(next)
+                                                    localStorage.setItem("pnx_templates", JSON.stringify(next))
+                                                }}>Delete</button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                             <div className="space-y-2">
                                 <Label htmlFor="subject" className="text-sm font-medium text-slate-700">Subject</Label>
                                 <Input id="subject" placeholder="Email subject" value={formData.subject} onChange={handleChange} required />
@@ -170,21 +224,48 @@ export default function MailServerPage() {
                             <div className="space-y-2">
                                 <Label htmlFor="message" className="text-sm font-medium text-slate-700">Message (HTML is supported)</Label>
                                 <div className="flex flex-wrap gap-2 mb-2">
-                                    <button type="button" className="inline-flex items-center gap-2 bg-slate-100 px-3 py-1 rounded-md" onClick={() => insertAtCursor("<strong>", "</strong>")}><Bold className="h-4 w-4" />Bold</button>
-                                    <button type="button" className="inline-flex items-center gap-2 bg-slate-100 px-3 py-1 rounded-md" onClick={() => insertAtCursor("<em>", "</em>")}><Italic className="h-4 w-4" />Italic</button>
-                                    <button type="button" className="inline-flex items-center gap-2 bg-slate-100 px-3 py-1 rounded-md" onClick={() => insertAtCursor("<code>", "</code>")}><Code className="h-4 w-4" />Code</button>
-                                    <button type="button" className="inline-flex items-center gap-2 bg-slate-100 px-3 py-1 rounded-md" onClick={() => {
-                                        const url = prompt("Enter URL:", "https://") || "https://"
-                                        insertAtCursor(`<a href=\"${url}\">`, `</a>`)
-                                    }}><LinkIcon className="h-4 w-4" />Link</button>
-                                    <button type="button" className="inline-flex items-center gap-2 bg-slate-100 px-3 py-1 rounded-md" onClick={() => setPreview((p) => !p)}>{preview ? "Hide" : "Preview"}</button>
-                                </div>
-                                <Textarea id="message" placeholder="Write your message here" value={formData.message} onChange={handleChange} className="min-h-[160px]" required />
-                                {preview && (
-                                    <div className="mt-3 p-3 bg-slate-50 rounded-md border text-slate-700">
-                                        <div dangerouslySetInnerHTML={{ __html: formData.message.replace(/\n/g, "<br />") }} />
+                                    <button type="button" className="inline-flex items-center gap-2 bg-white border border-slate-200 px-3 py-1 rounded-md" onClick={() => exec("bold")} title="Bold"><Bold className="h-4 w-4 text-emerald-600" /></button>
+                                    <button type="button" className="inline-flex items-center gap-2 bg-white border border-slate-200 px-3 py-1 rounded-md" onClick={() => exec("italic")} title="Italic"><Italic className="h-4 w-4 text-emerald-600" /></button>
+                                    <button type="button" className="inline-flex items-center gap-2 bg-white border border-slate-200 px-3 py-1 rounded-md" onClick={() => exec("insertHTML", "<pre><code></code></pre>")} title="Code"><Code className="h-4 w-4 text-emerald-600" /></button>
+                                    <button type="button" className="inline-flex items-center gap-2 bg-white border border-slate-200 px-3 py-1 rounded-md" onClick={() => { const url = prompt("Enter URL:", "https://") || "https://"; exec("createLink", url) }} title="Link"><LinkIcon className="h-4 w-4 text-emerald-600" /></button>
+                                    <button type="button" className="inline-flex items-center gap-2 bg-white border border-slate-200 px-3 py-1 rounded-md" onClick={() => exec("insertUnorderedList")} title="Bullet List">•</button>
+                                    <button type="button" className="inline-flex items-center gap-2 bg-white border border-slate-200 px-3 py-1 rounded-md" onClick={() => exec("formatBlock", "H2")} title="Heading">H</button>
+                                    <button type="button" className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-md" onClick={() => setPreview((p) => !p)}>{preview ? "Hide Preview" : "Show Preview"}</button>
+                                    <div className="ml-auto flex items-center gap-2">
+                                        <button type="button" className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-3 py-1 rounded-md" onClick={() => {
+                                            const name = prompt("Save current as template (name):")
+                                            if (name) {
+                                                const newTpl = { id: `${name.toLowerCase().replace(/\s/g, '-')}-${Date.now()}`, name, subject: formData.subject, message: formData.message }
+                                                const newTemplates = [newTpl, ...templates]
+                                                setTemplates(newTemplates)
+                                                localStorage.setItem("pnx_templates", JSON.stringify(newTemplates))
+                                            }
+                                        }}>Save as template</button>
+                                        <select onChange={(e) => { const val = e.target.value; if (val) exec('insertHTML', val); e.target.value = '' }} defaultValue="" className="ml-2 rounded-md border px-2 py-1 bg-white">
+                                            <option value="">Insert placeholder</option>
+                                            <option value="{{firstName}}">{'{{firstName}}'}</option>
+                                            <option value="{{company}}">{'{{company}}'}</option>
+                                            <option value="{{projectType}}">{'{{projectType}}'}</option>
+                                            <option value="{{deadline}}">{'{{deadline}}'}</option>
+                                        </select>
+                                        <button type="button" className="inline-flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-1 rounded-md text-slate-700" onClick={() => { if (!confirm('Clear editor content?')) return; setFormData((p) => ({ ...p, message: '' })); if (editorRef.current) editorRef.current.innerHTML = '' }}>Clear</button>
                                     </div>
-                                )}
+                                </div>
+                                <div contentEditable ref={editorRef} id="message" className="min-h-[160px] p-3 rounded-md border border-slate-200 bg-white/70" onInput={(e) => setFormData((p) => ({ ...p, message: (e.target as HTMLDivElement).innerHTML }))} dangerouslySetInnerHTML={{ __html: formData.message }} />
+                                <div className="mt-3">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div className="p-3 bg-white rounded-md shadow-sm border border-slate-100">
+                                            <h4 className="font-semibold text-slate-700 mb-2">Live Editor</h4>
+                                            <div className="min-h-[200px] p-3 border border-dashed border-slate-100 rounded-md bg-white/80" dangerouslySetInnerHTML={{ __html: formData.message || "<em>Start writing your message...</em>" }} />
+                                        </div>
+                                        {preview && (
+                                            <div className="p-3 bg-white rounded-md shadow-sm border border-slate-100">
+                                                <h4 className="font-semibold text-slate-700 mb-2">Email Preview</h4>
+                                                <div className="bg-white p-0 rounded-md shadow-sm border" dangerouslySetInnerHTML={{ __html: (`<div style='font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif; max-width: 700px; margin: 0 auto; border: 1px solid #e6eef4;'><div style='background: linear-gradient(135deg,#059669,#0d9488); padding: 18px; color: white; border-radius: 6px 6px 0 0; text-align:center;'><strong>ProgrammerNexus</strong></div><div style='padding:18px;'>` + formData.message + `</div><div style='padding:12px; color: #64748b; font-size: 12px; border-top: 1px solid #f1f5f9;'>From: ` + formData.sendFrom + ` &nbsp; | &nbsp; Reply To: ` + (formData.sendFrom === 'noreply@programmernexus.com' ? '(No-reply)' : formData.sendFrom) + `</div></div>`) }} />
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
                             </div>
 
                             {submitStatus === "success" && (
