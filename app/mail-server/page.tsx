@@ -271,7 +271,7 @@ export default function MailServerPage() {
                                                 </select>
                                             </div>
                                         </div>
-                                        <div contentEditable ref={editorRef} id="message" className="min-h-[300px] p-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20" onInput={(e) => setFormData((p) => ({ ...p, message: (e.target as HTMLDivElement).innerHTML }))} dangerouslySetInnerHTML={{ __html: formData.message }} />
+                                        <div contentEditable ref={editorRef} id="message" className="min-h-[300px] p-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20" onInput={(e) => setFormData((p) => ({ ...p, message: (e.target as HTMLDivElement).innerHTML }))} suppressContentEditableWarning={true} />
                                     </div>
                                 </div>
 
