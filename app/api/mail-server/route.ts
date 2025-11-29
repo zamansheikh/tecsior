@@ -61,11 +61,11 @@ export async function POST(request: NextRequest) {
                 html: `
                     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto;">
                         <div style="background: #f8fafc; padding: 20px; border-radius: 8px;">
-                            <div style="padding: 12px 16px; background: #ffffff; border-left: 4px solid #059669; border-radius: 6px; margin-bottom: 12px;">
-                                <p style="margin: 0; color: #475569;">This message was sent from <strong>${sendFrom}</strong>.</p>
-                                <p style="margin: 0; color: #475569;">${replyToAddr ? `Replies will go to <strong>${replyToAddr}</strong>.` : `This is an automated message. Please do not reply.`}</p>
-                            </div>
                             ${htmlMessage}
+                            <div style="padding: 12px 16px; background: #ffffff; border-left: 4px solid #059669; border-radius: 6px; margin-top: 24px; font-size: 12px; color: #64748b;">
+                                <p style="margin: 0;">This message was sent from <strong>${sendFrom}</strong>.</p>
+                                <p style="margin: 0; margin-top: 4px;">${replyToAddr ? `Replies will go to <strong>${replyToAddr}</strong>.` : `This is an automated message. Please do not reply.`}</p>
+                            </div>
                         </div>
                     </div>
                 `,

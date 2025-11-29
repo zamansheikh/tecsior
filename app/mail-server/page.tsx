@@ -21,12 +21,7 @@ export default function MailServerPage() {
         message: "",
     })
 
-    const [placeholders, setPlaceholders] = useState({
-        firstName: "",
-        company: "",
-        projectType: "",
-        deadline: ""
-    })
+    const [placeholderValues, setPlaceholderValues] = useState<Record<string, string>>({})
 
     const [preview, setPreview] = useState(true)
     const editorRef = useRef<HTMLDivElement | null>(null)
@@ -65,6 +60,11 @@ export default function MailServerPage() {
     ]
     const [templates, setTemplates] = useState(initialTemplates)
 
+    // Extract placeholders from message
+    const detectedPlaceholders = Array.from(new Set(
+        (formData.message.match(/{{(\w+)}}/g) || []).map(m => m.replace(/{{|}}/g, ''))
+    ))
+
     const handleKeySubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setSubmitStatus("idle")
@@ -93,9 +93,8 @@ export default function MailServerPage() {
         setFormData((prev) => ({ ...prev, [id]: value }))
     }
 
-    const handlePlaceholderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { id, value } = e.target
-        setPlaceholders((prev) => ({ ...prev, [id]: value }))
+    const handlePlaceholderChange = (key: string, value: string) => {
+        setPlaceholderValues((prev) => ({ ...prev, [key]: value }))
     }
 
     const exec = (cmd: string, value?: string) => {
@@ -125,9 +124,13 @@ export default function MailServerPage() {
 
     const processMessage = (msg: string) => {
         let processed = msg
-        Object.entries(placeholders).forEach(([key, value]) => {
-            const regex = new RegExp(`{{${key}}}`, 'g')
-            processed = processed.replace(regex, value || `{{${key}}}`)
+        const matches = Array.from(new Set(msg.match(/{{(\w+)}}/g) || []))
+        matches.forEach((match) => {
+            const key = match.replace(/{{|}}/g, '')
+            const value = placeholderValues[key]
+            if (value) {
+                processed = processed.replace(new RegExp(match, 'g'), value)
+            }
         })
         return processed
     }
@@ -289,34 +292,24 @@ export default function MailServerPage() {
                                             <User className="h-4 w-4" /> Placeholder Values
                                         </h3>
                                         <div className="space-y-3">
-                                            <div>
-                                                <Label htmlFor="firstName" className="text-xs text-slate-500">First Name</Label>
-                                                <div className="relative">
-                                                    <User className="absolute left-2 top-2.5 h-3 w-3 text-slate-400" />
-                                                    <Input id="firstName" value={placeholders.firstName} onChange={handlePlaceholderChange} className="pl-7 h-8 text-sm bg-white" placeholder="John" />
+                                            {detectedPlaceholders.length === 0 && (
+                                                <p className="text-xs text-slate-400 italic">No placeholders detected in message.</p>
+                                            )}
+                                            {detectedPlaceholders.map((key) => (
+                                                <div key={key}>
+                                                    <Label htmlFor={key} className="text-xs text-slate-500 capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</Label>
+                                                    <div className="relative">
+                                                        <User className="absolute left-2 top-2.5 h-3 w-3 text-slate-400" />
+                                                        <Input
+                                                            id={key}
+                                                            value={placeholderValues[key] || ""}
+                                                            onChange={(e) => handlePlaceholderChange(key, e.target.value)}
+                                                            className="pl-7 h-8 text-sm bg-white"
+                                                            placeholder={`Value for ${key}`}
+                                                        />
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div>
-                                                <Label htmlFor="company" className="text-xs text-slate-500">Company</Label>
-                                                <div className="relative">
-                                                    <Building className="absolute left-2 top-2.5 h-3 w-3 text-slate-400" />
-                                                    <Input id="company" value={placeholders.company} onChange={handlePlaceholderChange} className="pl-7 h-8 text-sm bg-white" placeholder="Acme Inc" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <Label htmlFor="projectType" className="text-xs text-slate-500">Project Type</Label>
-                                                <div className="relative">
-                                                    <Briefcase className="absolute left-2 top-2.5 h-3 w-3 text-slate-400" />
-                                                    <Input id="projectType" value={placeholders.projectType} onChange={handlePlaceholderChange} className="pl-7 h-8 text-sm bg-white" placeholder="Web App" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <Label htmlFor="deadline" className="text-xs text-slate-500">Deadline</Label>
-                                                <div className="relative">
-                                                    <Calendar className="absolute left-2 top-2.5 h-3 w-3 text-slate-400" />
-                                                    <Input id="deadline" value={placeholders.deadline} onChange={handlePlaceholderChange} className="pl-7 h-8 text-sm bg-white" placeholder="Next Friday" />
-                                                </div>
-                                            </div>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>
@@ -334,9 +327,11 @@ export default function MailServerPage() {
                                 <div className="bg-slate-100 p-6 rounded-xl overflow-hidden">
                                     <div className="bg-white mx-auto max-w-[600px] shadow-sm rounded-lg overflow-hidden">
                                         <div className="bg-slate-50 p-5 rounded-t-lg border-b border-slate-100">
-                                            <div className="bg-white p-3 border-l-4 border-emerald-600 rounded shadow-sm mb-3">
-                                                <p className="text-sm text-slate-600 m-0">This message was sent from <strong>{formData.sendFrom}</strong>.</p>
-                                                <p className="text-sm text-slate-600 m-0 mt-1">
+                                            <div className="font-sans text-slate-800 mb-6" dangerouslySetInnerHTML={{ __html: processMessage(formData.message) || "<span class='text-slate-400 italic'>Message content will appear here...</span>" }} />
+
+                                            <div className="bg-white p-3 border-l-4 border-emerald-600 rounded shadow-sm mt-8 text-xs">
+                                                <p className="text-slate-500 m-0">This message was sent from <strong>{formData.sendFrom}</strong>.</p>
+                                                <p className="text-slate-500 m-0 mt-1">
                                                     {replyToAddr ? (
                                                         <>Replies will go to <strong>{replyToAddr}</strong>.</>
                                                     ) : (
@@ -344,7 +339,6 @@ export default function MailServerPage() {
                                                     )}
                                                 </p>
                                             </div>
-                                            <div className="font-sans text-slate-800" dangerouslySetInnerHTML={{ __html: processMessage(formData.message) || "<span class='text-slate-400 italic'>Message content will appear here...</span>" }} />
                                         </div>
                                     </div>
                                 </div>
