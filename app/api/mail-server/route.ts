@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
             "noreply@programmernexus.com",
             "hello@programmernexus.com",
             "support@programmernexus.com",
-            "careers@programmernexus.com",
+            "career@programmernexus.com",
             "sales@programmernexus.com",
             ...envAddrs,
         ].filter(Boolean)

@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
                 Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
             },
             body: JSON.stringify({
-                from: "careers@programmernexus.com",
+                from: "career@programmernexus.com",
                 to: adminEmail,
                 replyTo: email,
                 subject: `📄 New Job Application from ${firstName} ${lastName} - ${positionData.title}`,

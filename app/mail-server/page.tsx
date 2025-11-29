@@ -61,9 +61,10 @@ export default function MailServerPage() {
     const [templates, setTemplates] = useState(initialTemplates)
 
     // Extract placeholders from message
-    const detectedPlaceholders = Array.from(new Set(
-        (formData.message.match(/{{(\w+)}}/g) || []).map(m => m.replace(/{{|}}/g, ''))
-    ))
+    const detectedPlaceholders = Array.from(new Set([
+        ...(formData.message.match(/{{(\w+)}}/g) || []).map(m => m.replace(/{{|}}/g, '')),
+        ...(Array.from(formData.message.matchAll(/<span\s+[^>]*data-placeholder="(\w+)"[^>]*>/g)).map(m => m[1]))
+    ]))
 
     const handleKeySubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -95,6 +96,20 @@ export default function MailServerPage() {
 
     const handlePlaceholderChange = (key: string, value: string) => {
         setPlaceholderValues((prev) => ({ ...prev, [key]: value }))
+
+        setFormData((prev) => {
+            let newMsg = prev.message
+            if (value) {
+                // Replace {{key}} with span
+                newMsg = newMsg.replace(new RegExp('{{' + key + '}}', 'g'), `<span class="bg-yellow-100 px-1 rounded border border-yellow-200 text-yellow-800" data-placeholder="${key}">${value}</span>`)
+                // Update existing spans
+                newMsg = newMsg.replace(new RegExp(`<span\\s+[^>]*data-placeholder="${key}"[^>]*>.*?<\\/span>`, 'g'), `<span class="bg-yellow-100 px-1 rounded border border-yellow-200 text-yellow-800" data-placeholder="${key}">${value}</span>`)
+            } else {
+                // Revert span to {{key}} if value is empty
+                newMsg = newMsg.replace(new RegExp(`<span\\s+[^>]*data-placeholder="${key}"[^>]*>.*?<\\/span>`, 'g'), `{{${key}}}`)
+            }
+            return { ...prev, message: newMsg }
+        })
     }
 
     const exec = (cmd: string, value?: string) => {
@@ -124,6 +139,8 @@ export default function MailServerPage() {
 
     const processMessage = (msg: string) => {
         let processed = msg
+
+        // 1. Replace any remaining {{key}} with values
         const matches = Array.from(new Set(msg.match(/{{(\w+)}}/g) || []))
         matches.forEach((match) => {
             const key = match.replace(/{{|}}/g, '')
@@ -132,6 +149,10 @@ export default function MailServerPage() {
                 processed = processed.replace(new RegExp(match, 'g'), value)
             }
         })
+
+        // 2. Unwrap spans (remove tags, keep content)
+        processed = processed.replace(/<span\s+[^>]*data-placeholder="(\w+)"[^>]*>(.*?)<\/span>/g, '$2')
+
         return processed
     }
 
@@ -209,7 +230,7 @@ export default function MailServerPage() {
                                                 <option value="noreply@programmernexus.com">noreply@programmernexus.com</option>
                                                 <option value="hello@programmernexus.com">hello@programmernexus.com</option>
                                                 <option value="support@programmernexus.com">support@programmernexus.com</option>
-                                                <option value="careers@programmernexus.com">careers@programmernexus.com</option>
+                                                <option value="career@programmernexus.com">career@programmernexus.com</option>
                                                 <option value="sales@programmernexus.com">sales@programmernexus.com</option>
                                             </select>
                                         </div>
