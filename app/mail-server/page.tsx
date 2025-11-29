@@ -194,7 +194,7 @@ export default function MailServerPage() {
     const replyToAddr = formData.sendFrom === "noreply@programmernexus.com" ? undefined : formData.sendFrom
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 py-20">
+        <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 py-8 md:py-20">
             <div className="container mx-auto max-w-6xl px-4">
                 <Badge variant="outline" className="border-emerald-200 text-emerald-700 bg-emerald-50/50 px-4 py-2 rounded-full mb-6">
                     <Send className="mr-2 h-4 w-4" />
@@ -253,9 +253,9 @@ export default function MailServerPage() {
                                     </div>
 
                                     <div className="space-y-2">
-                                        <div className="flex items-center justify-between">
+                                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                                             <Label htmlFor="message" className="text-sm font-medium text-slate-700">Message</Label>
-                                            <div className="flex gap-1">
+                                            <div className="flex gap-1 flex-wrap">
                                                 <button type="button" className="p-1.5 hover:bg-slate-100 rounded" onClick={() => exec("bold")} title="Bold"><Bold className="h-4 w-4 text-slate-600" /></button>
                                                 <button type="button" className="p-1.5 hover:bg-slate-100 rounded" onClick={() => exec("italic")} title="Italic"><Italic className="h-4 w-4 text-slate-600" /></button>
                                                 <button type="button" className="p-1.5 hover:bg-slate-100 rounded" onClick={() => exec("insertHTML", "<pre><code></code></pre>")} title="Code"><Code className="h-4 w-4 text-slate-600" /></button>
@@ -379,13 +379,13 @@ export default function MailServerPage() {
                                 </div>
                             )}
 
-                            <div className="flex items-center gap-3 pt-4">
-                                <Button type="submit" disabled={loading} className="bg-emerald-600 hover:bg-emerald-700 text-white py-6 px-8 text-lg shadow-lg shadow-emerald-200">
+                            <div className="flex flex-col sm:flex-row items-center gap-3 pt-4">
+                                <Button type="submit" disabled={loading} className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white py-6 px-8 text-lg shadow-lg shadow-emerald-200">
                                     <Sparkles className="mr-2 h-5 w-5" />
                                     {loading ? "Sending..." : "Send Message"}
                                     <ArrowRight className="ml-2 h-5 w-5" />
                                 </Button>
-                                <Button type="button" variant="ghost" onClick={() => { setAuthorized(false); setKey("") }} className="text-slate-500">Lock Session</Button>
+                                <Button type="button" variant="ghost" onClick={() => { setAuthorized(false); setKey("") }} className="w-full sm:w-auto text-slate-500">Lock Session</Button>
                             </div>
                         </form>
                     )}
