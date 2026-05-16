@@ -17,6 +17,8 @@ export type PortfolioItem = {
   thumb: string;
   color: string;
   metric: string;
+  image?: string;       // Cloudinary URL — when set, replaces the gradient/letter
+  imagePublicId?: string;
 };
 
 export type TeamMember = {

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { PageHead } from "@/components/admin/page-head";
+import { ImageUpload } from "@/components/admin/image-upload";
 import { cn } from "@/lib/cn";
 
 const TABS = ["hero", "about", "footer", "social", "seo"] as const;
@@ -16,6 +17,7 @@ export default function SiteSettingsPage() {
     cta: "Start a project",
     showStats: true,
     showMarquee: true,
+    background: "",
   });
 
   return (
@@ -56,6 +58,12 @@ export default function SiteSettingsPage() {
                   <input className="input" defaultValue="See selected work" />
                 </div>
               </div>
+              <ImageUpload
+                label="Hero background image"
+                value={hero.background}
+                onChange={(url) => setHero({ ...hero, background: url })}
+                helperText="Optional. Uploads to Cloudinary. Used as a backdrop behind the headline."
+              />
               <Toggle label="Show statistics" sub="4 key numbers under hero" value={hero.showStats} onChange={(v) => setHero({ ...hero, showStats: v })} />
               <Toggle label="Show client marquee" sub="Scrolling list of client names" value={hero.showMarquee} onChange={(v) => setHero({ ...hero, showMarquee: v })} />
               <div style={{ display: "flex", gap: 8, marginTop: 8 }}>

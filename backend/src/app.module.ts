@@ -10,6 +10,7 @@ import { InquiriesModule } from "./inquiries/inquiries.module";
 import { ApplicationsModule } from "./applications/applications.module";
 import { ContentModule } from "./content/content.module";
 import { AnalyticsModule } from "./analytics/analytics.module";
+import { UploadsModule } from "./uploads/uploads.module";
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { AnalyticsModule } from "./analytics/analytics.module";
     InquiriesModule,
     ApplicationsModule,
     AnalyticsModule,
+    UploadsModule,
   ],
   controllers: [HealthController],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
