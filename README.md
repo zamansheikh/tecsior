@@ -1,30 +1,34 @@
-# Professional tech website
+# Programmer Nexus
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
+Senior engineering studio — marketing site + admin console.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/zamansheikh-v0/v0-professional-tech-website)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/UxaKY1zYoZy)
+## Monorepo layout
 
-## Overview
+```
+.
+├── frontend/         Next.js 16 (App Router) marketing + admin UI
+├── backend/          NestJS 11 REST API
+├── design-system/    Source design (HTML/JSX prototype) — reference only
+└── public/           (moved into frontend/public)
+```
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+## Quick start
 
-## Deployment
+```bash
+# frontend
+cd frontend && npm install && npm run dev
+# → http://localhost:3000
 
-Your project is live at:
+# backend (in a second terminal)
+cd backend && npm install && npm run start:dev
+# → http://localhost:4000
+```
 
-**[https://vercel.com/zamansheikh-v0/v0-professional-tech-website](https://vercel.com/zamansheikh-v0/v0-professional-tech-website)**
+## Stack
 
-## Build your app
+**Frontend** — Next.js 16, React 19, TypeScript 5.7, Tailwind CSS v4, lucide-react.
+**Backend** — NestJS 11, Node 24 LTS, class-validator, Resend for email.
 
-Continue building your app on:
+## Environment
 
-**[https://v0.dev/chat/projects/UxaKY1zYoZy](https://v0.dev/chat/projects/UxaKY1zYoZy)**
-
-## How It Works
-
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+Copy `.env.example` files in each app and fill in values. Root `.env.local` from the previous site holds the Resend key — copy `RESEND_API_KEY` and `CONTACT_EMAIL` into `backend/.env`.

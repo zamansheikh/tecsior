@@ -1,0 +1,28 @@
+import { ValidationPipe } from "@nestjs/common";
+import { NestFactory } from "@nestjs/core";
+import { AppModule } from "./app.module";
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule, { bufferLogs: true });
+
+  app.setGlobalPrefix("api");
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
+
+  const origins = (process.env.CORS_ORIGIN ?? "http://localhost:3000")
+    .split(",")
+    .map((s) => s.trim());
+  app.enableCors({ origin: origins, credentials: true });
+
+  const port = Number(process.env.PORT ?? 4000);
+  await app.listen(port);
+  // eslint-disable-next-line no-console
+  console.log(`Programmer Nexus API → http://localhost:${port}/api`);
+}
+
+bootstrap();
