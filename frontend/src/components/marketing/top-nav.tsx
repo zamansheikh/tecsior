@@ -1,0 +1,51 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/cn";
+import { Button } from "@/components/ui/button";
+import { Icon } from "@/components/ui/icon";
+
+const LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/services", label: "Services" },
+  { href: "/portfolio", label: "Work" },
+  { href: "/about", label: "About" },
+  { href: "/careers", label: "Careers" },
+  { href: "/blog", label: "Writing" },
+  { href: "/contact", label: "Contact" },
+];
+
+export function TopNav() {
+  const pathname = usePathname();
+  return (
+    <header className="topnav">
+      <div className="wrap topnav-inner">
+        <Link className="brand" href="/">
+          <Image src="/logo.png" alt="" width={28} height={28} priority />
+          <span>Programmer Nexus</span>
+          <span className="brand-mark">EST. 2019</span>
+        </Link>
+        <nav className="nav-links">
+          {LINKS.map((l) => {
+            const active = l.href === "/" ? pathname === "/" : pathname.startsWith(l.href);
+            return (
+              <Link key={l.href} href={l.href} className={cn("nav-link", active && "active")}>
+                {l.label}
+              </Link>
+            );
+          })}
+        </nav>
+        <div className="nav-actions">
+          <Button variant="ghost" size="sm" href="/admin">
+            <Icon name="shield" size={14} /> Admin
+          </Button>
+          <Button variant="primary" size="sm" href="/contact">
+            Start a project <Icon name="arrow" size={13} />
+          </Button>
+        </div>
+      </div>
+    </header>
+  );
+}
