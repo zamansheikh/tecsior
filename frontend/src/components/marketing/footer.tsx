@@ -43,7 +43,7 @@ export function Footer() {
               <li><Link href="/contact">Start a project</Link></li>
               <li><a href="mailto:partners@programmernexus.com">Partnerships</a></li>
               <li><a href="mailto:press@programmernexus.com">Press inquiries</a></li>
-              <li><Link href="/admin">Admin sign-in</Link></li>
+              <li><a href="mailto:careers@programmernexus.com">Careers</a></li>
             </ul>
           </div>
           <div className="footer-col">

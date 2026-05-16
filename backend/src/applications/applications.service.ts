@@ -1,73 +1,74 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { Injectable, Logger, NotFoundException, OnModuleInit } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from "mongoose";
+
 import { SEED_APPLICATIONS } from "../common/seed";
 import { CreateApplicationDto } from "./dto/create-application.dto";
-
-export type ApplicationStage =
-  | "New"
-  | "Tech screen"
-  | "Portfolio review"
-  | "Hiring manager"
-  | "Onsite"
-  | "Offer"
-  | "Hired"
-  | "Rejected";
-
-export interface Application {
-  id: string;
-  candidate: string;
-  email: string;
-  role: string;
-  stage: ApplicationStage;
-  score: number;
-  date: string;
-  source: string;
-}
+import { UpdateApplicationDto } from "./dto/update-application.dto";
+import { Application, ApplicationDocument } from "./schemas/application.schema";
 
 @Injectable()
-export class ApplicationsService {
-  private readonly store = new Map<string, Application>();
-  private counter = 1043;
+export class ApplicationsService implements OnModuleInit {
+  private readonly logger = new Logger(ApplicationsService.name);
 
-  constructor() {
-    for (const a of SEED_APPLICATIONS) {
-      this.store.set(a.id, { ...a } as Application);
+  constructor(
+    @InjectModel(Application.name) private readonly model: Model<ApplicationDocument>,
+  ) {}
+
+  async onModuleInit(): Promise<void> {
+    const count = await this.model.estimatedDocumentCount();
+    if (count === 0) {
+      await this.model.insertMany(SEED_APPLICATIONS);
+      this.logger.log(`Seeded ${SEED_APPLICATIONS.length} applications`);
     }
   }
 
-  list(): Application[] {
-    return [...this.store.values()].sort((a, b) => b.date.localeCompare(a.date));
+  async list(): Promise<Application[]> {
+    return this.model.find().sort({ date: -1 }).select({ _id: 0, __v: 0 }).lean();
   }
 
-  get(id: string): Application {
-    const a = this.store.get(id);
+  async get(id: string): Promise<Application> {
+    const a = await this.model.findOne({ id }).select({ _id: 0, __v: 0 }).lean();
     if (!a) throw new NotFoundException(`Application ${id} not found`);
     return a;
   }
 
-  create(dto: CreateApplicationDto): Application {
-    const id = `APP-${this.counter++}`;
-    const app: Application = {
+  async create(dto: CreateApplicationDto): Promise<Application> {
+    const id = await this.nextId();
+    const app = {
       id,
       candidate: dto.candidate,
       email: dto.email,
       role: dto.roleId,
-      stage: "New",
+      stage: "New" as const,
       score: 0,
       date: new Date().toISOString().slice(0, 10),
       source: dto.source ?? "Careers page",
-    };
-    this.store.set(id, app);
-    return app;
+    } satisfies Partial<Application>;
+    const doc = await this.model.create(app);
+    return doc.toJSON() as unknown as Application;
   }
 
-  update(id: string, patch: Partial<Pick<Application, "stage" | "score">>): Application {
-    const current = this.get(id);
-    const next = { ...current, ...patch };
-    this.store.set(id, next);
-    return next;
+  async update(id: string, patch: UpdateApplicationDto): Promise<Application> {
+    const updated = await this.model
+      .findOneAndUpdate({ id }, { $set: patch }, { new: true })
+      .select({ _id: 0, __v: 0 }).lean();
+    if (!updated) throw new NotFoundException(`Application ${id} not found`);
+    return updated;
   }
 
-  remove(id: string): void {
-    if (!this.store.delete(id)) throw new NotFoundException(`Application ${id} not found`);
+  async remove(id: string): Promise<void> {
+    const res = await this.model.deleteOne({ id });
+    if (res.deletedCount === 0) throw new NotFoundException(`Application ${id} not found`);
+  }
+
+  private async nextId(): Promise<string> {
+    const latest = await this.model
+      .findOne({ id: /^APP-/ })
+      .sort({ id: -1 })
+      .select({ id: 1 })
+      .lean();
+    const lastNum = latest ? parseInt(latest.id.replace(/^APP-/, ""), 10) : 1042;
+    return `APP-${lastNum + 1}`;
   }
 }

@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Icon } from "@/components/ui/icon";
 import { PageHead } from "@/components/admin/page-head";
 import { AdminToolbar } from "@/components/admin/toolbar";
 import { SEED_USERS } from "@/lib/seed";
+import type { User } from "@/lib/types";
 
 const ROLE_COLORS: Record<string, string> = { Owner: "tag-accent", Admin: "tag-info", Editor: "tag", Author: "tag", Viewer: "tag" };
 const ROLES = [
@@ -15,15 +16,24 @@ const ROLES = [
 ];
 
 export default function UsersAdminPage() {
+  const [users, setUsers] = useState<User[]>(SEED_USERS);
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    fetch("/api/proxy/admin/content/users")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => { if (Array.isArray(d) && d.length) setUsers(d as User[]); })
+      .catch(() => {});
+  }, []);
+
   const filtered = search
-    ? SEED_USERS.filter((u) => u.name.toLowerCase().includes(search.toLowerCase()) || u.email.toLowerCase().includes(search.toLowerCase()))
-    : SEED_USERS;
+    ? users.filter((u) => u.name.toLowerCase().includes(search.toLowerCase()) || u.email.toLowerCase().includes(search.toLowerCase()))
+    : users;
   return (
     <>
       <PageHead title="Users & roles" sub="6 active members · 4 roles · SSO via Google Workspace" />
       <AdminToolbar
-        count={SEED_USERS.length}
+        count={users.length}
         label="users"
         search={search}
         onSearch={setSearch}

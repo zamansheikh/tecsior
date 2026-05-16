@@ -38,9 +38,6 @@ export function TopNav() {
           })}
         </nav>
         <div className="nav-actions">
-          <Button variant="ghost" size="sm" href="/admin">
-            <Icon name="shield" size={14} /> Admin
-          </Button>
           <Button variant="primary" size="sm" href="/contact">
             Start a project <Icon name="arrow" size={13} />
           </Button>

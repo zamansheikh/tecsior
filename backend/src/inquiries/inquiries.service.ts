@@ -1,50 +1,44 @@
-import { Injectable, Logger, NotFoundException } from "@nestjs/common";
+import { Injectable, Logger, NotFoundException, OnModuleInit } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from "mongoose";
 import { Resend } from "resend";
+
 import { SEED_INQUIRIES } from "../common/seed";
 import { CreateInquiryDto } from "./dto/create-inquiry.dto";
-
-export type InquiryStatus = "New" | "In review" | "Replied" | "Won" | "Closed";
-export type InquiryPriority = "Low" | "Medium" | "High" | "Critical";
-
-export interface Inquiry {
-  id: string;
-  name: string;
-  company: string;
-  email: string;
-  subject: string;
-  budget: string;
-  message: string;
-  date: string;
-  status: InquiryStatus;
-  priority: InquiryPriority;
-}
+import { UpdateInquiryDto } from "./dto/update-inquiry.dto";
+import { Inquiry, InquiryDocument } from "./schemas/inquiry.schema";
 
 @Injectable()
-export class InquiriesService {
+export class InquiriesService implements OnModuleInit {
   private readonly logger = new Logger(InquiriesService.name);
-  private readonly store = new Map<string, Inquiry>();
-  private counter = 2419;
 
-  constructor(private readonly config: ConfigService) {
-    for (const i of SEED_INQUIRIES) {
-      this.store.set(i.id, { ...i } as Inquiry);
+  constructor(
+    @InjectModel(Inquiry.name) private readonly model: Model<InquiryDocument>,
+    private readonly config: ConfigService,
+  ) {}
+
+  async onModuleInit(): Promise<void> {
+    const count = await this.model.estimatedDocumentCount();
+    if (count === 0) {
+      await this.model.insertMany(SEED_INQUIRIES);
+      this.logger.log(`Seeded ${SEED_INQUIRIES.length} inquiries`);
     }
   }
 
-  list(): Inquiry[] {
-    return [...this.store.values()].sort((a, b) => b.date.localeCompare(a.date));
+  async list(): Promise<Inquiry[]> {
+    return this.model.find().sort({ date: -1 }).select({ _id: 0, __v: 0 }).lean();
   }
 
-  get(id: string): Inquiry {
-    const i = this.store.get(id);
+  async get(id: string): Promise<Inquiry> {
+    const i = await this.model.findOne({ id }).select({ _id: 0, __v: 0 }).lean();
     if (!i) throw new NotFoundException(`Inquiry ${id} not found`);
     return i;
   }
 
   async create(dto: CreateInquiryDto): Promise<Inquiry> {
-    const id = `INQ-${this.counter++}`;
-    const inquiry: Inquiry = {
+    const id = await this.nextId();
+    const inquiry = {
       id,
       name: dto.name,
       company: dto.company,
@@ -53,23 +47,42 @@ export class InquiriesService {
       budget: dto.budget,
       message: dto.message,
       date: new Date().toISOString(),
-      status: "New",
-      priority: dto.budget === "$500k+" ? "Critical" : dto.budget === "$250k–$500k" ? "High" : "Medium",
-    };
-    this.store.set(id, inquiry);
-    void this.notify(inquiry);
-    return inquiry;
+      status: "New" as const,
+      priority:
+        dto.budget === "$500k+"
+          ? "Critical"
+          : dto.budget === "$250k–$500k"
+            ? "High"
+            : "Medium",
+    } satisfies Partial<Inquiry>;
+
+    const doc = await this.model.create(inquiry);
+    const saved = doc.toJSON() as unknown as Inquiry;
+    void this.notify(saved);
+    return saved;
   }
 
-  update(id: string, patch: Partial<Pick<Inquiry, "status" | "priority">>): Inquiry {
-    const current = this.get(id);
-    const next = { ...current, ...patch };
-    this.store.set(id, next);
-    return next;
+  async update(id: string, patch: UpdateInquiryDto): Promise<Inquiry> {
+    const updated = await this.model
+      .findOneAndUpdate({ id }, { $set: patch }, { new: true })
+      .select({ _id: 0, __v: 0 }).lean();
+    if (!updated) throw new NotFoundException(`Inquiry ${id} not found`);
+    return updated;
   }
 
-  remove(id: string): void {
-    if (!this.store.delete(id)) throw new NotFoundException(`Inquiry ${id} not found`);
+  async remove(id: string): Promise<void> {
+    const res = await this.model.deleteOne({ id });
+    if (res.deletedCount === 0) throw new NotFoundException(`Inquiry ${id} not found`);
+  }
+
+  private async nextId(): Promise<string> {
+    const latest = await this.model
+      .findOne({ id: /^INQ-/ })
+      .sort({ id: -1 })
+      .select({ id: 1 })
+      .lean();
+    const lastNum = latest ? parseInt(latest.id.replace(/^INQ-/, ""), 10) : 2418;
+    return `INQ-${lastNum + 1}`;
   }
 
   private async notify(inquiry: Inquiry): Promise<void> {
@@ -77,7 +90,7 @@ export class InquiriesService {
     const to = this.config.get<string>("CONTACT_EMAIL");
     const from = this.config.get<string>("FROM_EMAIL") ?? "Programmer Nexus <hello@programmernexus.com>";
     if (!apiKey || !to) {
-      this.logger.warn(`Resend not configured — would email ${inquiry.email}`);
+      this.logger.warn(`Resend not configured — skipped email for ${inquiry.id}`);
       return;
     }
     try {

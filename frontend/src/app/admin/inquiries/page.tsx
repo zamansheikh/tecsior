@@ -14,8 +14,7 @@ export default function InquiriesAdminPage() {
   const [selected, setSelected] = useState<Inquiry>(SEED_INQUIRIES[0]);
 
   useEffect(() => {
-    const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
-    fetch(`${base}/api/inquiries`)
+    fetch("/api/proxy/inquiries")
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => {
         if (Array.isArray(d) && d.length) {

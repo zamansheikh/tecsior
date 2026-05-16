@@ -18,8 +18,7 @@ export default function ApplicationsAdminPage() {
   const [q, setQ] = useState("");
 
   useEffect(() => {
-    const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
-    fetch(`${base}/api/applications`)
+    fetch("/api/proxy/applications")
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => { if (Array.isArray(d) && d.length) setApps(d as Application[]); })
       .catch(() => {});

@@ -18,8 +18,8 @@ export function CTABand() {
           <Button variant="primary" size="lg" href="/contact">
             Start a project <Icon name="arrow" size={16} />
           </Button>
-          <Button variant="ghost" size="lg" href="/admin">
-            Sign in to admin <Icon name="external" size={14} />
+          <Button variant="ghost" size="lg" href="/portfolio">
+            See our work
           </Button>
         </div>
       </div>
