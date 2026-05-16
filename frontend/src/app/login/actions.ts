@@ -6,8 +6,24 @@ import { ADMIN_COOKIE } from "@/lib/auth-cookie";
 
 const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
-export type LoginState = { error?: string };
+export type LoginState = {
+  error?: string;
+  ok?: true;
+  redirectTo?: string;
+};
 
+/**
+ * Sign in flow:
+ *  1. Validate credentials against the backend.
+ *  2. Set the admin-token cookie on the response.
+ *  3. Return { ok, redirectTo } so the client component can do a hard
+ *     `window.location.assign()` — this guarantees the freshly-set
+ *     httpOnly cookie is included in the next request. Doing the redirect
+ *     inside the server action has been flaky in Next 16: the Set-Cookie
+ *     header is sometimes not applied before the redirected GET fires,
+ *     which causes /admin/layout's /api/auth/me probe to 401 and bounce
+ *     the user back to /login.
+ */
 export async function loginAction(
   _prev: LoginState,
   formData: FormData,
@@ -33,7 +49,9 @@ export async function loginAction(
   }
 
   if (!res.ok) {
-    return { error: res.status === 401 ? "Invalid email or password." : `Login failed (${res.status})` };
+    return {
+      error: res.status === 401 ? "Invalid email or password." : `Login failed (${res.status})`,
+    };
   }
 
   const body = (await res.json()) as { token: string; expiresIn?: string };
@@ -46,7 +64,10 @@ export async function loginAction(
     maxAge: 60 * 60 * 24 * 7, // 7 days
   });
 
-  redirect(next.startsWith("/admin") ? next : "/admin");
+  return {
+    ok: true,
+    redirectTo: next.startsWith("/admin") ? next : "/admin",
+  };
 }
 
 export async function logoutAction() {

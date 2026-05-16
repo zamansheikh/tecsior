@@ -1,12 +1,24 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { loginAction, type LoginState } from "./actions";
 
 const initial: LoginState = {};
 
 export function LoginForm({ next }: { next: string }) {
   const [state, formAction, pending] = useActionState(loginAction, initial);
+
+  // On success, do a HARD navigation so the freshly-set httpOnly cookie is
+  // included in the next request. router.push() / soft navigation has been
+  // unreliable in Next 16 dev mode for this exact post-Set-Cookie hop.
+  useEffect(() => {
+    if (state.ok && state.redirectTo) {
+      window.location.assign(state.redirectTo);
+    }
+  }, [state]);
+
+  const signingIn = pending || state.ok;
+
   return (
     <form action={formAction} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <input type="hidden" name="next" value={next} />
@@ -36,11 +48,11 @@ export function LoginForm({ next }: { next: string }) {
 
       <button
         type="submit"
-        disabled={pending}
+        disabled={signingIn}
         className="btn btn-primary"
-        style={{ justifyContent: "center", marginTop: 8, opacity: pending ? 0.7 : 1 }}
+        style={{ justifyContent: "center", marginTop: 8, opacity: signingIn ? 0.7 : 1 }}
       >
-        {pending ? "Signing in…" : "Sign in"}
+        {state.ok ? "Redirecting…" : pending ? "Signing in…" : "Sign in"}
       </button>
     </form>
   );
