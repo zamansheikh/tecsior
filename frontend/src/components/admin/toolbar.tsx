@@ -23,13 +23,13 @@ export function AdminToolbar({
   actionLabel?: string;
 }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, marginBottom: 16, flexWrap: "wrap" }}>
-      <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-        <span style={{ fontSize: 13, color: "var(--fg-mute)" }}>
+    <div className="admin-toolbar">
+      <div className="admin-toolbar__left">
+        <span className="admin-toolbar__count">
           <span style={{ color: "var(--fg)", fontWeight: 500 }}>{count}</span> {label}
         </span>
-        <span style={{ width: 1, height: 18, background: "var(--border)" }} />
-        <div className="admin-search" style={{ width: 280 }}>
+        <span className="admin-toolbar__divider" aria-hidden />
+        <div className="admin-search admin-toolbar__search">
           <Icon name="search" size={13} />
           <input
             value={search ?? ""}
@@ -38,12 +38,16 @@ export function AdminToolbar({
           />
         </div>
         {filters?.map((f, i) => (
-          <select key={i} className="select" style={{ width: 140, padding: "8px 10px", fontSize: 13 }} defaultValue={f.value}>
+          <select
+            key={i}
+            className="select admin-toolbar__filter"
+            defaultValue={f.value}
+          >
             {f.options.map((o) => <option key={o}>{o}</option>)}
           </select>
         ))}
       </div>
-      <div style={{ display: "flex", gap: 8 }}>
+      <div className="admin-toolbar__right">
         <Button variant="ghost" size="sm"><Icon name="filter" size={13} /> Filters</Button>
         <Button variant="ghost" size="sm"><Icon name="download" size={13} /> Export</Button>
         {onAction && (

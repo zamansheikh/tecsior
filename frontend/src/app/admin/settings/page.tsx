@@ -46,7 +46,7 @@ export default function WorkspaceSettingsPage() {
               <div style={{ color: "var(--fg-mute)", fontSize: 13 }}>
                 You&apos;re on the <span style={{ color: "var(--accent)" }}>Enterprise</span> plan
               </div>
-              <div style={{ marginTop: 16, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+              <div className="grid-2" style={{ marginTop: 16, gap: 12 }}>
                 {[
                   ["10 / 25", "Editors"],
                   ["48 / 100GB", "Storage"],

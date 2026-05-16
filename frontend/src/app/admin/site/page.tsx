@@ -46,7 +46,7 @@ export default function SiteSettingsPage() {
                 <label>Subheading</label>
                 <textarea className="textarea" value={hero.sub} onChange={(e) => setHero({ ...hero, sub: e.target.value })} />
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+              <div className="grid-2" style={{ gap: 16 }}>
                 <div className="field">
                   <label>Primary CTA</label>
                   <input className="input" value={hero.cta} onChange={(e) => setHero({ ...hero, cta: e.target.value })} />

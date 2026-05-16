@@ -489,37 +489,62 @@ img { display: block; max-width: 100%; }
    Mobile breakpoints — admin
    ============================================ */
 
+/* Backdrop base — fixed-positioned & hidden by default so it never takes
+   a grid cell in the .admin layout at desktop widths. Only revealed when
+   .open + mobile breakpoint. */
+.admin-side-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.6);
+}
+
 @media (max-width: 900px) {
   .admin { grid-template-columns: 1fr; }
-  /* Sidebar becomes an off-canvas drawer */
+
+  /* --- Sidebar becomes an off-canvas drawer ---
+     !important defeats the desktop `position: sticky; height: 100vh` cascade
+     and any browser preferring an earlier rule on cache. */
   .admin-side {
-    display: none;
-    position: fixed;
-    top: 0; left: 0; bottom: 0;
-    z-index: 70;
-    width: min(280px, 80vw);
+    display: none !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    height: 100vh !important;
+    width: min(280px, 80vw) !important;
+    z-index: 1000 !important;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
   }
-  .admin-side.open { display: block; }
-  .admin-side-backdrop {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 60;
-    background: rgba(0, 0, 0, 0.55);
-  }
+  .admin-side.open { display: block !important; }
+
   .admin-side-backdrop.open { display: block; }
-  .admin-top { padding: 14px 16px; gap: 8px; }
-  .admin-search { display: none; }
+
+  /* Force topbar BELOW the backdrop. The desktop rule sets z-index:20
+     which is above the original 60 backdrop value — bump and force. */
+  .admin-top {
+    padding: 14px 16px !important;
+    gap: 8px !important;
+    z-index: 10 !important;
+  }
+  .admin-search { display: none !important; }
+
+  /* Hide non-essential icons earlier (was hidden only at <=700 before) */
+  .admin-top a.icon-btn[title="View public site"],
+  .admin-top button.icon-btn[title="Notifications"] { display: none !important; }
+
+  /* Hide the name/email block on mobile so the topbar fits */
+  .admin-user > div:first-child { display: none !important; }
+
   .admin-content { padding: 20px; }
   .page-head { gap: 16px; margin-bottom: 24px; }
   .page-title { font-size: 22px; }
   .kpi-grid { grid-template-columns: 1fr; gap: 12px; }
   .two-col { grid-template-columns: 1fr; }
-  .admin-user > div:first-child { display: none; }   /* hide name/email column */
   .icon-btn { width: 36px; height: 36px; }
-  /* Tables — let them scroll horizontally inside their panel.
-     Use !important to defeat the inline `overflow: hidden` on table panels. */
+
+  /* Tables — scroll horizontally inside their panel. */
   .panel { overflow-x: auto !important; }
   .panel > .dt { min-width: 720px; }
 }
@@ -592,6 +617,89 @@ img { display: block; max-width: 100%; }
 }
 
 body.no-scroll { overflow: hidden; }
+
+/* ============================================
+   Admin toolbar
+   ============================================ */
+.admin-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.admin-toolbar__left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+.admin-toolbar__right {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.admin-toolbar__count { font-size: 13px; color: var(--fg-mute); flex-shrink: 0; }
+.admin-toolbar__divider { width: 1px; height: 18px; background: var(--border); }
+.admin-toolbar__search { width: 280px; max-width: 100%; }
+.admin-toolbar__filter { width: 140px; padding: 8px 10px; font-size: 13px; }
+
+@media (max-width: 900px) {
+  .admin-toolbar { gap: 12px; }
+  .admin-toolbar__left,
+  .admin-toolbar__right { width: 100%; }
+  .admin-toolbar__divider { display: none; }
+  .admin-toolbar__search { width: 100%; }
+  .admin-toolbar__filter { flex: 1 1 140px; min-width: 0; }
+  .admin-toolbar__right .btn { flex: 1; justify-content: center; min-width: 0; }
+}
+
+/* ============================================
+   Tabs: scroll horizontally when they overflow
+   ============================================ */
+.tabs {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  flex-wrap: nowrap;
+  scrollbar-width: thin;
+}
+.tabs::-webkit-scrollbar { height: 4px; }
+.tab { white-space: nowrap; flex-shrink: 0; }
+
+/* ============================================
+   KPI cards: 2-up on tablet, 1-up on tiny phones
+   ============================================ */
+@media (max-width: 900px) and (min-width: 480px) {
+  .kpi-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px; }
+  .kpi { padding: 16px; }
+  .kpi-val { font-size: 24px; }
+}
+@media (max-width: 479px) {
+  .kpi-grid { grid-template-columns: 1fr !important; }
+}
+
+/* ============================================
+   Admin Topbar trims (small phones)
+   ============================================ */
+@media (max-width: 700px) {
+  .admin-top { gap: 6px !important; }
+  .admin-crumbs { font-size: 12px; }
+  .admin-crumbs > span:first-child { display: none; }
+  .admin-crumbs > svg { display: none; }
+  .admin-user { gap: 6px; }
+  .avatar { width: 30px; height: 30px; }
+}
+
+/* ============================================
+   Page head: stack title + actions on mobile
+   ============================================ */
+@media (max-width: 700px) {
+  .page-head { flex-direction: column; align-items: stretch; gap: 12px; margin-bottom: 20px; }
+  .page-head > :nth-child(2) { display: flex; gap: 8px; flex-wrap: wrap; }
+  .page-head > :nth-child(2) .btn { flex: 1; justify-content: center; min-width: 0; }
+}
 
 /* ============================================
    Admin: inquiries split (list + detail pane)
