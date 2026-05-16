@@ -63,22 +63,33 @@ export default function CareersPage() {
               </div>
             </div>
             {open.map((j) => (
-              <div key={j.id} style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr auto", gap: 24, padding: "20px 0", borderTop: "1px solid var(--border)", alignItems: "center" }}>
-                <div>
+              <div
+                key={j.id}
+                className="role-row"
+                style={{
+                  padding: "20px 0",
+                  borderTop: "1px solid var(--border)",
+                }}
+              >
+                <div className="role-row__title">
                   <div style={{ fontWeight: 500, fontSize: 16 }}>{j.title}</div>
                   <div style={{ color: "var(--fg-mute)", fontSize: 13, marginTop: 4 }}>{j.team} · {j.level}</div>
                 </div>
-                <div style={{ color: "var(--fg-dim)", fontSize: 13.5 }}>{j.location}</div>
-                <div style={{ color: "var(--fg-dim)", fontSize: 13.5 }}>{j.type}</div>
-                <div className="mono" style={{ color: "var(--fg-faint)", fontSize: 12 }}>Posted {j.posted}</div>
-                <Button variant="ghost" size="sm" href={`/careers/apply?role=${encodeURIComponent(j.id)}`}>
-                  Apply <Icon name="arrow" size={12} />
-                </Button>
+                <div className="role-row__meta">
+                  <span style={{ color: "var(--fg-dim)", fontSize: 13.5 }}>{j.location}</span>
+                  <span style={{ color: "var(--fg-dim)", fontSize: 13.5 }}>{j.type}</span>
+                  <span className="mono" style={{ color: "var(--fg-faint)", fontSize: 12 }}>Posted {j.posted}</span>
+                </div>
+                <div className="role-row__apply">
+                  <Button variant="ghost" size="sm" href={`/careers/apply?role=${encodeURIComponent(j.id)}`}>
+                    Apply <Icon name="arrow" size={12} />
+                  </Button>
+                </div>
               </div>
             ))}
           </div>
 
-          <div style={{ marginTop: 80, display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }}>
+          <div className="grid-3" style={{ marginTop: 80 }}>
             {PERKS.map(([k, v]) => (
               <div key={k} className="card">
                 <h4 style={{ margin: 0, fontSize: 16, fontWeight: 500 }}>{k}</h4>

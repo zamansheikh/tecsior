@@ -6,7 +6,13 @@ import { useState } from "react";
 import { Icon } from "@/components/ui/icon";
 import { getCurrentSectionLabel } from "./sidebar";
 
-export function Topbar({ user }: { user: { name: string; email: string; initials: string } }) {
+export function Topbar({
+  user,
+  onMenuClick,
+}: {
+  user: { name: string; email: string; initials: string };
+  onMenuClick?: () => void;
+}) {
   const pathname = usePathname();
   const router = useRouter();
   const label = getCurrentSectionLabel(pathname);
@@ -21,12 +27,22 @@ export function Topbar({ user }: { user: { name: string; email: string; initials
 
   return (
     <div className="admin-top">
-      <div className="admin-crumbs">
-        <span>Admin</span>
-        <Icon name="chevron" size={12} />
-        <span className="now">{label}</span>
+      <div style={{ display: "flex", alignItems: "center", gap: 12, minWidth: 0 }}>
+        <button
+          type="button"
+          className="menu-btn"
+          onClick={onMenuClick}
+          aria-label="Open menu"
+        >
+          <Icon name="layers" size={16} />
+        </button>
+        <div className="admin-crumbs">
+          <span>Admin</span>
+          <Icon name="chevron" size={12} />
+          <span className="now">{label}</span>
+        </div>
       </div>
-      <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
         <div className="admin-search">
           <Icon name="search" size={14} />
           <input placeholder="Search anything — posts, people, inquiries…" />

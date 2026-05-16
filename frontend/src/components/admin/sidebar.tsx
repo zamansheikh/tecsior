@@ -50,10 +50,10 @@ const GROUPS: Group[] = [
   },
 ];
 
-export function Sidebar() {
+export function Sidebar({ open = false }: { open?: boolean }) {
   const pathname = usePathname();
   return (
-    <aside className="admin-side">
+    <aside className={cn("admin-side", open && "open")}>
       <div className="side-brand">
         <Image src="/logo.png" alt="PN" width={26} height={26} />
         <div>

@@ -72,7 +72,7 @@ export default async function ServicesPage() {
             Three ways <em>to work</em> with us.
           </h2>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginTop: 48 }}>
+          <div className="grid-3" style={{ marginTop: 48 }}>
             {MODELS.map((m) => (
               <div
                 key={m.title}

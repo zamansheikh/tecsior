@@ -16,7 +16,7 @@ export default function TestimonialsAdminPage() {
     <>
       <PageHead title="Testimonials" sub="What clients say about us. Featured testimonials appear on the homepage." />
       <AdminToolbar count={SEED_TESTIMONIALS.length} label="testimonials" search={search} onSearch={setSearch} actionLabel="New testimonial" onAction={() => {}} />
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+      <div className="grid-2">
         {items.map((t) => (
           <div key={t.id} className="card" style={{ position: "relative" }}>
             {t.featured && (

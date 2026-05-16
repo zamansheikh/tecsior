@@ -66,7 +66,7 @@ export default function ContactPage() {
       </section>
 
       <section style={{ paddingBottom: 120 }}>
-        <div className="wrap" style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 80, alignItems: "start" }}>
+        <div className="wrap grid-split-form">
           <div className="panel" style={{ padding: 40 }}>
             {status === "sent" ? (
               <div style={{ textAlign: "center", padding: "60px 0" }}>
@@ -83,7 +83,7 @@ export default function ContactPage() {
               </div>
             ) : (
               <form onSubmit={submit}>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+                <div className="grid-2" style={{ gap: 20 }}>
                   <div className="field">
                     <label>Your name</label>
                     <input className="input" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Daniel Okafor" required />

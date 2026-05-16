@@ -34,7 +34,7 @@ export default function PortfolioAdminPage() {
         actionLabel="New case study"
         onAction={() => {}}
       />
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+      <div className="grid-3">
         {filtered.map((p) => (
           <div key={p.id} className="card card-hover" style={{ padding: 0, overflow: "hidden" }}>
             <div style={{ aspectRatio: "16/10", position: "relative", background: `linear-gradient(135deg, ${p.color}26, ${p.color}06)` }}>

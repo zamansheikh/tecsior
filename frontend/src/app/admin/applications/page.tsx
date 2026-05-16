@@ -30,7 +30,7 @@ export default function ApplicationsAdminPage() {
   return (
     <>
       <PageHead title="Applications" sub="47 active candidates across the funnel" />
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 8, marginBottom: 24 }}>
+      <div className="grid-6" style={{ gap: 8, marginBottom: 24 }}>
         {STAGES.map((s, i) => (
           <div key={s} className="card" style={{ padding: 16, borderColor: i === 0 ? "var(--accent)" : "var(--border)" }}>
             <div className="mono" style={{ fontSize: 10, color: "var(--fg-faint)", letterSpacing: "0.1em", textTransform: "uppercase" }}>

@@ -28,7 +28,7 @@ export default function InquiriesAdminPage() {
   return (
     <>
       <PageHead title="Contact inquiries" sub="2 new · 5 awaiting reply · avg. response 4h 12m" />
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 380px", gap: 16 }}>
+      <div className="inquiries-split">
         <div className="panel" style={{ padding: 0, overflow: "hidden" }}>
           <table className="dt">
             <thead>
@@ -61,7 +61,7 @@ export default function InquiriesAdminPage() {
           </table>
         </div>
 
-        <div className="panel" style={{ padding: 24, position: "sticky", top: 84, alignSelf: "start" }}>
+        <div className="panel inquiries-detail" style={{ padding: 24 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
             <div>
               <div className="row-id">{selected.id}</div>

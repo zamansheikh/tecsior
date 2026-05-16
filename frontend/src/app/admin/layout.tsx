@@ -1,6 +1,5 @@
 import { redirect } from "next/navigation";
-import { Sidebar } from "@/components/admin/sidebar";
-import { Topbar } from "@/components/admin/topbar";
+import { AdminShell } from "@/components/admin/admin-shell";
 import { adminAuthHeader } from "@/lib/auth-cookie";
 
 export const metadata = {
@@ -27,7 +26,6 @@ async function fetchMe(): Promise<Me | null> {
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const me = await fetchMe();
   if (!me) {
-    // Cookie exists (middleware passed) but JWT was rejected — force re-login.
     redirect("/login");
   }
 
@@ -41,12 +39,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       .toUpperCase();
 
   return (
-    <div className="admin">
-      <Sidebar />
-      <main className="admin-main">
-        <Topbar user={{ name: me.name, email: me.email, initials }} />
-        <div className="admin-content">{children}</div>
-      </main>
-    </div>
+    <AdminShell user={{ name: me.name, email: me.email, initials }}>
+      {children}
+    </AdminShell>
   );
 }

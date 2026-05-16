@@ -39,7 +39,7 @@ export default async function AboutPage() {
       </section>
 
       <section style={{ padding: "40px 0 100px" }}>
-        <div className="wrap" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80 }}>
+        <div className="wrap grid-split">
           <div>
             <p style={{ fontSize: 18, lineHeight: 1.6, color: "var(--fg-dim)" }}>
               <span className="serif" style={{ fontSize: 64, lineHeight: 0.8, float: "left", marginRight: 12, marginTop: 6, color: "var(--accent)" }}>P</span>
@@ -90,7 +90,7 @@ export default async function AboutPage() {
               See open roles <Icon name="arrow" size={14} />
             </Button>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+          <div className="grid-3">
             {team.map((t) => (
               <div key={t.name} className="card card-hover" style={{ padding: 24 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
@@ -118,7 +118,7 @@ export default async function AboutPage() {
               <h2 className="h2 display-mix" style={{ marginTop: 16 }}>Programmer Nexus, <em>in figures</em>.</h2>
             </div>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+          <div className="grid-4">
             {NUMBERS.map(([n, l]) => (
               <div key={l} className="panel" style={{ padding: 28 }}>
                 <div className="stat-num gradient-text">{n}</div>

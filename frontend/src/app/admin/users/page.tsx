@@ -82,7 +82,7 @@ export default function UsersAdminPage() {
       </div>
 
       <h3 style={{ margin: "32px 0 16px", fontSize: 16, fontWeight: 500 }}>Roles & permissions</h3>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+      <div className="grid-4">
         {ROLES.map((r) => (
           <div key={r.name} className="card">
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>

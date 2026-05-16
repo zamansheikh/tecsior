@@ -68,7 +68,7 @@ export function ApplyForm({ roles, initialRoleId }: { roles: Career[]; initialRo
 
   return (
     <form onSubmit={submit} className="panel" style={{ padding: 40 }}>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+      <div className="grid-2" style={{ gap: 20 }}>
         <div className="field" style={{ gridColumn: "span 2" }}>
           <label>Role</label>
           <select

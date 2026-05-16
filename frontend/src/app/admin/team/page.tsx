@@ -36,7 +36,7 @@ export default function TeamAdminPage() {
         actionLabel="Add member"
         onAction={() => {}}
       />
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+      <div className="grid-4">
         {filtered.map((p, i) => (
           <div key={p.name} className="card card-hover" style={{ padding: 20 }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>

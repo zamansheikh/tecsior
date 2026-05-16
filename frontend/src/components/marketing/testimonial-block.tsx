@@ -6,7 +6,7 @@ export function TestimonialBlock({ testimonial }: { testimonial: Testimonial }) 
   return (
     <section className="section" style={{ borderTop: "1px solid var(--border)" }}>
       <div className="wrap">
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
+        <div className="grid-split" style={{ alignItems: "center" }}>
           <div>
             <div className="eyebrow"><span className="dot" /> Client letter №01</div>
             <div className="quote-block" style={{ marginTop: 28 }}>“{testimonial.quote}”</div>
@@ -24,7 +24,7 @@ export function TestimonialBlock({ testimonial }: { testimonial: Testimonial }) 
             <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--fg-mute)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 24 }}>
               Outcomes — Meridian Capital
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 28 }}>
+            <div className="grid-2" style={{ gap: 28 }}>
               <div><div className="stat-num accent-text">9 mo</div><div className="stat-label">Full replatform</div></div>
               <div><div className="stat-num accent-text">$1.2B</div><div className="stat-label">Daily volume served</div></div>
               <div><div className="stat-num accent-text">−68%</div><div className="stat-label">P99 latency</div></div>

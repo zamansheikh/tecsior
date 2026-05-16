@@ -34,21 +34,7 @@ function HeroSwitcher({ value, onChange }: { value: Variant; onChange: (v: Varia
     { v: "editorial", label: "Serif" },
   ];
   return (
-    <div
-      style={{
-        position: "fixed",
-        bottom: 24,
-        right: 24,
-        zIndex: 80,
-        display: "flex",
-        gap: 4,
-        padding: 6,
-        background: "rgba(7,9,12,0.85)",
-        border: "1px solid var(--border)",
-        borderRadius: 999,
-        backdropFilter: "blur(12px)",
-      }}
-    >
+    <div className="hero-switcher">
       {opts.map((o) => (
         <button
           key={o.v}
