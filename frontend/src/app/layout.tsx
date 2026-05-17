@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Programmer Nexus — Senior engineering studio",
+  title: "Tecsior — Senior engineering studio",
   description:
     "A senior-only engineering studio for fintech, health, and AI-native products.",
   icons: { icon: "/logo.png" },

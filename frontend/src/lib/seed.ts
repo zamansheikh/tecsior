@@ -55,7 +55,7 @@ export const SEED_CAREERS: Career[] = [
 ];
 
 export const SEED_TESTIMONIALS: Testimonial[] = [
-  { id: "t-01", quote: "Programmer Nexus rebuilt our core trading platform in nine months. The team operates more like a partner than a vendor.", author: "Daniel Okafor", role: "CTO, Meridian Capital", featured: true },
+  { id: "t-01", quote: "Tecsior rebuilt our core trading platform in nine months. The team operates more like a partner than a vendor.", author: "Daniel Okafor", role: "CTO, Meridian Capital", featured: true },
   { id: "t-02", quote: "Their AI team shipped an evals harness that finally let us release with confidence. Production hallucinations dropped 84%.", author: "Priya Iyer", role: "VP Engineering, Stellar Health", featured: true },
   { id: "t-03", quote: "The most senior bench we've worked with. No warm bodies, every engineer pulls their weight from day one.", author: "Wren Beaumont", role: "Head of Product, Loom Studio", featured: false },
   { id: "t-04", quote: "They replaced a 14-person consultancy with a 4-person squad and we shipped three times faster.", author: "Hana Sato", role: "Founder, Origami Labs", featured: true },
@@ -82,12 +82,12 @@ export const SEED_APPLICATIONS: Application[] = [
 ];
 
 export const SEED_USERS: User[] = [
-  { id: "u-01", name: "Zaman Sheikh", email: "zaman@programmernexus.com", role: "Owner", lastActive: "2 min ago", initials: "ZS", you: true },
-  { id: "u-02", name: "Mehedi Hasan", email: "mehedi@programmernexus.com", role: "Admin", lastActive: "11 min ago", initials: "MH" },
-  { id: "u-03", name: "Aria Mahmud", email: "aria@programmernexus.com", role: "Editor", lastActive: "1h ago", initials: "AM" },
-  { id: "u-04", name: "Sadia Karim", email: "sadia@programmernexus.com", role: "Editor", lastActive: "3h ago", initials: "SK" },
-  { id: "u-05", name: "Tahsin Rahman", email: "tahsin@programmernexus.com", role: "Author", lastActive: "Yesterday", initials: "TR" },
-  { id: "u-06", name: "Junaid Ali", email: "junaid@programmernexus.com", role: "Viewer", lastActive: "2d ago", initials: "JA" },
+  { id: "u-01", name: "Zaman Sheikh", email: "zaman@tecsior.com", role: "Owner", lastActive: "2 min ago", initials: "ZS", you: true },
+  { id: "u-02", name: "Mehedi Hasan", email: "mehedi@tecsior.com", role: "Admin", lastActive: "11 min ago", initials: "MH" },
+  { id: "u-03", name: "Aria Mahmud", email: "aria@tecsior.com", role: "Editor", lastActive: "1h ago", initials: "AM" },
+  { id: "u-04", name: "Sadia Karim", email: "sadia@tecsior.com", role: "Editor", lastActive: "3h ago", initials: "SK" },
+  { id: "u-05", name: "Tahsin Rahman", email: "tahsin@tecsior.com", role: "Author", lastActive: "Yesterday", initials: "TR" },
+  { id: "u-06", name: "Junaid Ali", email: "junaid@tecsior.com", role: "Viewer", lastActive: "2d ago", initials: "JA" },
 ];
 
 export const SEED_ACTIVITY = [

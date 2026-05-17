@@ -26,7 +26,7 @@ import { UploadsModule } from "./uploads/uploads.module";
         }
         return {
           uri,
-          dbName: cfg.get<string>("MONGODB_DB") ?? "programmer_nexus",
+          dbName: cfg.get<string>("MONGODB_DB") ?? "tecsior",
           serverSelectionTimeoutMS: 15_000,
         };
       },

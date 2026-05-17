@@ -29,7 +29,7 @@ export function TopNav() {
         <div className="wrap topnav-inner">
           <Link className="brand" href="/">
             <Image src="/logo.png" alt="" width={28} height={28} priority />
-            <span>Programmer Nexus</span>
+            <span>Tecsior</span>
             <span className="brand-mark">EST. 2019</span>
           </Link>
           <nav className="nav-links">

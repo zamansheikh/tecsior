@@ -9,7 +9,7 @@ export function Footer() {
           <div>
             <div className="brand" style={{ marginBottom: 20 }}>
               <Image src="/logo.png" alt="" width={28} height={28} />
-              <span>Programmer Nexus</span>
+              <span>Tecsior</span>
             </div>
             <p style={{ color: "var(--fg-mute)", fontSize: 14, maxWidth: 360, lineHeight: 1.6 }}>
               A senior-only engineering studio for fintech, health and AI-native products. Engineered in Dhaka, London and Lagos.
@@ -41,9 +41,9 @@ export function Footer() {
             <h5>Contact</h5>
             <ul>
               <li><Link href="/contact">Start a project</Link></li>
-              <li><a href="mailto:partners@programmernexus.com">Partnerships</a></li>
-              <li><a href="mailto:press@programmernexus.com">Press inquiries</a></li>
-              <li><a href="mailto:careers@programmernexus.com">Careers</a></li>
+              <li><a href="mailto:partners@tecsior.com">Partnerships</a></li>
+              <li><a href="mailto:press@tecsior.com">Press inquiries</a></li>
+              <li><a href="mailto:careers@tecsior.com">Careers</a></li>
             </ul>
           </div>
           <div className="footer-col">
@@ -56,7 +56,7 @@ export function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© 2026 Programmer Nexus Ltd. All rights reserved.</span>
+          <span>© 2026 Tecsior Ltd. All rights reserved.</span>
           <span>
             <Link href="/privacy" style={{ marginRight: 24 }}>Privacy</Link>
             <Link href="/terms" style={{ marginRight: 24 }}>Terms</Link>

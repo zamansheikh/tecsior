@@ -1,6 +1,6 @@
 import { LegalPage } from "@/components/marketing/legal-page";
 
-export const metadata = { title: "Terms — Programmer Nexus" };
+export const metadata = { title: "Terms — Tecsior" };
 
 export default function Terms() {
   return (
@@ -25,7 +25,7 @@ export default function Terms() {
         {
           heading: "3. Intellectual property",
           body: [
-            "All site content, including text, design and code samples, is © 2026 Programmer Nexus Ltd. You may quote with attribution; you may not redistribute substantial portions without permission.",
+            "All site content, including text, design and code samples, is © 2026 Tecsior Ltd. You may quote with attribution; you may not redistribute substantial portions without permission.",
           ],
         },
         {

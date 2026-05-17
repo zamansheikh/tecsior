@@ -115,7 +115,7 @@ export default async function AboutPage() {
           <div className="section-head">
             <div className="section-head-l">
               <div className="eyebrow"><span className="dot" /> By the numbers</div>
-              <h2 className="h2 display-mix" style={{ marginTop: 16 }}>Programmer Nexus, <em>in figures</em>.</h2>
+              <h2 className="h2 display-mix" style={{ marginTop: 16 }}>Tecsior, <em>in figures</em>.</h2>
             </div>
           </div>
           <div className="grid-4">

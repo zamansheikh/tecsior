@@ -16,7 +16,7 @@ export interface UploadResult {
 export class UploadsService implements OnModuleInit {
   private readonly logger = new Logger(UploadsService.name);
   private configured = false;
-  private folder = "programmer-nexus";
+  private folder = "tecsior";
 
   constructor(private readonly config: ConfigService) {}
 

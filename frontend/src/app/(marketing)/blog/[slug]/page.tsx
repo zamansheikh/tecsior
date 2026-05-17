@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const posts = await getPosts();
   const post = posts.find((p) => p.id === slug);
   return {
-    title: post ? `${post.title} — Programmer Nexus` : "Post not found — Programmer Nexus",
+    title: post ? `${post.title} — Tecsior` : "Post not found — Tecsior",
     description: post ? `${post.category} · ${post.author} · ${post.read} read` : undefined,
   };
 }
@@ -74,7 +74,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               so layout, typography and reading experience can be tested end-to-end.
             </p>
             <p>
-              Programmer Nexus publishes engineering writeups from real production work. We avoid
+              Tecsior publishes engineering writeups from real production work. We avoid
               listicles, repurposed twitter threads, and content marketing. Every post here is
               written by the senior practitioner who shipped the system being described.
             </p>

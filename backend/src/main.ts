@@ -22,7 +22,7 @@ async function bootstrap() {
   const port = Number(process.env.PORT ?? 4000);
   await app.listen(port);
   // eslint-disable-next-line no-console
-  console.log(`Programmer Nexus API → http://localhost:${port}/api`);
+  console.log(`Tecsior API → http://localhost:${port}/api`);
 }
 
 bootstrap();

@@ -40,7 +40,7 @@ export function MobileNav({
       <div className="mobile-nav-overlay-top">
         <Link href="/" className="brand" onClick={onClose}>
           <Image src="/logo.png" alt="" width={28} height={28} />
-          <span>Programmer Nexus</span>
+          <span>Tecsior</span>
         </Link>
         <button className="mobile-nav-toggle" onClick={onClose} aria-label="Close menu">
           <span style={{ display: "inline-block", transform: "rotate(45deg)", lineHeight: 0 }}>

@@ -1,6 +1,6 @@
 import { LegalPage } from "@/components/marketing/legal-page";
 
-export const metadata = { title: "Privacy — Programmer Nexus" };
+export const metadata = { title: "Privacy — Tecsior" };
 
 export default function Privacy() {
   return (
@@ -33,7 +33,7 @@ export default function Privacy() {
         {
           heading: "4. Your rights",
           body: [
-            "You can request a copy of, correction to, or deletion of any record we hold about you by emailing privacy@programmernexus.com. We will respond within 14 days.",
+            "You can request a copy of, correction to, or deletion of any record we hold about you by emailing privacy@tecsior.com. We will respond within 14 days.",
           ],
         },
       ]}

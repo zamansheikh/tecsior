@@ -55,12 +55,12 @@ export function Sidebar({ open = false }: { open?: boolean }) {
   return (
     <aside className={cn("admin-side", open && "open")}>
       <div className="side-brand">
-        <Image src="/logo.png" alt="PN" width={26} height={26} />
+        <Image src="/logo.png" alt="Tecsior" width={26} height={26} />
         <div>
-          <div className="side-brand-name">Programmer Nexus</div>
+          <div className="side-brand-name">Tecsior</div>
           <div style={{ fontSize: 11, color: "var(--fg-faint)" }}>Admin · v0.1</div>
         </div>
-        <div className="side-brand-mark">PN</div>
+        <div className="side-brand-mark">TS</div>
       </div>
 
       {GROUPS.map((g) => (

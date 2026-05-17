@@ -3,7 +3,7 @@ import { AdminShell } from "@/components/admin/admin-shell";
 import { adminAuthHeader } from "@/lib/auth-cookie";
 
 export const metadata = {
-  title: "Admin · Programmer Nexus",
+  title: "Admin · Tecsior",
   robots: { index: false, follow: false },
 };
 

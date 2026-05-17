@@ -6,7 +6,7 @@ export class HealthController {
   check() {
     return {
       status: "ok",
-      service: "programmer-nexus-api",
+      service: "tecsior-api",
       ts: new Date().toISOString(),
     };
   }

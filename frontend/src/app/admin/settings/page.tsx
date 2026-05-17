@@ -26,9 +26,9 @@ export default function WorkspaceSettingsPage() {
           <div className="panel" style={{ padding: 28 }}>
             <h3 style={{ margin: "0 0 20px", fontSize: 16, fontWeight: 500 }}>General</h3>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              <div className="field"><label>Workspace name</label><input className="input" defaultValue="Programmer Nexus" /></div>
-              <div className="field"><label>Public domain</label><input className="input" defaultValue="programmernexus.com" /></div>
-              <div className="field"><label>Admin domain</label><input className="input" defaultValue="admin.programmernexus.com" /></div>
+              <div className="field"><label>Workspace name</label><input className="input" defaultValue="Tecsior" /></div>
+              <div className="field"><label>Public domain</label><input className="input" defaultValue="tecsior.com" /></div>
+              <div className="field"><label>Admin domain</label><input className="input" defaultValue="admin.tecsior.com" /></div>
               <div className="field">
                 <label>Default timezone</label>
                 <select className="select">

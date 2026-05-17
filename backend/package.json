@@ -1,8 +1,8 @@
 {
-  "name": "programmer-nexus-backend",
+  "name": "tecsior-backend",
   "version": "0.1.0",
   "private": true,
-  "description": "Programmer Nexus REST API",
+  "description": "Tecsior REST API",
   "scripts": {
     "build": "nest build",
     "start": "nest start",

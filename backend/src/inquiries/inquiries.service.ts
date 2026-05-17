@@ -88,7 +88,7 @@ export class InquiriesService implements OnModuleInit {
   private async notify(inquiry: Inquiry): Promise<void> {
     const apiKey = this.config.get<string>("RESEND_API_KEY");
     const to = this.config.get<string>("CONTACT_EMAIL");
-    const from = this.config.get<string>("FROM_EMAIL") ?? "Programmer Nexus <hello@programmernexus.com>";
+    const from = this.config.get<string>("FROM_EMAIL") ?? "Tecsior <hello@tecsior.com>";
     if (!apiKey || !to) {
       this.logger.warn(`Resend not configured — skipped email for ${inquiry.id}`);
       return;

@@ -1,6 +1,6 @@
 import { LegalPage } from "@/components/marketing/legal-page";
 
-export const metadata = { title: "Security — Programmer Nexus" };
+export const metadata = { title: "Security — Tecsior" };
 
 export default function Security() {
   return (
@@ -26,7 +26,7 @@ export default function Security() {
         {
           heading: "Disclosure",
           body: [
-            "If you believe you have found a security issue, please email security@programmernexus.com. We aim to acknowledge within 24 hours and provide a fix or mitigation within 5 business days for high-severity issues.",
+            "If you believe you have found a security issue, please email security@tecsior.com. We aim to acknowledge within 24 hours and provide a fix or mitigation within 5 business days for high-severity issues.",
           ],
         },
         {

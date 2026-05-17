@@ -38,7 +38,7 @@ export default function SiteSettingsPage() {
             <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
               <div className="field">
                 <label>Eyebrow text</label>
-                <input className="input" defaultValue="Programmer Nexus / Engineered software" />
+                <input className="input" defaultValue="Tecsior / Engineered software" />
               </div>
               <div className="field">
                 <label>Headline</label>
@@ -79,7 +79,7 @@ export default function SiteSettingsPage() {
               </div>
               <div style={{ background: "var(--surface-0)", border: "1px solid var(--border)", borderRadius: 8, padding: 24, minHeight: 280 }}>
                 <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--fg-faint)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 14 }}>
-                  Programmer Nexus / Engineered software
+                  Tecsior / Engineered software
                 </div>
                 <div style={{ fontSize: 28, fontWeight: 500, letterSpacing: "-0.02em", lineHeight: 1.05 }}>{hero.headline}</div>
                 <div style={{ color: "var(--fg-mute)", fontSize: 13.5, marginTop: 14, lineHeight: 1.5 }}>{hero.sub}</div>

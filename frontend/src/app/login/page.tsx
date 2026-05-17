@@ -3,7 +3,7 @@ import Link from "next/link";
 import { LoginForm } from "./login-form";
 
 export const metadata = {
-  title: "Admin sign in — Programmer Nexus",
+  title: "Admin sign in — Tecsior",
   robots: { index: false, follow: false },
 };
 
@@ -35,7 +35,7 @@ export default async function LoginPage({
       <div className="panel" style={{ width: "100%", maxWidth: 420, padding: 36, position: "relative", zIndex: 1 }}>
         <Link href="/" className="brand" style={{ marginBottom: 24, justifyContent: "center" }}>
           <Image src="/logo.png" alt="" width={28} height={28} />
-          <span>Programmer Nexus</span>
+          <span>Tecsior</span>
         </Link>
 
         <div style={{ textAlign: "center", marginBottom: 28 }}>

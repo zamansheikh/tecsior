@@ -4,7 +4,7 @@ import { getCareers } from "@/lib/content";
 export const revalidate = 60;
 
 export const metadata = {
-  title: "Apply — Programmer Nexus careers",
+  title: "Apply — Tecsior careers",
 };
 
 export default async function ApplyPage({

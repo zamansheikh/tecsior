@@ -7,9 +7,9 @@ import { Icon } from "@/components/ui/icon";
 type Budget = "$50k–$100k" | "$100k–$250k" | "$250k–$500k" | "$500k+" | "Not sure yet";
 
 const DIRECT_LINES: Array<[string, string]> = [
-  ["Partnerships & RFPs", "partners@programmernexus.com"],
-  ["Careers", "hello@programmernexus.com"],
-  ["Press", "press@programmernexus.com"],
+  ["Partnerships & RFPs", "partners@tecsior.com"],
+  ["Careers", "hello@tecsior.com"],
+  ["Press", "press@tecsior.com"],
 ];
 
 const OFFICES: Array<[string, string]> = [
@@ -75,7 +75,7 @@ export default function ContactPage() {
                 </div>
                 <h3 className="h3">Thanks — we&apos;ll be in touch within one business day.</h3>
                 <p style={{ color: "var(--fg-mute)", marginTop: 12 }}>
-                  Inquiry routed to: <span className="mono">partners@programmernexus.com</span>
+                  Inquiry routed to: <span className="mono">partners@tecsior.com</span>
                 </p>
                 <div style={{ marginTop: 24 }}>
                   <Button variant="ghost" onClick={reset}>Send another</Button>

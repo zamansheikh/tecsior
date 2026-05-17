@@ -1,4 +1,4 @@
-# Programmer Nexus
+# Tecsior
 
 Senior engineering studio — marketing site + admin console.
 
@@ -57,14 +57,14 @@ Environment variables to add in **Project → Settings → Environment Variables
 
 ```
 MONGODB_URI=mongodb+srv://...
-MONGODB_DB=programmer_nexus
-ADMIN_EMAIL=admin@your-domain.com
+MONGODB_DB=tecsior
+ADMIN_EMAIL=admin@tecsior.com
 ADMIN_PASSWORD=...                  # used once to seed the admin user
 ADMIN_NAME=Admin
 JWT_SECRET=<48+ random bytes>       # node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"
 JWT_EXPIRES_IN=7d
 CLOUDINARY_URL=cloudinary://<key>:<secret>@<cloud>
-CLOUDINARY_FOLDER=programmer-nexus
+CLOUDINARY_FOLDER=tecsior
 UPLOAD_MAX_BYTES=10485760
 RESEND_API_KEY=re_...               # optional
 CONTACT_EMAIL=                      # optional

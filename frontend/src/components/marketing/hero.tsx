@@ -59,7 +59,7 @@ function HeroAnimated() {
       </div>
       <div className="wrap hero-inner">
         <div className="fade-up" style={{ maxWidth: 1000 }}>
-          <div className="eyebrow"><span className="dot" /> Programmer Nexus / Engineered software</div>
+          <div className="eyebrow"><span className="dot" /> Tecsior / Engineered software</div>
           <h1 className="h1 gradient-text display-mix" style={{ marginTop: 28 }}>
             We build the software<br />
             <em>serious teams</em> stake<br />
@@ -124,7 +124,7 @@ function HeroSplit() {
             <div className="code-card">
               <div className="code-head">
                 <span className="code-dot" /><span className="code-dot" /><span className="code-dot" />
-                <span className="code-title">engagement.ts — programmer-nexus</span>
+                <span className="code-title">engagement.ts — tecsior</span>
               </div>
               <div className="code-body">
                 <div><span className="c">// What you get on day one</span></div>
@@ -169,7 +169,7 @@ function HeroEditorial() {
             </span>
           </h1>
           <p className="lead" style={{ marginTop: 28 }}>
-            Programmer Nexus is a senior engineering studio. We design, build, and operate
+            Tecsior is a senior engineering studio. We design, build, and operate
             production systems for fintech, health and AI-native products. No juniors, no warm bodies.
           </p>
           <div style={{ display: "flex", gap: 12, marginTop: 36, justifyContent: "center", flexWrap: "wrap" }}>
