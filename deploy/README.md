@@ -40,7 +40,7 @@ Run on a fresh Ubuntu 22.04 / 24.04 (or Debian 12) VPS. SSH in as a sudo-capable
 
 ```bash
 # 1. Grab the bootstrap script
-curl -fsSL https://raw.githubusercontent.com/zamansheikh/programmer-nexus/main/deploy/setup-vps.sh -o setup-vps.sh
+curl -fsSL https://raw.githubusercontent.com/zamansheikh/tecsior/main/deploy/setup-vps.sh -o setup-vps.sh
 
 # 2. Run it (defaults: clones to /var/www/tecsior, current user owns)
 sudo bash setup-vps.sh

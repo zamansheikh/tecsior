@@ -16,7 +16,7 @@
 set -euo pipefail
 
 APP_DIR="${APP_DIR:-/var/www/tecsior}"
-REPO_URL="${REPO_URL:-https://github.com/zamansheikh/programmer-nexus.git}"
+REPO_URL="${REPO_URL:-https://github.com/zamansheikh/tecsior.git}"
 BRANCH="${BRANCH:-main}"
 NODE_MAJOR="${NODE_MAJOR:-22}"
 RUN_USER="${RUN_USER:-${SUDO_USER:-$USER}}"
