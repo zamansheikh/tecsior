@@ -12,7 +12,7 @@ export default function PortfolioPage() {
   const [filter, setFilter] = useState<string>("all");
 
   useEffect(() => {
-    const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+    const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:6001";
     fetch(`${base}/api/content/portfolio`)
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => { if (Array.isArray(data) && data.length) setItems(data as PortfolioItem[]); })

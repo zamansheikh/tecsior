@@ -1,4 +1,4 @@
-const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:6001";
 
 type FetchOpts = RequestInit & { next?: { revalidate?: number; tags?: string[] } };
 

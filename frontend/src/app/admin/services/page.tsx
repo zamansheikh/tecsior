@@ -13,7 +13,7 @@ export default function ServicesAdminPage() {
   const [q, setQ] = useState("");
 
   useEffect(() => {
-    const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+    const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:6001";
     fetch(`${base}/api/content/services`)
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => { if (Array.isArray(d) && d.length) setServices(d as Service[]); })

@@ -31,7 +31,7 @@ export default function ContactPage() {
     setStatus("sending");
     setError(null);
     try {
-      const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+      const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:6001";
       const res = await fetch(`${base}/api/inquiries`, {
         method: "POST",
         headers: { "content-type": "application/json" },

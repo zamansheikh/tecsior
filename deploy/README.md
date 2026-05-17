@@ -8,7 +8,7 @@ Self-contained scripts to deploy the monorepo (NestJS backend + Next.js frontend
 |---|---|
 | `setup-vps.sh` | **One-time** VPS bootstrap: installs Node 22 LTS, git, build tools, PM2; clones the repo; wires PM2 into systemd so apps survive reboot. |
 | `deploy.sh` | **Idempotent** deploy: `git fetch` → install → build → `pm2 reload`. Safe to re-run. Used by both the manual flow and the GitHub Action. |
-| `ecosystem.config.js` | PM2 process map (`tecsior-backend` on :4000, `tecsior-frontend` on :3000). |
+| `ecosystem.config.js` | PM2 process map (`tecsior-backend` on :6001, `tecsior-frontend` on :6000). |
 | `nginx.conf.template` | Reverse proxy: marketing at `tecsior.com`, API at `api.tecsior.com`. |
 
 ## Architecture on the VPS
@@ -17,8 +17,8 @@ Self-contained scripts to deploy the monorepo (NestJS backend + Next.js frontend
               ┌──────────────────────────────┐
    :443 ─────►│ nginx (TLS via certbot)      │
               ├──────────────────────────────┤
-              │ tecsior.com     → 127.0.0.1:3000  (Next.js / next start)
-              │ api.tecsior.com → 127.0.0.1:4000  (NestJS  / node dist/main.js)
+              │ tecsior.com     → 127.0.0.1:6000  (Next.js / next start)
+              │ api.tecsior.com → 127.0.0.1:6001  (NestJS  / node dist/main.js)
               └──────────────────────────────┘
                           │
                           ▼  (PM2 keeps both alive, restarts on crash, boots on reboot)
@@ -77,15 +77,68 @@ sudo -u $USER bash /var/www/tecsior/deploy/deploy.sh
 That pulls the latest code, installs both apps, builds them, and starts PM2. After ~30s:
 ```bash
 pm2 status              # both apps "online"
-curl localhost:4000/api/health    # {"status":"ok","service":"tecsior-api",...}
-curl -I localhost:3000            # 200 OK (Next.js)
+curl localhost:6001/api/health    # {"status":"ok","service":"tecsior-api",...}
+curl -I localhost:6000            # 200 OK (Next.js)
 ```
+
+---
+
+## DNS — what to set in Cloudflare (or any DNS provider)
+
+You need **two subdomains** pointing at the VPS — one for the marketing site, one for the API. Using a separate `api.` subdomain avoids the path conflict between Next.js's own `/api/*` routes (e.g. `/api/proxy/*`) and NestJS's `/api/*` controllers.
+
+### Records
+
+In Cloudflare → DNS → Records, add three `A` records pointing at your VPS's public IP:
+
+| Type | Name | Content | Proxy status |
+|---|---|---|---|
+| `A` | `@`   (= apex `tecsior.com`)     | `203.0.113.10` (your VPS IP) | see below |
+| `A` | `www` (= `www.tecsior.com`)      | `203.0.113.10`               | see below |
+| `A` | `api` (= `api.tecsior.com`)      | `203.0.113.10`               | see below |
+
+After these resolve (usually within a minute on Cloudflare), the frontend lives at `https://tecsior.com` and the backend at `https://api.tecsior.com`.
+
+Update `frontend/.env.local` on the VPS to match:
+```
+NEXT_PUBLIC_API_URL=https://api.tecsior.com
+```
+
+…and `backend/.env`:
+```
+CORS_ORIGIN=https://tecsior.com,https://www.tecsior.com
+```
+
+Then `bash deploy/deploy.sh` (because `NEXT_PUBLIC_API_URL` is baked into the Next build, you need a rebuild — not just a `pm2 restart`).
+
+### Proxy mode (the orange/grey cloud toggle)
+
+Two viable setups; pick one:
+
+**Option A — DNS-only (grey cloud) + Let's Encrypt on the VPS** ← simplest, recommended first
+- Toggle the cloud icon to **grey/DNS-only** for all three records.
+- Run `certbot --nginx` on the VPS (instructions in the next section). It uses HTTP-01 challenge, which works because Cloudflare isn't intercepting :80.
+- You give up Cloudflare's DDoS protection and caching but get standard end-to-end TLS with zero config.
+
+**Option B — Cloudflare-proxied (orange cloud) + Cloudflare Origin Certificate** ← cacheable + DDoS-shielded
+- Leave the cloud icon **orange/proxied** for all three records.
+- In Cloudflare → SSL/TLS → Overview, set encryption mode to **"Full (strict)"**.
+- In SSL/TLS → Origin Server → **Create Certificate** → accept defaults (15-year validity, hostnames `*.tecsior.com, tecsior.com`).
+- Save the cert as `/etc/nginx/ssl/tecsior.com.crt` and the key as `/etc/nginx/ssl/tecsior.com.key` on the VPS.
+- In `nginx.conf.template` change the `listen 80` blocks to `listen 443 ssl http2` and reference those files (`ssl_certificate`, `ssl_certificate_key`). Add a 301 redirect from :80 to :443.
+- `certbot` is no longer needed — Cloudflare handles the public TLS, the origin cert encrypts traffic between Cloudflare and your VPS.
+
+If you don't know which to pick, start with Option A. You can move to B later without changing the apps.
+
+### Heads-up about Cloudflare proxy + uploads
+
+If you use Option B and upload large images via the admin, Cloudflare's free plan caps request bodies at **100 MB**. We cap at 10 MB anyway (`UPLOAD_MAX_BYTES`), so this is fine — but worth knowing.
 
 ---
 
 ## nginx + SSL (optional, recommended)
 
-If you want clean URLs and HTTPS instead of `http://your-ip:3000`:
+If you want clean URLs and HTTPS instead of `http://your-ip:6000`:
 
 ```bash
 # 1. Install nginx + certbot

@@ -20,13 +20,13 @@ Senior engineering studio — marketing site + admin console.
 cd backend
 cp .env.example .env          # fill in MONGODB_URI, ADMIN_PASSWORD, JWT_SECRET, CLOUDINARY_URL
 npm install
-npm run start:dev             # → http://localhost:4000
+npm run start:dev             # → http://localhost:6001
 
 # Terminal 2 — frontend
 cd frontend
 cp .env.local.example .env.local 2>/dev/null || true
 npm install
-npm run dev                   # → http://localhost:3000
+npm run dev                   # → http://localhost:6000
 ```
 
 Default admin credentials: whatever you put in `ADMIN_EMAIL` / `ADMIN_PASSWORD`. The user is seeded on first boot.
