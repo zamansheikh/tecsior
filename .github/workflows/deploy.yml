@@ -24,7 +24,8 @@ jobs:
       - name: SSH into VPS and deploy
         uses: appleboy/ssh-action@v1.2.0
         env:
-          APP_DIR: ${{ secrets.VPS_APP_DIR }}
+          # Hardcoded — change here if you bootstrapped the VPS to a different path.
+          APP_DIR: /var/www/tecsior
           REPO_URL: https://github.com/${{ github.repository }}.git
           BRANCH: main
         with:
@@ -36,11 +37,6 @@ jobs:
           envs: APP_DIR,REPO_URL,BRANCH
           script: |
             set -e
-
-            if [ -z "$APP_DIR" ]; then
-              echo "::error::VPS_APP_DIR secret is empty. Set it to the path where the repo should live on the VPS (e.g. /var/www/tecsior)."
-              exit 1
-            fi
 
             # Prereq check — node, npm, git, pm2 must already be installed.
             # deploy/setup-vps.sh handles that bootstrap; we don't auto-install

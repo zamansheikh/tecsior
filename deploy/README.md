@@ -132,8 +132,9 @@ Repo → **Settings → Secrets and variables → Actions → New repository sec
 | `VPS_HOST` | VPS IP or hostname (e.g. `203.0.113.10` or `tecsior.com`) |
 | `VPS_USER` | the SSH user that owns the repo (e.g. `ubuntu`, `deploy`, your username) |
 | `VPS_SSH_KEY` | full contents of `~/.ssh/github_deploy` (the **private** key, with the header/footer lines) |
-| `VPS_APP_DIR` | full path to the repo on the VPS (e.g. `/var/www/tecsior`) |
 | `VPS_SSH_PORT` | optional; defaults to 22 |
+
+> The deploy path is hardcoded to `/var/www/tecsior` in `.github/workflows/deploy.yml` (the `APP_DIR` env). If you bootstrapped the VPS to a different path, edit that one line.
 
 ### 3. Push
 
