@@ -1,0 +1,77 @@
+# Tecsior nginx reverse proxy
+# ------------------------------------------------------------
+# Two server blocks: marketing at the apex domain, API at api.<domain>.
+# Using a separate subdomain for the API avoids the path conflict between
+# Next.js routes under /api/* (e.g. /api/proxy/*) and the NestJS backend.
+#
+# Install:
+#   sudo cp deploy/nginx.conf.template /etc/nginx/sites-available/tecsior
+#   sudo sed -i 's/tecsior.example.com/YOUR-DOMAIN.com/g' /etc/nginx/sites-available/tecsior
+#   sudo ln -sf /etc/nginx/sites-available/tecsior /etc/nginx/sites-enabled/tecsior
+#   sudo nginx -t && sudo systemctl reload nginx
+#
+# SSL (Let's Encrypt):
+#   sudo apt-get install -y certbot python3-certbot-nginx
+#   sudo certbot --nginx -d tecsior.example.com -d www.tecsior.example.com -d api.tecsior.example.com
+#
+# After certbot runs it rewrites this file in place to add the HTTPS
+# blocks and redirect HTTP → HTTPS; you don't need to edit anything else.
+
+# ---------- frontend (marketing + admin UI) -------------------------------
+server {
+  listen 80;
+  listen [::]:80;
+  server_name tecsior.example.com www.tecsior.example.com;
+
+  client_max_body_size 12M;
+
+  # Proxy everything to the Next.js dev/start server on 127.0.0.1:3000
+  location / {
+    proxy_pass http://127.0.0.1:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade           $http_upgrade;
+    proxy_set_header Connection        "upgrade";
+    proxy_set_header Host              $host;
+    proxy_set_header X-Real-IP         $remote_addr;
+    proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Host  $host;
+    proxy_cache_bypass                 $http_upgrade;
+
+    # Streaming / SSE — let bodies flow without buffering
+    proxy_buffering off;
+    proxy_read_timeout 300s;
+  }
+
+  # Long-lived assets emitted by Next can be cached aggressively
+  location /_next/static/ {
+    proxy_pass http://127.0.0.1:3000;
+    proxy_cache_valid 200 365d;
+    add_header Cache-Control "public, max-age=31536000, immutable";
+  }
+}
+
+# ---------- backend API ---------------------------------------------------
+server {
+  listen 80;
+  listen [::]:80;
+  server_name api.tecsior.example.com;
+
+  # Allow up to ~10MB uploads (Cloudinary uploads stream through here)
+  client_max_body_size 12M;
+
+  location / {
+    proxy_pass http://127.0.0.1:4000;
+    proxy_http_version 1.1;
+    proxy_set_header Host              $host;
+    proxy_set_header X-Real-IP         $remote_addr;
+    proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Host  $host;
+
+    # Don't buffer multipart uploads — stream them straight through to Nest
+    proxy_request_buffering off;
+    proxy_buffering         off;
+    proxy_read_timeout      120s;
+  }
+}

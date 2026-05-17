@@ -1,0 +1,38 @@
+name: Deploy to VPS
+
+# Auto-deploy on every push to main.
+# Manually trigger via Actions → "Deploy to VPS" → Run workflow.
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "**/*.md"
+      - "design-system/**"
+      - "logo/**"
+      - ".gitignore"
+  workflow_dispatch:
+
+concurrency:
+  group: vps-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: SSH and run deploy.sh
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH into VPS and deploy
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_SSH_PORT || 22 }}
+          script_stop: true
+          script: |
+            set -e
+            cd "${{ secrets.VPS_APP_DIR }}"
+            # Pull first so we always use the latest deploy.sh
+            git fetch --quiet origin main
+            git reset --hard origin/main --quiet
+            bash deploy/deploy.sh
