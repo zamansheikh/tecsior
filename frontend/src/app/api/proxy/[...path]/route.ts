@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { getAdminToken } from "@/lib/auth-cookie";
 
-const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:6001";
+const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:7001";
 
 /**
  * Authenticated proxy: forwards /api/proxy/<path> from the browser to the

@@ -16,7 +16,7 @@ export default function PortfolioAdminPage() {
   const [saving, setSaving] = useState<string | null>(null);
 
   useEffect(() => {
-    const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:6001";
+    const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:7001";
     fetch(`${base}/api/content/portfolio`)
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => { if (Array.isArray(d) && d.length) setItems(d as PortfolioItem[]); })

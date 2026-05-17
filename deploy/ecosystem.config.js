@@ -33,7 +33,7 @@ module.exports = {
       name: "tecsior-frontend",
       cwd: "./frontend",
       script: "node_modules/next/dist/bin/next",
-      args: "start --port 6000",
+      args: "start --port 7000",
       instances: 1,
       exec_mode: "fork",
       max_memory_restart: "500M",
@@ -41,7 +41,7 @@ module.exports = {
       watch: false,
       env: {
         NODE_ENV: "production",
-        PORT: "6000",
+        PORT: "7000",
       },
       out_file: "/var/log/tecsior/frontend.out.log",
       error_file: "/var/log/tecsior/frontend.err.log",

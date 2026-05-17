@@ -8,7 +8,7 @@ Self-contained scripts to deploy the monorepo (NestJS backend + Next.js frontend
 |---|---|
 | `setup-vps.sh` | **One-time** VPS bootstrap: installs Node 22 LTS, git, build tools, PM2; clones the repo; wires PM2 into systemd so apps survive reboot. |
 | `deploy.sh` | **Idempotent** deploy: `git fetch` → install → build → `pm2 reload`. Safe to re-run. Used by both the manual flow and the GitHub Action. |
-| `ecosystem.config.js` | PM2 process map (`tecsior-backend` on :6001, `tecsior-frontend` on :6000). |
+| `ecosystem.config.js` | PM2 process map (`tecsior-backend` on :7001, `tecsior-frontend` on :7000). |
 | `nginx.conf.template` | Reverse proxy: marketing at `tecsior.com`, API at `api.tecsior.com`. |
 
 ## Architecture on the VPS
@@ -17,8 +17,8 @@ Self-contained scripts to deploy the monorepo (NestJS backend + Next.js frontend
               ┌──────────────────────────────┐
    :443 ─────►│ nginx (TLS via certbot)      │
               ├──────────────────────────────┤
-              │ tecsior.com     → 127.0.0.1:6000  (Next.js / next start)
-              │ api.tecsior.com → 127.0.0.1:6001  (NestJS  / node dist/main.js)
+              │ tecsior.com     → 127.0.0.1:7000  (Next.js / next start)
+              │ api.tecsior.com → 127.0.0.1:7001  (NestJS  / node dist/main.js)
               └──────────────────────────────┘
                           │
                           ▼  (PM2 keeps both alive, restarts on crash, boots on reboot)
@@ -77,8 +77,8 @@ sudo -u $USER bash /var/www/tecsior/deploy/deploy.sh
 That pulls the latest code, installs both apps, builds them, and starts PM2. After ~30s:
 ```bash
 pm2 status              # both apps "online"
-curl localhost:6001/api/health    # {"status":"ok","service":"tecsior-api",...}
-curl -I localhost:6000            # 200 OK (Next.js)
+curl localhost:7001/api/health    # {"status":"ok","service":"tecsior-api",...}
+curl -I localhost:7000            # 200 OK (Next.js)
 ```
 
 ---
@@ -138,7 +138,7 @@ If you use Option B and upload large images via the admin, Cloudflare's free pla
 
 ## nginx + SSL (optional, recommended)
 
-If you want clean URLs and HTTPS instead of `http://your-ip:6000`:
+If you want clean URLs and HTTPS instead of `http://your-ip:7000`:
 
 ```bash
 # 1. Install nginx + certbot

@@ -13,7 +13,7 @@ export default function CareersAdminPage() {
   const [q, setQ] = useState("");
 
   useEffect(() => {
-    const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:6001";
+    const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:7001";
     fetch(`${base}/api/content/careers`)
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => { if (Array.isArray(d) && d.length) setCareers(d as Career[]); })

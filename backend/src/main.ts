@@ -14,12 +14,12 @@ async function bootstrap() {
     }),
   );
 
-  const origins = (process.env.CORS_ORIGIN ?? "http://localhost:6000")
+  const origins = (process.env.CORS_ORIGIN ?? "http://localhost:7000")
     .split(",")
     .map((s) => s.trim());
   app.enableCors({ origin: origins, credentials: true });
 
-  const port = Number(process.env.PORT ?? 6001);
+  const port = Number(process.env.PORT ?? 7001);
   await app.listen(port);
   // eslint-disable-next-line no-console
   console.log(`Tecsior API → http://localhost:${port}/api`);
