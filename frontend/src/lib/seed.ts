@@ -19,12 +19,18 @@ export const SEED_SERVICES: Service[] = [
   { num: "06", title: "Staff Augmentation", desc: "Senior engineers and designers integrated into your roadmap. No middlemen, no warm bodies.", icon: "users", tags: ["Senior+", "Dedicated"] },
 ];
 
+/**
+ * PLACEHOLDER content — the client names, project titles, and metrics
+ * below are invented for the design demo. Cover images are royalty-free
+ * stock photos from Unsplash (Unsplash License — free for commercial use).
+ * Replace each entry with a real case study + screenshot before public launch.
+ */
 export const SEED_PORTFOLIO: PortfolioItem[] = [
-  { id: "case-01", client: "Helix Bank", industry: "Fintech", title: "Replatformed core onto event-driven Kotlin services", year: 2025, span: 8, status: "Live", thumb: "H", color: "#3DDC9A", metric: "$1.2B daily volume" },
-  { id: "case-02", client: "Verde Health", industry: "Healthtech", title: "HIPAA-grade telemedicine for 14M patients", year: 2025, span: 4, status: "Live", thumb: "V", color: "#4F7BE6", metric: "14M patients" },
-  { id: "case-03", client: "Atlas Logistics", industry: "Supply chain", title: "Real-time fleet observability across 24 countries", year: 2024, span: 4, status: "Live", thumb: "A", color: "#F5A524", metric: "24 countries" },
-  { id: "case-04", client: "Northwind Energy", industry: "Energy", title: "ML pipeline cutting grid forecasting error by 38%", year: 2024, span: 4, status: "Live", thumb: "N", color: "#C792EA", metric: "−38% error" },
-  { id: "case-05", client: "Loom Studio", industry: "Media", title: "Editorial CMS used by 400+ newsrooms", year: 2024, span: 4, status: "Live", thumb: "L", color: "#3DDC9A", metric: "400+ rooms" },
+  { id: "case-01", client: "Helix Bank",       industry: "Fintech",       title: "Replatformed core onto event-driven Kotlin services", year: 2025, span: 8, status: "Live", thumb: "H", color: "#3DDC9A", metric: "$1.2B daily volume", image: "/portfolio/case-01-fintech.jpg" },
+  { id: "case-02", client: "Verde Health",     industry: "Healthtech",    title: "HIPAA-grade telemedicine for 14M patients",          year: 2025, span: 4, status: "Live", thumb: "V", color: "#4F7BE6", metric: "14M patients",        image: "/portfolio/case-02-healthtech.jpg" },
+  { id: "case-03", client: "Atlas Logistics",  industry: "Supply chain",  title: "Real-time fleet observability across 24 countries",  year: 2024, span: 4, status: "Live", thumb: "A", color: "#F5A524", metric: "24 countries",        image: "/portfolio/case-03-logistics.jpg" },
+  { id: "case-04", client: "Northwind Energy", industry: "Energy",        title: "ML pipeline cutting grid forecasting error by 38%",  year: 2024, span: 4, status: "Live", thumb: "N", color: "#C792EA", metric: "−38% error",          image: "/portfolio/case-04-energy.jpg" },
+  { id: "case-05", client: "Loom Studio",      industry: "Media",         title: "Editorial CMS used by 400+ newsrooms",               year: 2024, span: 4, status: "Live", thumb: "L", color: "#3DDC9A", metric: "400+ rooms",          image: "/portfolio/case-05-media.jpg" },
 ];
 
 export const SEED_TEAM: TeamMember[] = [
