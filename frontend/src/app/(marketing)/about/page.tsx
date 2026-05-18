@@ -42,8 +42,8 @@ export default async function AboutPage() {
         <div className="wrap grid-split">
           <div>
             <p style={{ fontSize: 18, lineHeight: 1.6, color: "var(--fg-dim)" }}>
-              <span className="serif" style={{ fontSize: 64, lineHeight: 0.8, float: "left", marginRight: 12, marginTop: 6, color: "var(--accent)" }}>P</span>
-              rogrammer Nexus was founded in 2019 by engineers who&apos;d led platform teams
+              <span className="serif" style={{ fontSize: 64, lineHeight: 0.8, float: "left", marginRight: 12, marginTop: 6, color: "var(--accent)" }}>T</span>
+              ecsior was founded in 2019 by engineers who&apos;d led platform teams
               at scaled software companies and grew tired of consultancies that sold the senior
               and staffed the junior.
             </p>
