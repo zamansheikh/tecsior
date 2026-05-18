@@ -24,6 +24,7 @@ export type PortfolioItem = {
 };
 
 export type TeamMember = {
+  id?: string;       // assigned by backend (kebab slug of name)
   name: string;
   role: string;
   initials: string;
