@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Icon } from "@/components/ui/icon";
 import type { PortfolioItem } from "@/lib/types";
 
 export function PortfolioCard({ item, span = 4, large = false }: { item: PortfolioItem; span?: number; large?: boolean }) {
@@ -56,6 +57,9 @@ export function PortfolioCard({ item, span = 4, large = false }: { item: Portfol
           <span className="tag tag-accent">{item.metric}</span>
         </div>
         <div className="pf-title">{item.title}</div>
+        <div className="pf-footer">
+          Read case file <Icon name="arrow" size={14} />
+        </div>
       </div>
     </Link>
   );

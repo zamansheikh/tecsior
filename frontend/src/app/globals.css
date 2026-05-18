@@ -299,12 +299,39 @@ img { display: block; max-width: 100%; }
 
 /* Portfolio */
 .portfolio-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
-.pf-card { background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: transform 240ms ease, border-color 160ms ease; display: block; }
+.pf-card {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform 240ms ease, border-color 160ms ease;
+  /* flex column so .pf-meta can absorb extra height when grid stretches
+     the card to match the tallest card in its row (otherwise the smaller
+     card shows a black void below its content). */
+  display: flex;
+  flex-direction: column;
+}
 .pf-card:hover { transform: translateY(-4px); border-color: var(--border-strong); }
-.pf-thumb { aspect-ratio: 16/10; position: relative; overflow: hidden; background: var(--surface-2); }
+.pf-thumb { aspect-ratio: 16/10; position: relative; overflow: hidden; background: var(--surface-2); flex-shrink: 0; }
 .pf-thumb-bg { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--font-serif); font-style: italic; font-size: 96px; color: rgba(255,255,255,0.08); }
-.pf-meta { padding: 22px; }
+.pf-meta {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;             /* fill remaining card height */
+  min-width: 0;
+}
 .pf-title { font-size: 20px; letter-spacing: -0.02em; font-weight: 500; margin: 8px 0; }
+.pf-footer {
+  margin-top: auto;    /* pushes the link to the bottom of stretched cards */
+  padding-top: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 500;
+}
 .pf-sub { color: var(--fg-mute); font-size: 14px; }
 
 /* Testimonial */
