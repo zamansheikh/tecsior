@@ -19,9 +19,9 @@ const SPONSORS: Sponsor[] = [
   { name: "Pathao",                  logo: "/sponsors/pathao.png" },
   { name: "Daraz",                   logo: "/sponsors/daraz.png" },
   { name: "Banglalink",              logo: "/sponsors/banglalink.svg" },
-  { name: "Nagad",                   logo: "/sponsors/nagad.png" },
-  { name: "BRAC Bank",               logo: "/sponsors/brac-bank.svg" },
-  { name: "Square Pharmaceuticals",  logo: "/sponsors/square.png" },
+  { name: "Nagad",                   logo: "/sponsors/nagad.webp" },
+  { name: "BRAC Bank",               logo: "/sponsors/brac-bank.webp" },
+  { name: "Square Pharmaceuticals",  logo: "/sponsors/square.webp" },
 ];
 
 export function Marquee() {
