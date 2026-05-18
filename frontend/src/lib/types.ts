@@ -17,8 +17,10 @@ export type PortfolioItem = {
   thumb: string;
   color: string;
   metric: string;
-  image?: string;       // Cloudinary URL — when set, replaces the gradient/letter
+  image?: string;          // Cloudinary URL — when set, replaces the gradient/letter
   imagePublicId?: string;
+  summary?: string;        // 1–2 sentences shown on the card under the title
+  body?: string;           // full case-study text rendered on /portfolio/<id> (\n\n splits paragraphs)
 };
 
 export type TeamMember = {
@@ -37,6 +39,8 @@ export type Post = {
   category: string;
   status: "Published" | "Draft";
   views: number;
+  excerpt?: string;        // 1–2 sentence teaser shown in cards / lists
+  body?: string;           // full post text rendered on /blog/<slug> (\n\n splits paragraphs)
 };
 
 export type Career = {

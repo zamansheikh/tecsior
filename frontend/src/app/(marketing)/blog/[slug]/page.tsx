@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const post = posts.find((p) => p.id === slug);
   return {
     title: post ? `${post.title} — Tecsior` : "Post not found — Tecsior",
-    description: post ? `${post.category} · ${post.author} · ${post.read} read` : undefined,
+    description: post?.excerpt ?? `${post?.category ?? ""} · ${post?.author ?? ""} · ${post?.read ?? ""} read`,
   };
 }
 
@@ -22,38 +22,61 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const post = posts.find((p) => p.id === slug);
   if (!post) notFound();
 
+  // Only show published posts to the public (admin can read drafts via /admin/blog).
+  if (post.status !== "Published") notFound();
+
+  const paragraphs = (post.body ?? "").split("\n\n").filter(Boolean);
+  const initials = post.author.split(" ").map((n) => n[0]).join("").slice(0, 2);
+  const related = posts
+    .filter((p) => p.id !== post.id && p.status === "Published" && p.category === post.category)
+    .slice(0, 3);
+
   return (
     <article>
-      <section className="section" style={{ paddingTop: 80, paddingBottom: 40 }}>
-        <div className="wrap" style={{ maxWidth: 820 }}>
-          <Link href="/blog" className="btn btn-link" style={{ marginBottom: 24 }}>
+      <section className="section" style={{ paddingTop: 60, paddingBottom: 32 }}>
+        <div className="wrap" style={{ maxWidth: 760 }}>
+          <Link href="/blog" className="btn btn-link" style={{ marginBottom: 16 }}>
             ← All field notes
           </Link>
-          <div className="eyebrow" style={{ marginTop: 20 }}>
+          <div className="eyebrow" style={{ marginTop: 16 }}>
             <span className="dot" /> {post.category}
           </div>
           <h1
             className="h1 display-mix"
-            style={{ marginTop: 24, fontSize: "clamp(36px, 5vw, 64px)", lineHeight: 1.05 }}
+            style={{ marginTop: 24, fontSize: "clamp(32px, 4.4vw, 56px)", lineHeight: 1.08 }}
           >
             {post.title}
           </h1>
+          {post.excerpt && (
+            <p className="lead" style={{ marginTop: 20, fontSize: 19 }}>
+              {post.excerpt}
+            </p>
+          )}
           <div
             style={{
               marginTop: 32,
               display: "flex",
               alignItems: "center",
               gap: 16,
-              paddingBottom: 32,
+              paddingBottom: 28,
               borderBottom: "1px solid var(--border)",
             }}
           >
             <div className="avatar" style={{ width: 44, height: 44, fontSize: 15 }}>
-              {post.author.split(" ").map((x) => x[0]).join("")}
+              {initials}
             </div>
             <div>
               <div style={{ fontWeight: 500 }}>{post.author}</div>
-              <div className="mono" style={{ fontSize: 12, color: "var(--fg-mute)", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+              <div
+                className="mono"
+                style={{
+                  fontSize: 12,
+                  color: "var(--fg-mute)",
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  marginTop: 2,
+                }}
+              >
                 {post.date} · {post.read} read
               </div>
             </div>
@@ -63,29 +86,38 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
       <section style={{ paddingBottom: 80 }}>
         <div className="wrap" style={{ maxWidth: 720 }}>
-          <div style={{ fontSize: 18, lineHeight: 1.7, color: "var(--fg-dim)", display: "flex", flexDirection: "column", gap: 20 }}>
-            <p>
-              <span className="serif" style={{ fontSize: 64, lineHeight: 0.8, float: "left", marginRight: 12, marginTop: 6, color: "var(--accent)" }}>
-                {post.title.charAt(0)}
-              </span>
-              This is the full text of <em>&ldquo;{post.title}&rdquo;</em>. In a production deployment
-              the body would be loaded from the CMS via the admin&apos;s blog editor and rendered
-              here as MDX or rich HTML. For now the article body is rendered from the post stub
-              so layout, typography and reading experience can be tested end-to-end.
+          {paragraphs.length > 0 ? (
+            paragraphs.map((para, i) => (
+              <p
+                key={i}
+                style={{
+                  fontSize: 17,
+                  lineHeight: 1.75,
+                  color: "var(--fg-dim)",
+                  marginBottom: 24,
+                }}
+              >
+                {para}
+              </p>
+            ))
+          ) : (
+            <p style={{ color: "var(--fg-mute)", fontStyle: "italic" }}>
+              This post has no body content yet — add it through the admin panel.
             </p>
-            <p>
-              Tecsior publishes engineering writeups from real production work. We avoid
-              listicles, repurposed twitter threads, and content marketing. Every post here is
-              written by the senior practitioner who shipped the system being described.
-            </p>
-            <p>
-              If a post is missing here you may need to publish it from the admin panel
-              (<span className="mono">/admin/blog</span>). Posts in <span className="mono">Draft</span>
-              status do not appear on the public listing.
-            </p>
-          </div>
+          )}
 
-          <div style={{ marginTop: 64, paddingTop: 32, borderTop: "1px solid var(--border)", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
+          <div
+            style={{
+              marginTop: 56,
+              paddingTop: 28,
+              borderTop: "1px solid var(--border)",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexWrap: "wrap",
+              gap: 16,
+            }}
+          >
             <div className="mono" style={{ fontSize: 12, color: "var(--fg-faint)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
               {post.id} · {post.views.toLocaleString()} views
             </div>
@@ -95,6 +127,53 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </div>
         </div>
       </section>
+
+      {related.length > 0 && (
+        <section className="section" style={{ borderTop: "1px solid var(--border)" }}>
+          <div className="wrap">
+            <div className="section-head">
+              <div className="section-head-l">
+                <div className="eyebrow"><span className="dot" /> Keep reading</div>
+                <h2 className="h2 display-mix" style={{ marginTop: 16 }}>
+                  More from <em>{post.category}</em>.
+                </h2>
+              </div>
+              <Link className="btn btn-ghost" href="/blog">
+                All field notes <Icon name="arrow" size={14} />
+              </Link>
+            </div>
+            <div className="grid-3">
+              {related.map((p) => (
+                <Link key={p.id} href={`/blog/${p.id}`} className="pf-card">
+                  <div
+                    className="pf-thumb"
+                    style={{
+                      background: "linear-gradient(135deg, var(--surface-2), var(--surface-0))",
+                      aspectRatio: "16/9",
+                    }}
+                  >
+                    <div className="pf-thumb-bg" style={{ color: "rgba(255,255,255,0.08)" }}>
+                      {p.title.charAt(0)}
+                    </div>
+                    <div style={{ position: "absolute", top: 14, left: 14 }}>
+                      <span className="tag">{p.category}</span>
+                    </div>
+                  </div>
+                  <div className="pf-meta">
+                    <div className="mono" style={{ color: "var(--fg-mute)", fontSize: 11, letterSpacing: "0.08em", textTransform: "uppercase" }}>
+                      {p.date} · {p.read}
+                    </div>
+                    <h3 className="pf-title" style={{ fontSize: 17 }}>{p.title}</h3>
+                    <div className="pf-footer">
+                      Read <Icon name="arrow" size={14} />
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </article>
   );
 }

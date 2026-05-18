@@ -39,37 +39,50 @@ export class ContentService implements OnModuleInit {
       this.seedIfEmpty("careers", SEED_CAREERS as unknown as Record_[]),
       this.seedIfEmpty("users", SEED_USERS as unknown as Record_[]),
     ]);
-    // Backfills run AFTER seed so they handle pre-existing rows whose
-    // schema lagged behind the seed file (e.g. new fields added later).
-    await this.backfillPortfolioImages();
+    // Backfills add seed-defined fields that pre-existing Mongo docs
+    // didn't have when they were first inserted (e.g. image/summary/body
+    // added later). Never overwrites a field the admin has filled in.
+    await this.backfillFromSeed("portfolio", SEED_PORTFOLIO as unknown as Record_[]);
+    await this.backfillFromSeed("posts", SEED_POSTS as unknown as Record_[]);
   }
 
   /**
-   * One-time-per-boot migration: for any portfolio document missing
-   * `image`, copy the value from the matching SEED_PORTFOLIO entry (by id).
-   * Skips documents that already have an image (admin uploads preserved).
-   * Cheap to keep around — after one pass it's a no-op on every boot.
+   * For every Mongo doc in `c`, copy any seed-defined field that the doc
+   * is currently missing (undefined / null / empty string). Matches by
+   * `id`. Existing non-empty values are preserved.
+   *
+   * Cheap to keep around — once everything is filled in, subsequent boots
+   * do a single read and zero writes.
    */
-  private async backfillPortfolioImages(): Promise<void> {
-    const seedById = new Map(SEED_PORTFOLIO.map((s) => [s.id, s.image]));
-    const items = await this.portfolio
-      .find({ image: { $in: [null, undefined, ""] } })
-      .lean();
-    const ops = items
-      .map((item) => ({
-        id: item.id as string,
-        seedImage: seedById.get(item.id as string),
-      }))
-      .filter((x): x is { id: string; seedImage: string } => Boolean(x.seedImage))
-      .map(({ id, seedImage }) => ({
-        updateOne: {
-          filter: { id },
-          update: { $set: { image: seedImage } },
-        },
-      }));
-    if (ops.length) {
-      await this.portfolio.bulkWrite(ops);
-      this.logger.log(`Backfilled image on ${ops.length} portfolio item(s)`);
+  private async backfillFromSeed(c: Collection, seed: Record_[]): Promise<void> {
+    const m = this.model(c);
+    const seedById = new Map(seed.map((s) => [s.id as string, s]));
+    const items = await m.find().lean();
+    const ops: Array<{ updateOne: { filter: Record_; update: Record_ } }> = [];
+    let fieldsAdded = 0;
+    for (const item of items) {
+      const seedDoc = seedById.get(item.id as string);
+      if (!seedDoc) continue;
+      const additions: Record_ = {};
+      for (const [k, v] of Object.entries(seedDoc)) {
+        const cur = (item as Record_)[k];
+        if (cur === undefined || cur === null || cur === "") {
+          additions[k] = v;
+        }
+      }
+      const keys = Object.keys(additions);
+      if (keys.length > 0) {
+        ops.push({
+          updateOne: { filter: { id: item.id }, update: { $set: additions } },
+        });
+        fieldsAdded += keys.length;
+      }
+    }
+    if (ops.length > 0) {
+      await m.bulkWrite(ops);
+      this.logger.log(
+        `Backfilled ${fieldsAdded} field(s) across ${ops.length} ${c} item(s)`,
+      );
     }
   }
 

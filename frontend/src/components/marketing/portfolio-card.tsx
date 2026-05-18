@@ -5,7 +5,7 @@ import type { PortfolioItem } from "@/lib/types";
 export function PortfolioCard({ item, span = 4, large = false }: { item: PortfolioItem; span?: number; large?: boolean }) {
   const hasImage = Boolean(item.image);
   return (
-    <Link href={`/portfolio#${item.id}`} className="pf-card" style={{ gridColumn: `span ${span}` }}>
+    <Link href={`/portfolio/${item.id}`} className="pf-card" style={{ gridColumn: `span ${span}` }}>
       <div
         className="pf-thumb"
         style={
@@ -57,6 +57,22 @@ export function PortfolioCard({ item, span = 4, large = false }: { item: Portfol
           <span className="tag tag-accent">{item.metric}</span>
         </div>
         <div className="pf-title">{item.title}</div>
+        {item.summary && (
+          <p
+            style={{
+              marginTop: 10,
+              fontSize: 13.5,
+              lineHeight: 1.55,
+              color: "var(--fg-mute)",
+              display: "-webkit-box",
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+            }}
+          >
+            {item.summary}
+          </p>
+        )}
         <div className="pf-footer">
           Read case file <Icon name="arrow" size={14} />
         </div>
