@@ -84,6 +84,23 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </div>
       </section>
 
+      {post.image && (
+        <section style={{ padding: "0 0 40px" }}>
+          <div className="wrap" style={{ maxWidth: 960 }}>
+            <div
+              aria-hidden
+              style={{
+                width: "100%",
+                aspectRatio: "16/9",
+                borderRadius: 12,
+                background: `url(${post.image}) center/cover`,
+                border: "1px solid var(--border)",
+              }}
+            />
+          </div>
+        </section>
+      )}
+
       <section style={{ paddingBottom: 80 }}>
         <div className="wrap" style={{ maxWidth: 720 }}>
           {paragraphs.length > 0 ? (
@@ -148,14 +165,21 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   <div
                     className="pf-thumb"
                     style={{
-                      background: "linear-gradient(135deg, var(--surface-2), var(--surface-0))",
+                      background: p.image
+                        ? `url(${p.image}) center/cover`
+                        : "linear-gradient(135deg, var(--surface-2), var(--surface-0))",
                       aspectRatio: "16/9",
                     }}
                   >
-                    <div className="pf-thumb-bg" style={{ color: "rgba(255,255,255,0.08)" }}>
-                      {p.title.charAt(0)}
-                    </div>
-                    <div style={{ position: "absolute", top: 14, left: 14 }}>
+                    {!p.image && (
+                      <div className="pf-thumb-bg" style={{ color: "rgba(255,255,255,0.08)" }}>
+                        {p.title.charAt(0)}
+                      </div>
+                    )}
+                    {p.image && (
+                      <div aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.4) 0%, transparent 50%)" }} />
+                    )}
+                    <div style={{ position: "absolute", top: 14, left: 14, zIndex: 1 }}>
                       <span className="tag">{p.category}</span>
                     </div>
                   </div>

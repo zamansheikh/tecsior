@@ -6,6 +6,7 @@ import { PageHead } from "@/components/admin/page-head";
 import { AdminToolbar } from "@/components/admin/toolbar";
 import { StatusPill } from "@/components/admin/status-pill";
 import { ErrorBanner, FormPanel } from "@/components/admin/crud-shell";
+import { ImageUpload, type UploadResult } from "@/components/admin/image-upload";
 import { adminContent } from "@/lib/admin-crud";
 import type { Post } from "@/lib/types";
 
@@ -21,6 +22,8 @@ type FormState = {
   status: "Published" | "Draft";
   excerpt: string;
   body: string;
+  image?: string;
+  imagePublicId?: string;
 };
 
 const EMPTY: FormState = {
@@ -51,6 +54,7 @@ export default function BlogAdminPage() {
     setForm({
       id: p.id, title: p.title, author: p.author, date: p.date, read: p.read,
       category: p.category, status: p.status, excerpt: p.excerpt ?? "", body: p.body ?? "",
+      image: p.image, imagePublicId: p.imagePublicId,
     });
     setEditing(p.id); setError(null);
   };
@@ -70,6 +74,8 @@ export default function BlogAdminPage() {
       status: form.status,
       excerpt: form.excerpt.trim(),
       body: form.body,
+      image: form.image,
+      imagePublicId: form.imagePublicId,
       // views preserved by backend ($set only sends these fields)
     };
     setBusy(true); setError(null);
@@ -160,6 +166,14 @@ export default function BlogAdminPage() {
               <label>Body — paragraphs separated by blank lines</label>
               <textarea className="textarea" style={{ minHeight: 240, fontFamily: "var(--font-mono)", fontSize: 13 }} value={form.body} onChange={(e) => setForm({ ...form, body: e.target.value })} required />
             </div>
+            <ImageUpload
+              label="Cover image"
+              value={form.image}
+              onChange={(url, meta?: UploadResult) =>
+                setForm({ ...form, image: url || undefined, imagePublicId: url ? meta?.publicId : undefined })
+              }
+              helperText="Drag & drop or click. Shown on /blog cards and the post hero. Falls back to the letter gradient when empty."
+            />
             <div style={{ display: "flex", gap: 8 }}>
               <button type="submit" className="btn btn-primary btn-sm" disabled={busy}>{busy ? "Saving…" : editing === "new" ? "Create post" : "Save changes"}</button>
               <button type="button" className="btn btn-ghost btn-sm" onClick={cancel} disabled={busy}>Cancel</button>
@@ -179,8 +193,17 @@ export default function BlogAdminPage() {
             ) : filtered.map((p) => (
               <tr key={p.id} style={editing === p.id ? { background: "var(--surface-2)" } : undefined}>
                 <td>
-                  <div className="cell-title" style={{ maxWidth: 380 }}>{p.title}</div>
-                  <div style={{ color: "var(--fg-mute)", fontSize: 12, marginTop: 2 }}>{p.read} read · {p.id}</div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <div style={{
+                      width: 40, height: 28, borderRadius: 4, flexShrink: 0,
+                      background: p.image ? `url(${p.image}) center/cover` : "linear-gradient(135deg, var(--surface-2), var(--surface-0))",
+                      border: "1px solid var(--border)",
+                    }} aria-hidden />
+                    <div style={{ minWidth: 0 }}>
+                      <div className="cell-title" style={{ maxWidth: 340 }}>{p.title}</div>
+                      <div style={{ color: "var(--fg-mute)", fontSize: 12, marginTop: 2 }}>{p.read} read · {p.id}</div>
+                    </div>
+                  </div>
                 </td>
                 <td>
                   <div style={{ display: "flex", alignItems: "center", gap: 8 }}>

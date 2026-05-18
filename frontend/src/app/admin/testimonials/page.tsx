@@ -5,6 +5,7 @@ import { Icon } from "@/components/ui/icon";
 import { PageHead } from "@/components/admin/page-head";
 import { AdminToolbar } from "@/components/admin/toolbar";
 import { ErrorBanner, FormPanel } from "@/components/admin/crud-shell";
+import { ImageUpload, type UploadResult } from "@/components/admin/image-upload";
 import { adminContent } from "@/lib/admin-crud";
 import type { Testimonial } from "@/lib/types";
 
@@ -14,6 +15,8 @@ type FormState = {
   author: string;
   role: string;
   featured: boolean;
+  avatar?: string;
+  avatarPublicId?: string;
 };
 
 const EMPTY: FormState = { quote: "", author: "", role: "", featured: false };
@@ -38,7 +41,10 @@ export default function TestimonialsAdminPage() {
 
   const startCreate = () => { setForm(EMPTY); setEditing("new"); setError(null); };
   const startEdit = (t: Testimonial) => {
-    setForm({ id: t.id, quote: t.quote, author: t.author, role: t.role, featured: t.featured });
+    setForm({
+      id: t.id, quote: t.quote, author: t.author, role: t.role, featured: t.featured,
+      avatar: t.avatar, avatarPublicId: t.avatarPublicId,
+    });
     setEditing(t.id); setError(null);
   };
   const cancel = () => { setEditing(null); setForm(EMPTY); setError(null); };
@@ -53,6 +59,8 @@ export default function TestimonialsAdminPage() {
       author: form.author.trim(),
       role: form.role.trim(),
       featured: form.featured,
+      avatar: form.avatar,
+      avatarPublicId: form.avatarPublicId,
     };
     setBusy(true); setError(null);
     try {
@@ -104,6 +112,15 @@ export default function TestimonialsAdminPage() {
                 <input className="input" value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })} placeholder="CTO, Meridian Capital" required />
               </div>
             </div>
+            <ImageUpload
+              label="Author photo"
+              value={form.avatar}
+              aspectRatio="1/1"
+              onChange={(url, meta?: UploadResult) =>
+                setForm({ ...form, avatar: url || undefined, avatarPublicId: url ? meta?.publicId : undefined })
+              }
+              helperText="Square headshot. Falls back to initials when empty."
+            />
             <label style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", padding: "10px 0" }}>
               <input type="checkbox" checked={form.featured} onChange={(e) => setForm({ ...form, featured: e.target.checked })} />
               <span style={{ fontSize: 13.5 }}>Featured on homepage</span>
@@ -132,7 +149,11 @@ export default function TestimonialsAdminPage() {
               <div className="serif" style={{ fontSize: 22, lineHeight: 1.3, color: "var(--fg)", paddingRight: t.featured ? 80 : 0 }}>&ldquo;{t.quote}&rdquo;</div>
               <div style={{ marginTop: 24, paddingTop: 20, borderTop: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                  <div className="avatar" style={{ width: 36, height: 36, fontSize: 13 }}>{t.author.split(" ").map((x) => x[0]).join("").slice(0, 2)}</div>
+                  {t.avatar ? (
+                    <div aria-hidden style={{ width: 36, height: 36, borderRadius: "50%", background: `url(${t.avatar}) center/cover`, border: "1px solid var(--border)" }} />
+                  ) : (
+                    <div className="avatar" style={{ width: 36, height: 36, fontSize: 13 }}>{t.author.split(" ").map((x) => x[0]).join("").slice(0, 2)}</div>
+                  )}
                   <div>
                     <div style={{ fontWeight: 500, fontSize: 14 }}>{t.author}</div>
                     <div style={{ color: "var(--fg-mute)", fontSize: 12.5 }}>{t.role}</div>

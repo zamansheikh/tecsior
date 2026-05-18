@@ -94,7 +94,18 @@ export default async function AboutPage() {
             {team.map((t) => (
               <div key={t.name} className="card card-hover" style={{ padding: 24 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-                  <div className="avatar" style={{ width: 52, height: 52, fontSize: 17 }}>{t.initials}</div>
+                  {t.avatar ? (
+                    <div
+                      aria-hidden
+                      style={{
+                        width: 52, height: 52, borderRadius: "50%",
+                        background: `url(${t.avatar}) center/cover`,
+                        border: "1px solid var(--border)",
+                      }}
+                    />
+                  ) : (
+                    <div className="avatar" style={{ width: 52, height: 52, fontSize: 17 }}>{t.initials}</div>
+                  )}
                   <div>
                     <div style={{ fontWeight: 500 }}>{t.name}</div>
                     <div style={{ color: "var(--fg-mute)", fontSize: 13 }}>{t.role}</div>

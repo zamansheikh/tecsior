@@ -26,9 +26,24 @@ export default async function BlogPage() {
         <div className="wrap">
           {featured && (
             <Link href={`/blog/${featured.id}`} className="pf-card grid-blog-feature" style={{ marginBottom: 32 }}>
-              <div className="pf-thumb" style={{ background: "linear-gradient(135deg, rgba(61,220,154,0.18), rgba(79,123,230,0.1))", aspectRatio: "auto" }}>
-                <div className="pf-thumb-bg" style={{ color: "rgba(61,220,154,0.25)", fontSize: 280 }}>{featured.title.charAt(0)}</div>
-                <div style={{ position: "absolute", top: 20, left: 20 }}>
+              <div
+                className="pf-thumb"
+                style={{
+                  background: featured.image
+                    ? `url(${featured.image}) center/cover`
+                    : "linear-gradient(135deg, rgba(61,220,154,0.18), rgba(79,123,230,0.1))",
+                  aspectRatio: "auto",
+                }}
+              >
+                {!featured.image && (
+                  <div className="pf-thumb-bg" style={{ color: "rgba(61,220,154,0.25)", fontSize: 280 }}>
+                    {featured.title.charAt(0)}
+                  </div>
+                )}
+                {featured.image && (
+                  <div aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.15) 60%)" }} />
+                )}
+                <div style={{ position: "absolute", top: 20, left: 20, zIndex: 1 }}>
                   <span className="tag tag-accent">Featured · {featured.category}</span>
                 </div>
               </div>
@@ -50,9 +65,22 @@ export default async function BlogPage() {
           <div className="grid-3">
             {rest.map((p) => (
               <Link key={p.id} href={`/blog/${p.id}`} className="pf-card">
-                <div className="pf-thumb" style={{ background: "linear-gradient(135deg, var(--surface-2), var(--surface-0))", aspectRatio: "16/9" }}>
-                  <div className="pf-thumb-bg" style={{ color: "rgba(255,255,255,0.08)" }}>{p.title.charAt(0)}</div>
-                  <div style={{ position: "absolute", top: 14, left: 14 }}>
+                <div
+                  className="pf-thumb"
+                  style={{
+                    background: p.image
+                      ? `url(${p.image}) center/cover`
+                      : "linear-gradient(135deg, var(--surface-2), var(--surface-0))",
+                    aspectRatio: "16/9",
+                  }}
+                >
+                  {!p.image && (
+                    <div className="pf-thumb-bg" style={{ color: "rgba(255,255,255,0.08)" }}>{p.title.charAt(0)}</div>
+                  )}
+                  {p.image && (
+                    <div aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.4) 0%, transparent 50%)" }} />
+                  )}
+                  <div style={{ position: "absolute", top: 14, left: 14, zIndex: 1 }}>
                     <span className="tag">{p.category}</span>
                   </div>
                 </div>

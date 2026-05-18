@@ -5,6 +5,7 @@ import { Icon } from "@/components/ui/icon";
 import { PageHead } from "@/components/admin/page-head";
 import { AdminToolbar } from "@/components/admin/toolbar";
 import { ErrorBanner, FormPanel } from "@/components/admin/crud-shell";
+import { ImageUpload, type UploadResult } from "@/components/admin/image-upload";
 import { adminContent } from "@/lib/admin-crud";
 import type { User } from "@/lib/types";
 
@@ -25,6 +26,8 @@ type FormState = {
   email: string;
   role: (typeof ROLES)[number];
   initials: string;
+  avatar?: string;
+  avatarPublicId?: string;
 };
 
 const EMPTY: FormState = { name: "", email: "", role: "Editor", initials: "" };
@@ -52,7 +55,10 @@ export default function UsersAdminPage() {
 
   const startCreate = () => { setForm(EMPTY); setEditing("new"); setError(null); };
   const startEdit = (u: User) => {
-    setForm({ id: u.id, name: u.name, email: u.email, role: u.role as (typeof ROLES)[number], initials: u.initials });
+    setForm({
+      id: u.id, name: u.name, email: u.email, role: u.role as (typeof ROLES)[number], initials: u.initials,
+      avatar: u.avatar, avatarPublicId: u.avatarPublicId,
+    });
     setEditing(u.id); setError(null);
   };
   const cancel = () => { setEditing(null); setForm(EMPTY); setError(null); };
@@ -68,6 +74,8 @@ export default function UsersAdminPage() {
       email: form.email.trim().toLowerCase(),
       role: form.role,
       initials,
+      avatar: form.avatar,
+      avatarPublicId: form.avatarPublicId,
       lastActive: editing === "new" ? "just now" : undefined,
     };
     setBusy(true); setError(null);
@@ -126,10 +134,19 @@ export default function UsersAdminPage() {
                 </select>
               </div>
               <div className="field">
-                <label>Initials (auto)</label>
+                <label>Initials (fallback)</label>
                 <input className="input" maxLength={2} value={form.initials} onChange={(e) => setForm({ ...form, initials: e.target.value.toUpperCase() })} style={{ textTransform: "uppercase" }} />
               </div>
             </div>
+            <ImageUpload
+              label="Avatar photo"
+              value={form.avatar}
+              aspectRatio="1/1"
+              onChange={(url, meta?: UploadResult) =>
+                setForm({ ...form, avatar: url || undefined, avatarPublicId: url ? meta?.publicId : undefined })
+              }
+              helperText="Square headshot. Shown in the admin sidebar/users table when set."
+            />
             <div style={{ display: "flex", gap: 8 }}>
               <button type="submit" className="btn btn-primary btn-sm" disabled={busy}>{busy ? "Saving…" : editing === "new" ? "Invite user" : "Save changes"}</button>
               <button type="button" className="btn btn-ghost btn-sm" onClick={cancel} disabled={busy}>Cancel</button>
@@ -150,7 +167,11 @@ export default function UsersAdminPage() {
               <tr key={u.id} style={editing === u.id ? { background: "var(--surface-2)" } : undefined}>
                 <td>
                   <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                    <div className="avatar" style={{ width: 34, height: 34, fontSize: 12 }}>{u.initials}</div>
+                    {u.avatar ? (
+                      <div aria-hidden style={{ width: 34, height: 34, borderRadius: "50%", background: `url(${u.avatar}) center/cover`, border: "1px solid var(--border)" }} />
+                    ) : (
+                      <div className="avatar" style={{ width: 34, height: 34, fontSize: 12 }}>{u.initials}</div>
+                    )}
                     <div>
                       <div className="cell-title">
                         {u.name} {u.you && <span className="tag" style={{ fontSize: 10, marginLeft: 6 }}>You</span>}

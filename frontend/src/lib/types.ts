@@ -29,6 +29,8 @@ export type TeamMember = {
   role: string;
   initials: string;
   focus: string;
+  avatar?: string;          // Cloudinary URL — replaces initials when set
+  avatarPublicId?: string;
 };
 
 export type Post = {
@@ -42,6 +44,8 @@ export type Post = {
   views: number;
   excerpt?: string;        // 1–2 sentence teaser shown in cards / lists
   body?: string;           // full post text rendered on /blog/<slug> (\n\n splits paragraphs)
+  image?: string;          // Cloudinary cover image — shown on /blog cards + post hero
+  imagePublicId?: string;
 };
 
 export type Career = {
@@ -62,6 +66,8 @@ export type Testimonial = {
   author: string;
   role: string;
   featured: boolean;
+  avatar?: string;          // Cloudinary URL — replaces initials when set
+  avatarPublicId?: string;
 };
 
 export type Inquiry = {
@@ -96,6 +102,8 @@ export type User = {
   lastActive: string;
   initials: string;
   you?: boolean;
+  avatar?: string;          // Cloudinary URL — replaces initials when set (admin UI only)
+  avatarPublicId?: string;
 };
 
 export type AnalyticsOverview = {

@@ -11,9 +11,20 @@ export function TestimonialBlock({ testimonial }: { testimonial: Testimonial }) 
             <div className="eyebrow"><span className="dot" /> Client letter №01</div>
             <div className="quote-block" style={{ marginTop: 28 }}>“{testimonial.quote}”</div>
             <div style={{ marginTop: 32, display: "flex", alignItems: "center", gap: 16 }}>
-              <div className="avatar" style={{ width: 44, height: 44, fontSize: 15 }}>
-                {testimonial.author.split(" ").map((n) => n[0]).join("").slice(0, 2)}
-              </div>
+              {testimonial.avatar ? (
+                <div
+                  aria-hidden
+                  style={{
+                    width: 44, height: 44, borderRadius: "50%",
+                    background: `url(${testimonial.avatar}) center/cover`,
+                    border: "1px solid var(--border)",
+                  }}
+                />
+              ) : (
+                <div className="avatar" style={{ width: 44, height: 44, fontSize: 15 }}>
+                  {testimonial.author.split(" ").map((n) => n[0]).join("").slice(0, 2)}
+                </div>
+              )}
               <div>
                 <div style={{ fontWeight: 500 }}>{testimonial.author}</div>
                 <div style={{ color: "var(--fg-mute)", fontSize: 13 }}>{testimonial.role}</div>
