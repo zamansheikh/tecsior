@@ -16,12 +16,14 @@ const SPONSORS: Sponsor[] = [
   { name: "Walton",                  logo: "/sponsors/walton.svg" },
   { name: "Dutch-Bangla Bank",       logo: "/sponsors/dutch-bangla-bank.svg" },
   { name: "Samsung",                 logo: "/sponsors/samsung.svg" },
+  { name: "Pathao",                  logo: "/sponsors/pathao.png" },
+  { name: "Daraz",                   logo: "/sponsors/daraz.png" },
+  { name: "Banglalink",              logo: "/sponsors/banglalink.svg" },
   // Text fallback — drop a file in /public/sponsors/ with the matching
   // kebab-case name and add `logo: "/sponsors/<file>.svg"` to upgrade.
+  // (No usable logo found on Wikimedia Commons for these three; pull
+  //  from each brand's press kit when you have time.)
   { name: "Nagad" },
-  { name: "Pathao" },
-  { name: "Daraz" },
-  { name: "Banglalink" },
   { name: "BRAC Bank" },
   { name: "Square Pharmaceuticals" },
 ];
