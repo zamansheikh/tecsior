@@ -42,3 +42,48 @@ export const getCareers      = () => fetchOrSeed<Career[]>("/content/careers", S
 export const getUsers        = () => fetchOrSeed<User[]>("/admin/content/users", SEED_USERS, { admin: true });
 export const getInquiries    = () => fetchOrSeed<Inquiry[]>("/inquiries", SEED_INQUIRIES, { admin: true });
 export const getApplications = () => fetchOrSeed<Application[]>("/applications", SEED_APPLICATIONS, { admin: true });
+
+// Analytics + activity
+export type AnalyticsKpi = {
+  label: string;
+  value: number;
+  total: number;
+  trend: number;
+  spark: number[];
+  color: string;
+};
+export type AnalyticsOverviewPayload = {
+  kpis: AnalyticsKpi[];
+  months: string[];
+  visitors: number[];
+  inquiries: number[];
+  sources: Array<{ label: string; value: number; color: string }>;
+  activity: Array<{ who: string; action: string; target: string; time: string }>;
+};
+export type AnalyticsSeriesPayload = {
+  months: string[];
+  visitors: number[];
+  totalLast30: number;
+  uniquesLast30: number;
+  avgPagesPerVisitor: number;
+  bounceRate: number;
+  topPages: Array<{ path: string; views: number; uniques: number }>;
+  topReferrers: Array<{ referrer: string; sessions: number; source: string }>;
+  sources: Array<{ label: string; value: number; color: string }>;
+};
+
+export const getAnalyticsOverview = () =>
+  fetchOrSeed<AnalyticsOverviewPayload>("/analytics/overview", {
+    kpis: [], months: [], visitors: [], inquiries: [], sources: [], activity: [],
+  }, { admin: true });
+
+export const getAnalyticsSeries = () =>
+  fetchOrSeed<AnalyticsSeriesPayload>("/analytics/series", {
+    months: [], visitors: [], totalLast30: 0, uniquesLast30: 0,
+    avgPagesPerVisitor: 0, bounceRate: 0, topPages: [], topReferrers: [], sources: [],
+  }, { admin: true });
+
+// Public site settings (no auth)
+export type SiteSettings = Record<string, Record<string, unknown>>;
+export const getSiteSettings = () =>
+  fetchOrSeed<SiteSettings>("/settings", {} as SiteSettings);

@@ -15,10 +15,14 @@ const features = COLLECTIONS.map((c) => ({
   collection: c,
 }));
 
+const contentMongoose = MongooseModule.forFeature(features);
+
 @Module({
-  imports: [MongooseModule.forFeature(features), AuthModule],
+  imports: [contentMongoose, AuthModule],
   controllers: [ContentController, AdminContentController],
   providers: [ContentService],
-  exports: [ContentService],
+  // Re-export the Mongoose module so other modules that import ContentModule
+  // (AnalyticsModule) can inject the per-collection models.
+  exports: [ContentService, contentMongoose],
 })
 export class ContentModule {}

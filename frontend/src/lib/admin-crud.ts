@@ -83,3 +83,19 @@ export const adminApplications = {
     return adminFetch(`applications/${encodeURIComponent(id)}`, { method: "DELETE" }) as Promise<void>;
   },
 };
+
+export const adminSettings = {
+  list<T = Record<string, Record<string, unknown>>>(): Promise<T> {
+    return adminFetch("admin/settings") as Promise<T>;
+  },
+  get<T = Record<string, unknown>>(key: string): Promise<T> {
+    return adminFetch(`admin/settings/${encodeURIComponent(key)}`) as Promise<T>;
+  },
+  set<T = Record<string, unknown>>(key: string, value: Record<string, unknown>): Promise<T> {
+    return adminFetch(`admin/settings/${encodeURIComponent(key)}`, {
+      method: "PATCH",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(value),
+    }) as Promise<T>;
+  },
+};
