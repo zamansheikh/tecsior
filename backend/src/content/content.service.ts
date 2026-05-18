@@ -39,6 +39,38 @@ export class ContentService implements OnModuleInit {
       this.seedIfEmpty("careers", SEED_CAREERS as unknown as Record_[]),
       this.seedIfEmpty("users", SEED_USERS as unknown as Record_[]),
     ]);
+    // Backfills run AFTER seed so they handle pre-existing rows whose
+    // schema lagged behind the seed file (e.g. new fields added later).
+    await this.backfillPortfolioImages();
+  }
+
+  /**
+   * One-time-per-boot migration: for any portfolio document missing
+   * `image`, copy the value from the matching SEED_PORTFOLIO entry (by id).
+   * Skips documents that already have an image (admin uploads preserved).
+   * Cheap to keep around — after one pass it's a no-op on every boot.
+   */
+  private async backfillPortfolioImages(): Promise<void> {
+    const seedById = new Map(SEED_PORTFOLIO.map((s) => [s.id, s.image]));
+    const items = await this.portfolio
+      .find({ image: { $in: [null, undefined, ""] } })
+      .lean();
+    const ops = items
+      .map((item) => ({
+        id: item.id as string,
+        seedImage: seedById.get(item.id as string),
+      }))
+      .filter((x): x is { id: string; seedImage: string } => Boolean(x.seedImage))
+      .map(({ id, seedImage }) => ({
+        updateOne: {
+          filter: { id },
+          update: { $set: { image: seedImage } },
+        },
+      }));
+    if (ops.length) {
+      await this.portfolio.bulkWrite(ops);
+      this.logger.log(`Backfilled image on ${ops.length} portfolio item(s)`);
+    }
   }
 
   private model(c: Collection): Model<Record_> {
