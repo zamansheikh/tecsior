@@ -229,9 +229,45 @@ img { display: block; max-width: 100%; }
 
 /* Marquee */
 .marquee { overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 28px 0; }
-.marquee-track { display: flex; gap: 80px; animation: scroll 28s linear infinite; width: max-content; }
-.marquee-item { font-family: var(--font-mono); font-size: 13px; color: var(--fg-mute); letter-spacing: 0.04em; white-space: nowrap; display: flex; align-items: center; gap: 12px; }
-.marquee-item::before { content: ""; width: 4px; height: 4px; background: var(--fg-faint); border-radius: 50%; }
+.marquee-track { display: flex; align-items: center; gap: 64px; animation: scroll 35s linear infinite; width: max-content; }
+
+/* Default item — image logo */
+.marquee-item {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  height: 36px;
+}
+.marquee-item img {
+  display: block;
+  height: 100%;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+  /* Desaturate + dim so colourful brand marks blend into the dark UI;
+     hover reveals the original colours. */
+  filter: grayscale(100%) brightness(1.4);
+  opacity: 0.55;
+  transition: opacity 220ms ease, filter 220ms ease;
+}
+.marquee-item:hover img { opacity: 1; filter: grayscale(0%) brightness(1); }
+
+/* Text fallback — looks like the old dot-prefixed item */
+.marquee-item.is-text {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--fg-mute);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  gap: 12px;
+}
+.marquee-item.is-text::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  background: var(--fg-faint);
+  border-radius: 50%;
+}
 @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 /* Sections */
