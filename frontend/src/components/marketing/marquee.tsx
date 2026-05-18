@@ -19,13 +19,9 @@ const SPONSORS: Sponsor[] = [
   { name: "Pathao",                  logo: "/sponsors/pathao.png" },
   { name: "Daraz",                   logo: "/sponsors/daraz.png" },
   { name: "Banglalink",              logo: "/sponsors/banglalink.svg" },
-  // Text fallback — drop a file in /public/sponsors/ with the matching
-  // kebab-case name and add `logo: "/sponsors/<file>.svg"` to upgrade.
-  // (No usable logo found on Wikimedia Commons for these three; pull
-  //  from each brand's press kit when you have time.)
-  { name: "Nagad" },
-  { name: "BRAC Bank" },
-  { name: "Square Pharmaceuticals" },
+  { name: "Nagad",                   logo: "/sponsors/nagad.png" },
+  { name: "BRAC Bank",               logo: "/sponsors/brac-bank.svg" },
+  { name: "Square Pharmaceuticals",  logo: "/sponsors/square.png" },
 ];
 
 export function Marquee() {
