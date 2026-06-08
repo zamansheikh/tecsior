@@ -27,7 +27,7 @@ export function Footer({ content }: { content?: FooterContent }) {
         <div className="footer-grid">
           <div>
             <div className="brand" style={{ marginBottom: 20 }}>
-              <Image src="/logo.png" alt="" width={28} height={28} />
+              <Image src="/logo.webp" alt="" width={28} height={28} />
               <span>Tecsior</span>
             </div>
             <p style={{ color: "var(--fg-mute)", fontSize: 14, maxWidth: 360, lineHeight: 1.6 }}>

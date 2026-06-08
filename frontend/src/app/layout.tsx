@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Tecsior — Senior engineering studio",
   description:
     "A senior-only engineering studio for fintech, health, and AI-native products.",
-  icons: { icon: "/logo.png" },
+  icons: { icon: "/logo.webp" },
 };
 
 export const viewport: Viewport = {

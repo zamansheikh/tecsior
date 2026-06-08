@@ -39,7 +39,7 @@ export function MobileNav({
     <div className="mobile-nav-overlay" role="dialog" aria-modal="true">
       <div className="mobile-nav-overlay-top">
         <Link href="/" className="brand" onClick={onClose}>
-          <Image src="/logo.png" alt="" width={28} height={28} />
+          <Image src="/logo.webp" alt="" width={28} height={28} />
           <span>Tecsior</span>
         </Link>
         <button className="mobile-nav-toggle" onClick={onClose} aria-label="Close menu">

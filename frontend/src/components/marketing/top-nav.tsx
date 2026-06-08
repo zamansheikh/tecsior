@@ -28,7 +28,7 @@ export function TopNav() {
       <header className="topnav">
         <div className="wrap topnav-inner">
           <Link className="brand" href="/">
-            <Image src="/logo.png" alt="" width={28} height={28} priority />
+            <Image src="/logo.webp" alt="" width={28} height={28} priority />
             <span>Tecsior</span>
             <span className="brand-mark">EST. 2019</span>
           </Link>
