@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"console.log\\(require\\('./package.json'\\).dependencies.next\\)\")",
+      "Bash(sed -n '1,25p' \"src/app/\\(marketing\\)/about/page.tsx\")",
+      "Bash(break)",
+      "Bash(PORT=7099 npm run dev)",
+      "Bash(node_modules/.bin/tsx -e \"import 'dotenv/config';import {MongoClient} from 'mongodb';\\(async\\(\\)=>{const c=new MongoClient\\(process.env.MONGODB_URI\\);await c.connect\\(\\);const d=await c.db\\('silifton'\\).collection\\('credentials'\\).findOne\\({}\\);const f=d?.fields?.find\\(x=>x.label==='Root password'\\);console.log\\('label:', f?.label\\);console.log\\('stored value \\(encrypted\\):', f?.value\\);console.log\\('notes encrypted?', d?.notes===''?'\\(none\\)':String\\(d?.notes\\).slice\\(0,10\\)\\);await c.close\\(\\);}\\)\\(\\);\")",
+      "Bash(node_modules/.bin/tsx -e \"import 'dotenv/config';import {MongoClient} from 'mongodb';\\(async\\(\\)=>{const c=new MongoClient\\(process.env.MONGODB_URI\\);await c.connect\\(\\);const r=await c.db\\('silifton'\\).collection\\('credentials'\\).deleteMany\\({}\\);console.log\\('cleared test credentials:', r.deletedCount\\);await c.close\\(\\);}\\)\\(\\);\")",
+      "Bash(node_modules/.bin/tsx -e ' *)"
+    ]
+  }
+}
